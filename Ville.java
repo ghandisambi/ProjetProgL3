@@ -1,8 +1,9 @@
 public class Ville {
   private Ecole ecole;
+  private Array<Ville> ville;
   public Ville(){}
-  public Ville(ecole){
-  this.ecole=ecole;
+  public Ville(Ville ville){
+  this.ville=ville;
   }
 
 }
