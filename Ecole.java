@@ -1,4 +1,6 @@
 public class Ecole{
-    public Ecole(){
+    private String nom;
+    public Ecole(String nom){
+        
     }
 }
