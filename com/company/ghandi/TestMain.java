@@ -18,13 +18,13 @@ public class TestMain {
         switch (etape){
             case 1:
                 do{
-                    n = saisieEntier(new Scanner(System.in),"1 - Ajouter une route \n 2 - Fin\n");
+                    n = saisieEntier(new Scanner(System.in)," 1 - Ajouter une route\n 2 - Fin \n");
                 } while(n < 1 || n > 2);
                 break;
             case 2:
                 do{
-                    n = saisieEntier(new Scanner(System.in),"1 - Ajouter une école\n 2 - Retirer une école\n 3 - Fin / Quitter\n");
-                }while(n < 0 || n > 3);
+                    n = saisieEntier(new Scanner(System.in)," 1 - Ajouter une école\n 2 - Retirer une école\n 3 - Fin / Quitter\n");
+                }while(n <= 0 || n > 3);
             default:
                 break;
         }
@@ -60,7 +60,7 @@ public class TestMain {
                 System.out.print(tag);
                 entier= sc.nextInt();
             } catch (InputMismatchException e) {
-                System.out.println(e.getMessage());
+                System.out.println(e.getMessage()+"-> Votre saisie ne correspond pas à la valeur attendue");
             }
         return entier ;
     }
@@ -76,7 +76,7 @@ public class TestMain {
         do {
             n = saisieEntier(new Scanner(System.in), "Entrez le nombre de Ville entre (1/26):");
         }
-        while(n < 0 || n >= 26); /* Tant que le nombre de ville n'a pas le bon format */
+        while(n <= 0 || n >= 26); /* Tant que le nombre de ville n'a pas le bon format */
 
         for (int i = 0 ;i < n; i++){ /* On créé n ville */
             s = Character.toString(i+65); /* On rajoute 65 pour avoir la representation d'une lettre majuscule dans le code ASCII */
