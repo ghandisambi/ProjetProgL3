@@ -2,10 +2,16 @@ package com.company.ghandi;
 
 
 public class Ville2 {
-    private String nom;
+
+    private final String nom;
     private int nombreDeVoisin=0;
-    public Ville2(String nom2){
+
+    public Ville2(String nom2) {
         this.nom = nom2;
+    }
+
+    public String getNom() {
+        return nom;
     }
 
     @Override
