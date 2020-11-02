@@ -1,4 +1,4 @@
-package com.company;
+package com.company.ghandi;
 
 
 import java.util.InputMismatchException;

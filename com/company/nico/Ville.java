@@ -1,11 +1,11 @@
-package com.company;
+package com.company.nico;
 
 import java.util.ArrayList;
 
 /**
  * Classe Ville : 
  * il se comporte comme un noeud
- *  @author Ghandi Sambi, Nico , 
+ *  @author  Nico 
  * @version 1.0
  * 
  */
