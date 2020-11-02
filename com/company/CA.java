@@ -148,49 +148,6 @@ public class CA {
             
        
     }
-
-    /**
-     * Creation par défaut 
-     * @return CA (communauté d'agglomération)
-     */
-    
-    public CA creerCA(){
-       CA ca=new CA();
-       ca.ajouterVille("A");
-       ca.ajouterVille("A");
-       ca.ajouterVille("B");
-       ca.ajouterVille("C");
-       ca.ajouterVille("D");
-       ca.ajouterVille("E");
-       ca.ajouterVille("F");
-       ca.ajouterVille("G");
-       ca.ajouterVille("H");
-       ca.ajouterVille("I");
-       ca.ajouterVille("J");
-       ca.ajouterVille("K");
-       ca.ajouterRoute("A", "B");
-       ca.ajouterRoute("A", "D");
-       
-       ca.ajouterRoute("B", "H");
-       ca.ajouterRoute("B", "C");
-
-       
-       ca.ajouterRoute("C", "I");
-
-       ca.ajouterRoute("D", "C");
-       ca.ajouterRoute("D", "E");
-
-       ca.ajouterRoute("E", "F");
-       ca.ajouterRoute("E", "G");
-
-       ca.ajouterRoute("H", "J");
-       ca.ajouterRoute("H", "K");
-
-       ca.ajouterRoute("I", "H");
-       
-
-       return ca;
-    }
     /**
      * La méthode getVillesVoisinnes permet d'obtenir les villes 
      * voisinnes à une ville particulière

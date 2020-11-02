@@ -170,7 +170,7 @@ public class TestMain {
             System.out.println("Entrer la bonne option svp\n");
             System.out.println("Entrer la bonne option svp\n");
             */
-            System.out.println("Selectionner la bonne option");
+            
             break;
 
 
@@ -180,18 +180,7 @@ public class TestMain {
          
     }
 
-    /**
-     * creation de la communauter d'agglomeration par défaut
-     * @param nCa
-     */
-    public static void CAPardefault(CA nCa){
-        nCa=nCa.creerCA();
-        System.out.println(nCa.toString());
-        for(Ville2 m:nCa.getVoisin().keySet()){
-            nCa.CompteVoisin(m);
-        }
-        
-    }
+   
     
     /**
      * Teste du programme
