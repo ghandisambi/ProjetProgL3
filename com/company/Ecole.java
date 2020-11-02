@@ -27,6 +27,14 @@ public class Ecole {
     public String toString() {
         return  nom ;
     }
+
+    public Ville2 getV() {
+        return v;
+    }
+
+    public void setV(Ville2 v) {
+        this.v = v;
+    }
     
     
 }

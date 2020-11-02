@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+
 /**
  * La classe CA(communauté d'agglomération) représente un graphe
  * et donc possède des sommets représenter par des villes et 
@@ -16,7 +17,9 @@ import java.util.Set;
 public class CA {
     
     private Map<Ville2,Set<Ville2>> voisin;
-    private Map<Ecole,Ville2>ecole;
+    private HashMap<String,Ville2>ecole;
+    
+    
     
     /**
      * Constructeur de La classe CA(communauté d'agglomération)
@@ -29,7 +32,8 @@ public class CA {
     
     public CA() {
         this.voisin = new HashMap<Ville2, Set<Ville2>>();
-        this.ecole =  new HashMap<Ecole,Ville2>();
+        this.ecole = new HashMap<String,Ville2>();
+        
     }
 
     /**
@@ -39,12 +43,15 @@ public class CA {
      * @param nom
      */
     public void ajouterVille(String nom){
+        Ville2 v = new Ville2(nom);
+         
         if (voisin.containsKey(new Ville2(nom))){
             System.out.println("Cette ville existe déjà !");
         }
-        Ville2 v = new Ville2(nom);
+        
         voisin.putIfAbsent(v,new HashSet<>());
-        ecole.putIfAbsent(new Ecole(v), v);
+        ecole.putIfAbsent(nom, v);
+        
     }
     /**
      * La méthode supprimerVille permet de supprimer une ville de la collection
@@ -53,6 +60,7 @@ public class CA {
      */
     public void supprimerVille(String nom){
         Ville2 v = new Ville2(nom);
+        
         voisin.values().forEach(e -> e.remove(v));
         voisin.remove(new Ville2(nom));
     }
@@ -111,9 +119,10 @@ public class CA {
      */
     public boolean ajouterEcole(String nomVille){
         Ville2 v = new Ville2(nomVille);
-        Set <Ville2> eV = voisin.get(v);
+        
+        
         if(voisin.containsKey(v)){
-            ecole.putIfAbsent(new Ecole(new Ville2(nomVille)), v);
+            ecole.putIfAbsent(nomVille, v);
             return true;
         }
         else{
@@ -122,20 +131,22 @@ public class CA {
         }
         
     }
+    
     /**
      * Méthode SupprimerEcole permet de supprimer une ecole si celle-ci existe 
      * @param nomVille
      */
-    public void supprimerEcole(String nomVille){
-        Ville2 v = new Ville2(nomVille);
-        if(voisin.containsKey(v)){
-            ecole.remove(new Ecole(new Ville2(nomVille)),v);
-            System.out.println(ecole.toString());
-        }
-        else{
-             System.out.println("l'ecole n'existe pas");
-             
-        }
+    public void supprimerEcole(String e){
+            if(ecole.containsKey(e)){
+                System.out.println("oui");
+                ecole.remove(e);
+                System.out.println("suppression effectuer");
+                System.out.println(ecole.keySet());
+            }
+            else System.out.println("non");
+            
+            
+       
     }
 
     /**
@@ -202,7 +213,7 @@ public class CA {
             sb.append(v+"->");
             sb.append(voisin.get(v)+"\n");
         }
-        sb.append("Ecole présent\n"+ecole.toString());
+        sb.append("Ecole présent\n"+ecole.keySet());
         return sb.toString();
     }
 

@@ -4,8 +4,8 @@ package com.company;
 public class Ville2 {
     private String nom;
     private int nombreDeVoisin=0;
-    public Ville2(String nom){
-        this.nom = nom;
+    public Ville2(String nom2){
+        this.nom = nom2;
     }
 
     @Override

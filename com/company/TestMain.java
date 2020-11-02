@@ -75,20 +75,8 @@ public class TestMain {
         
         return entier ;
     }
-    /**
-     * permet de simplifier la saisie des réels
-     * @param sc
-     * @param tag
-     * @return
-     */
-    public static double  saisieReel(Scanner sc,String tag){
-        
-        double reel = 0.0;
-        System.out.print(tag);
-        reel = sc.nextDouble();
-        
-        return reel ;
-    }
+
+    
     /**
      * affiche le menu 2
      * @param option
@@ -98,29 +86,29 @@ public class TestMain {
         switch(option){
             case 1:
             String v;
-            do{
+            do{ System.out.println("************************** <<Etape 2 ajout >> *****************************");
                 v = saisie(new Scanner(System.in), "Dans quelle ville voulez-vous ajouter l'école:");
+                
             }while(!nCa.ajouterEcole(v));
             System.out.println(nCa.toString());
             break;
             case 2:
+            System.out.println("**************************** <<Etape 2 suppression >> ***************************");
             v = saisie(new Scanner(System.in), "Dans quelle ville voulez-vous supprimer l'école:");
+            
             nCa.supprimerEcole(v);
-            System.out.println(nCa.toString());
+            System.out.println("\n");
             break;
 
             case 3:
             System.out.println(nCa.toString());
+            System.out.println("Fin programme");
             break;
-            case 4:System.out.println("Fin programme");
+            case 4:
             break;
             
             default:
-            String v1,v2;
-            v1 = saisie(new Scanner(System.in), "Nom de la ville:");
-            v2 = saisie(new Scanner(System.in), "Nom de la ville voisinne:");
-            nCa.supprimerRoute(v1, v2);
-            System.out.println("Entrer la bonne option svp\n");
+
             break;
         }
 
@@ -165,20 +153,26 @@ public class TestMain {
             break;
                 
             case 2:
-            System.out.println("Nombre de voisin");
+            System.out.println("***************************Nombre de voisin****************************");
             for(Ville2 m:nCa.getVoisin().keySet()){
                 nCa.CompteVoisin(m);
             }
-            choix(menu(1), nCa);
-
+            System.out.println("__________________________________________________________________________");
+            System.out.println("****************************  Etape 2   ***************************");
+            choix(menu(1), nCa);            
+            break;
             
-            break;
-            case 4:
-            System.out.println("Fin programme");
-            break;
             default: 
+            /*
+            v1 = saisie(new Scanner(System.in), "Nom de la ville:");
+            v2 = saisie(new Scanner(System.in), "Nom de la ville voisinne:");
+            nCa.supprimerRoute(v1, v2);
             System.out.println("Entrer la bonne option svp\n");
+            System.out.println("Entrer la bonne option svp\n");
+            */
+            System.out.println("Selectionner la bonne option");
             break;
+
 
         }
 
@@ -206,5 +200,6 @@ public class TestMain {
     public static void main(String[] args) {
         CA nCa = new CA();
         Affichage(nCa);
+        
     }
 }
