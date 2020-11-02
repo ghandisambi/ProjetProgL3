@@ -63,7 +63,7 @@ public class Main {
                 default:
                     System.out.println("Mauvaise commande");
             }
-        }
+        } scanner.close();
     }
 
 }
