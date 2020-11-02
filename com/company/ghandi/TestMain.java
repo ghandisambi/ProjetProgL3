@@ -18,21 +18,12 @@ public class TestMain {
         switch (etape){
             case 1:
                 do{
-                    n = saisieEntier(new Scanner(System.in),
-                            """
-                                    1 - Ajouter une route\s
-                                    2 - Fin
-                                    """);
+                    n = saisieEntier(new Scanner(System.in),"1 - Ajouter une route \n 2 - Fin\n");
                 } while(n < 1 || n > 2);
                 break;
             case 2:
                 do{
-                    n = saisieEntier(new Scanner(System.in),
-                            """
-                                1 - Ajouter une école\s
-                                2 - Retirer une école
-                                3 - Fin / Quitter
-                                """);
+                    n = saisieEntier(new Scanner(System.in),"1 - Ajouter une école\n 2 - Retirer une école\n 3 - Fin / Quitter\n");
                 }while(n < 0 || n > 3);
             default:
                 break;

@@ -1,0 +1,40 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Debug (Launch) - Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-TestMain<ProjetProgL3_7c887f4>",
+            "request": "launch",
+            "mainClass": "com.company.ghandi.TestMain",
+            "projectName": "ProjetProgL3_7c887f4"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Main<ProjetProgL3_7c887f4>",
+            "request": "launch",
+            "mainClass": "com.company.nico.Main",
+            "projectName": "ProjetProgL3_7c887f4"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-TestMain",
+            "request": "launch",
+            "mainClass": "com.company.ghandi.TestMain"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-TestUtilTab",
+            "request": "launch",
+            "mainClass": "up.mi.jgm.td01.TestUtilTab"
+        }
+    ]
+}
