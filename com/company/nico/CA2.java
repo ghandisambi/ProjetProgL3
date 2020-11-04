@@ -62,37 +62,39 @@ public class CA2 {
      * La méthode getVillesVoisinnes permet d'obtenir les villes
      * voisinnes à une ville particulière
      * c'est-à-dire les sommets adjacents d'un sommet particulier.
-     * @param nom
-     * @return
+     * @param nom: Nom de la ville dans laquel il faut rechercher les voisins
+     * @return  voisin.get(nom):
      */
-    public Set<Ville> getVillesVoisinnes(Ville nom) {
-        return voisin.get(nom);
-    }
+    public Set<Ville> getVillesVoisinnes(Ville nom) { return voisin.get(nom); }
+
+    public Set<Ville> getEcolesDependante(Ville nom) { return voisin.get(nom);}
 
     /**
      * Méthode SupprimerEcole permet de supprimer une ecole si celle-ci existe
-     * @param ville
+     * @param nomVilleDeEcole: nom de la ville dans laquel supprimer l'école.
      */
     public void supprimerEcole(String nomVilleDeEcole) {
        Ville ville2 = getVille(nomVilleDeEcole);
        if (ecole.containsKey(ville2)) { /* Si l'école existe dans la ville */
-            if (getVillesVoisinnes(ville2).isEmpty()) { /* Si la ville ne possédent pas de voisins*/
-                System.out.println("NON car pas de voisin");
-            } else {
+            if (!getVillesVoisinnes(ville2).isEmpty()) { /* Si la ville a un voisin qui depend de son école */
                 if (ecole.get(ville2).isEmpty()) {
                     System.out.println("On peut la supprimer car aucune autre ville ne depend de l'ecole");
                     ecole.remove(ville2); /* On la supprime */
-                } else{
-                    for (Ville v: getVillesVoisinnes(ville2)) {
-                        if (ecole.get(v).contains(ville2)) {
+                } else {
+                    for (Ville v: getEcolesDependante(ville2)) {
+                        System.out.println("boucle");
+                        if (ecole.get(v).contains(ville2) && ecole.get(v).size() == 1) {
+                            System.out.println("Pas possible car ");
                             break;
                         } else {
+                            System.out.println("Possible");
+                            for (Ville ville: ecole.get(v))
                             ecole.remove(ville2);
                         }
                     }
                 }
-            }
-        }
+            } else System.out.println("pas possible car pas de voisins");
+        } else System.out.println("pas possible");
     }
     /**
      * La méthode ajouterVille permet d'ajouter une ville dans la collection de
