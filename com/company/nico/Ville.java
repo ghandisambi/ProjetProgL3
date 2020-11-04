@@ -1,42 +1,70 @@
 package com.company.nico;
 
-import java.util.ArrayList;
 
-/**
- * Classe Ville : 
- * il se comporte comme un noeud
- *  @author  Nico 
- * @version 1.0
- * 
- */
+public class Ville implements Cloneable {
 
-public class Ville {
-    private char name ;
-    private ArrayList<Ville> villeVoisines;
+    private final String nom;
+    private int nombreDeVoisin=0;
 
-    public Ville(char name, ArrayList<Ville> villeVoisines) {
-        this.name = name;
-        this.villeVoisines = villeVoisines;
+    public Ville(String nom2) {
+        this.nom = nom2;
     }
 
-    public char getName() {
-        return name;
+    public String getNom() {
+        return nom;
     }
 
-    public void setName(char name) {
-        this.name = name;
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((nom == null) ? 0 : nom.hashCode());
+        return result;
     }
 
-    public ArrayList<Ville> getVilleVoisines() {
-        return villeVoisines;
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Ville other = (Ville) obj;
+        if (nom == null) {
+            if (other.nom != null)
+                return false;
+        } else if (!nom.equals(other.nom))
+            return false;
+        return true;
     }
 
-    public void setVilleVoisines(ArrayList<Ville> villeVoisines) {
-        this.villeVoisines = villeVoisines;
+    // Méthodes
+    public Object clone(){
+        try {
+            return super.clone();
+        }
+        catch (CloneNotSupportedException e){
+            throw new InternalError();
+        }
     }
 
-    public void addVilleVoisine(Ville ville){
-        this.villeVoisines.add(ville);
+
+    @Override
+    public String toString() {
+        return nom ;
     }
 
+    public int getNombreDeVoisin() {
+        return nombreDeVoisin;
+    }
+
+    public void setNombreDeVoisin(int nombreDeVoisin) {
+        this.nombreDeVoisin = nombreDeVoisin;
+    }
+    
+    
+    
+
+    
 }
