@@ -201,14 +201,16 @@ public class CA {
     public boolean iteration(Ville2 ville) {
         Ville2 villeVoisin;
         Ville2 villeVoisin2;
-        System.out.println("la ville "+ville.getNom()+" possède l'ecole "+ville.getEcole()+" elle a pour voisin :");
+        System.out.println("la ville "+ville.getNom()+" possède l'ecole (nom de l'école: |"+ville.getEcole()+"|) elle a pour voisin :");
         Iterator it = getVillesVoisinnes(ville).iterator();
         while(it.hasNext()){
             villeVoisin=contientVille(it.next().toString());
-            System.out.print("\t- La ville "+villeVoisin+" qui est liée à la ville "+ville);
-            if(ecole.containsKey(villeVoisin.getEcole())) System.out.println(" et possède l'ecole "+ villeVoisin.getEcole()+" dont la ville "+ville+" dépendra");
+            System.out.print("\t- La ville "+villeVoisin+" qui est liée à lui ("+ville+"-->"+villeVoisin+")");
+            if(ecole.containsKey(villeVoisin.getEcole())) {
+                System.out.println(" et possède l'ecole "+ villeVoisin.getEcole()+" dont la ville "+ville+" dépendra");
+            }
             else{
-                System.out.println(" qui possède une école ");
+                System.out.println(" dépend de lui est d'une autre école");
                 
                 it = getVillesVoisinnes(villeVoisin).iterator();
                 while(it.hasNext()){
@@ -216,8 +218,11 @@ public class CA {
                     
                     if(ecole.containsKey(villeVoisin2.getEcole())&&!ecole.containsValue(ville)){
                         System.out.println(". Mais un de ses voisins possède une école donc, il est liée à l'école("+ville.getEcole()+") de la ville "+ville);
-                    }else{
-                        
+                    }else if(ecole.containsValue(ville)&&ecole.containsKey(villeVoisin2.getEcole())){
+                        System.out.println("la ville "+villeVoisin2+" est aussi voisin de "+villeVoisin);
+                    }
+                    else{
+
                         System.out.println(" et aucune de ses villes voisinnes en possède.");
                         return false;
                     }
