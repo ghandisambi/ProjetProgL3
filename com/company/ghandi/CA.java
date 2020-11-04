@@ -200,21 +200,25 @@ public class CA {
    
     public boolean iteration(Ville2 ville) {
         Ville2 villeVoisin;
-        System.out.println("la ville "+ville.getNom()+" possède l'ecole "+ville.getEcole()+" elle a pour voisin ");
+        Ville2 villeVoisin2;
+        System.out.println("la ville "+ville.getNom()+" possède l'ecole "+ville.getEcole()+" elle a pour voisin :");
         Iterator it = getVillesVoisinnes(ville).iterator();
         while(it.hasNext()){
             villeVoisin=contientVille(it.next().toString());
-            System.out.print("La ville "+villeVoisin+" qui est liée à la ville "+ville);
+            System.out.print("\t- La ville "+villeVoisin+" qui est liée à la ville "+ville);
             if(ecole.containsKey(villeVoisin.getEcole())) System.out.println(" et possède l'ecole "+ villeVoisin.getEcole()+" dont la ville "+ville+" dépendra");
             else{
-                System.out.println(" ne possède pas d'école");
+                System.out.println(" qui possède une école ");
+                
                 it = getVillesVoisinnes(villeVoisin).iterator();
                 while(it.hasNext()){
-                    ville=contientVille(it.next().toString());
-                    if(ecole.containsKey(ville.getEcole())){
+                    villeVoisin2=contientVille(it.next().toString());
+                    
+                    if(ecole.containsKey(villeVoisin2.getEcole())&&!ecole.containsValue(ville)){
                         System.out.println(". Mais un de ses voisins possède une école donc, il est liée à l'école("+ville.getEcole()+") de la ville "+ville);
                     }else{
-                        System.out.println(" et aucune de ses villes voisionnes en possède.");
+                        
+                        System.out.println(" et aucune de ses villes voisinnes en possède.");
                         return false;
                     }
                 }   
