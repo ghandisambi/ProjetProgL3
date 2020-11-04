@@ -210,7 +210,7 @@ public class CA {
                 System.out.println(" et possède l'ecole "+ villeVoisin.getEcole()+" dont la ville "+ville+" dépendra");
             }
             else{
-                System.out.println(" dépend de lui est d'une autre école");
+                System.out.println(" dépend de lui ");
                 
                 it = getVillesVoisinnes(villeVoisin).iterator();
                 while(it.hasNext()){
@@ -219,7 +219,7 @@ public class CA {
                     if(ecole.containsKey(villeVoisin2.getEcole())&&!ecole.containsValue(ville)){
                         System.out.println(". Mais un de ses voisins possède une école donc, il est liée à l'école("+ville.getEcole()+") de la ville "+ville);
                     }else if(ecole.containsValue(ville)&&ecole.containsKey(villeVoisin2.getEcole())){
-                        System.out.println("la ville "+villeVoisin2+" est aussi voisin de "+villeVoisin);
+                        System.out.println("la ville "+villeVoisin2+" est voisin de "+villeVoisin);
                     }
                     else{
 
