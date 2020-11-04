@@ -3,12 +3,16 @@ package com.company.ghandi;
 
 public class Ville2 {
 
-    private final String nom;
+    private String nom;
     private int nombreDeVoisin=0;
+    private  int ecole;
 
-    public Ville2(String nom2) {
+    public Ville2(String nom2,int ecole) {
         this.nom = nom2;
+        nombreDeVoisin=0;
+        this.ecole=ecole;
     }
+    
 
     public String getNom() {
         return nom;
@@ -52,6 +56,28 @@ public class Ville2 {
     public void setNombreDeVoisin(int nombreDeVoisin) {
         this.nombreDeVoisin = nombreDeVoisin;
     }
+    
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    
+    public void setVille2(String nom,int ecole,int nombreDeVoisin){
+        this.nom =nom;
+        this.ecole = ecole;
+        this.nombreDeVoisin =nombreDeVoisin;
+    }
+
+    public int getEcole() {
+        return ecole;
+    }
+
+    public void setEcole(int ecole) {
+        this.ecole = ecole;
+    }
+   
+    
+
     
     
     
