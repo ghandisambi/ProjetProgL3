@@ -71,7 +71,8 @@ public class TestMain {
      */
     public static void Affichage(CA nCa){
         int n = 0 ;
-        String s;
+        String s= new String();
+        Ville2 ville = new Ville2(s, 0);
 
         do {
             n = saisieEntier(new Scanner(System.in), "Entrez le nombre de Ville entre (1/26):");
@@ -79,8 +80,9 @@ public class TestMain {
         while(n <= 0 || n >= 26); /* Tant que le nombre de ville n'a pas le bon format */
 
         for (int i = 0 ;i < n; i++){ /* On créé n ville */
-            s = Character.toString(i+65); /* On rajoute 65 pour avoir la representation d'une lettre majuscule dans le code ASCII */
-            nCa.ajouterVille(s); /* On ajoute la ville créé a la CA */
+            
+                                                                                  /* On rajoute 65 pour avoir la representation d'une lettre majuscule dans le code ASCII */
+            nCa.ajouterVille(new Ville2(Character.toString(i+65),(i+1) ),(i+1)); /* On ajoute la ville créé a la CA */
         }
         System.out.println(nCa.toString()); /* Test a supprimer */
 
@@ -94,10 +96,13 @@ public class TestMain {
 
                 case 1: /* Ajouter une route */
                     String v1,v2;
+                    Ville2 a,b;
                     do{
                         v1 = saisie(new Scanner(System.in), "Nom de la ville:");
+                        a=nCa.contientVille(v1);
                         v2 = saisie(new Scanner(System.in), "Nom de la ville voisinne:");
-                    } while(!nCa.ajouterRoute(v1, v2));
+                        b=nCa.contientVille(v2);
+                    } while(!nCa.ajouterRoute(a, b));
                     System.out.println("\n********Voici la liste des villes et des routes entrez*************** ");
                     System.out.println(nCa.toString());
                 break;
@@ -113,22 +118,26 @@ public class TestMain {
                         option=menu(2);
                         switch (option) {
                             case 1:
+                                Ville2 v;
                                 do {
                                     System.out.println("************************** << Etape 2 ajout  >> *****************************");
                                     s = saisie(new Scanner(System.in), "Dans quelle ville voulez-vous ajouter l'école =>");
-                                } while (!nCa.ajouterEcole(s));
+                                    v=nCa.contientVille(s);
+                                } while (!nCa.ajouterEcole(v));
                                 System.out.println(nCa.toString());
                                 break;
 
                             case 2:
                                 System.out.println("**************************** << Etape 2 suppression >> ***************************");
                                 s = saisie(new Scanner(System.in), "Dans quelle ville voulez-vous supprimer l'école => ");
-                                nCa.supprimerEcole(s);
+                                v=nCa.contientVille(s);
+                                nCa.supprimerEcole(v);
                                 nCa.afficheEcole();
                                 break;
 
                             case 3:
-                                System.out.println("Fin programme");
+                                
+                                System.out.println("Fin programme ");
                                 option = 0;
                                 break;
 
@@ -141,6 +150,7 @@ public class TestMain {
                 break;
             }
         } while(option!=0);
+        
     }
 
     /**
@@ -150,5 +160,6 @@ public class TestMain {
     public static void main(String[] args) {
         CA nCa = new CA();
         Affichage(nCa);
+        
     }
 }
