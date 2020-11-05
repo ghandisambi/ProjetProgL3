@@ -72,6 +72,8 @@ public class TestMain {
     public static void Affichage(CA nCa){
         int n = 0 ;
         String s= new String();
+        Ville2 ville = new Ville2(s, 0);
+
         do {
             n = saisieEntier(new Scanner(System.in), "Entrez le nombre de Ville entre (1/26):");
         }

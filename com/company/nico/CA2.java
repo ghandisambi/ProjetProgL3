@@ -83,7 +83,7 @@ public class CA2 {
                 } else {
                     for (Ville v: getEcolesDependante(ville2)) {
                         System.out.println("boucle");
-                        if (ecole.get(v).contains(ville2) && ecole.get(v).size() == 1) {
+                        if (ecole.get(v)==null && ecole.get(v).size() == 1) {
                             System.out.println("Pas possible car ");
                             break;
                         } else {

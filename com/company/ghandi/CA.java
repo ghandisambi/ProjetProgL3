@@ -220,6 +220,7 @@ public class CA {
                         System.out.println(". Mais un de ses voisins possède une école donc, il est liée à l'école("+ville.getEcole()+") de la ville "+ville);
                     }else if(ecole.containsValue(ville)&&ecole.containsKey(villeVoisin2.getEcole())){
                         System.out.println("la ville "+villeVoisin2+" est voisin de "+villeVoisin);
+                        return false;
                     }
                     else{
 
