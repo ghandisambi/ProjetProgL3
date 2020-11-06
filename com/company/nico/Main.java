@@ -29,7 +29,7 @@ public class Main {
                 do{
                     System.out.println("1 - Ajouter une école\n2 - Retirer une école\n3 - Fin / Quitter");
                     n = saisieEntier(scanner); //On demande une saisie d'entier.
-                }while (n < 0 || n > 3); //Tant que l'utilisateur ne choisit pas la bonne option.
+                }while (n < 1 || n > 3); //Tant que l'utilisateur ne choisit pas la bonne option.
             default:
                 break;
         }
