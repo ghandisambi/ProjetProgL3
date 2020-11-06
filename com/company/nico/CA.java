@@ -8,27 +8,57 @@ import java.util.Set;
 
 
 /**
- * La classe CA(communauté d'agglomération) représente un graphe
- * et donc possède des sommets représenter par des villes et 
- * des arètes représenter par des routes.  
+ * CA est la classe contenant l'ensemble des variables et des méthodes nécessaires à la création et à la modification
+ * d'une communauté d'agglomérations.
  */
-public class CA2 {
-    
-    private Map<Ville,Set<Ville>> voisin;
-    private Map<Ville,Set<Ville>> ecole;
+public class CA {
+
+    /* Association représentant une ville comme clé et sa liste d'adjacence comme valeur. */
+    private final Map<Ville,Set<Ville>> voisin;
+    /* Association représentant le nom d'une ville comme clé la ville dans laquelle elle se situe comme valeur. */
+    private final Map<String,Ville> ecole;
 
     /**
-     * Constructeur de La classe CA(communauté d'agglomération)
-     * il initialise 2 associations d'objets dont:
-     * - Objet 1 : composer d'une ville et d'une liste de ville sans doublon qui sont des objets du package
-     * - Objet 2 : a pour clé un object ecole et pour valeur un objet ville2
-     *
+     * Constructeur de la classe CA.
+     * Il initialise les variables 'voisins' et 'ecole' en tant que nouveau HashMap initialement.
      */
-
-    public CA2() {
+    public CA() {
         this.voisin = new HashMap<Ville, Set<Ville>>();
-        this.ecole = new HashMap<Ville, Set<Ville>>();
+        this.ecole = new HashMap<String, Ville>();
     }
+
+    /**
+     * Permets de retourner un objet ville identifier par son nom de ville.
+     *
+     * @param nomVille
+     *  Le nom de la ville à retourner.
+     * @return villeTmp
+     *  La ville correspondante.
+     */
+    Ville getVille (String nomVille) {
+        Ville villeTmp = new Ville(nomVille);
+        for (Ville ville : voisin.keySet()) {
+            if (ville.getNom().equals(nomVille)) {
+                villeTmp = (Ville) ville.clone();
+            }
+        }
+        if (villeTmp == null) {
+            System.out.println("La ville" + nomVille + "n'existe pas !");
+            return null;
+        }
+        return villeTmp;
+    }
+
+    /**
+     * Permets de retourner à partir d'une ville un ensemble de ses voisins.
+     * @param ville
+     *  Nom de la ville dans laquel il faut rechercher les voisins
+     * @return  voisin.get(nom):
+     */
+    public Set<Ville> getVillesVoisinnes(Ville ville) {
+        return voisin.get(ville);
+    }
+
 
     public void initRoute(){
         ajouterRoute("F", "E");
@@ -53,68 +83,34 @@ public class CA2 {
         supprimerEcole("K");
     }
 
+    /**
+     * Affiche les villes possédant une école.
+     */
     public void afficheEcole() {
         System.out.println("Voici la liste des villes possédant une école :");
-        for (Ville ville2 : ecole.keySet()) {
-            System.out.print(ville2.getNom()+" \t");
+        for (String nomEcole : ecole.keySet()) {
+            System.out.print(getVille(nomEcole));
         }
-    }
-
-    Ville getVille (String name) {
-        Ville villeTmp = new Ville(name);
-        for (Ville ville : voisin.keySet()) {
-            if (ville.getNom().equals(name)) {
-                villeTmp = (Ville) ville.clone();
-            }
-        }
-        if (villeTmp == null) {
-            System.out.println("La ville" + name + "n'existe pas !");
-            return null;
-        }
-        return villeTmp;
     }
 
     /**
-     * La méthode getVillesVoisinnes permet d'obtenir les villes
-     * voisinnes à une ville particulière
-     * c'est-à-dire les sommets adjacents d'un sommet particulier.
-     * @param nom: Nom de la ville dans laquel il faut rechercher les voisins
-     * @return  voisin.get(nom):
-     */
-    public Set<Ville> getVillesVoisinnes(Ville nom) {
-        return voisin.get(nom);
-    }
-
-    public Set<Ville> getEcolesDependante(Ville nom) {
-        return ecole.get(nom);
-    }
-
-    public int getTaille(Ville nom) {
-        if (getEcolesDependante(nom)!=null) {
-            return getEcolesDependante(nom).size();
-        }else
-            return 0;
-    }
-
-    /**
-     * La méthode supprimer Route permet de supprimer une route (Arète)
-     * entre 2 ville
+     * Ajouter une ville si elle n'existe pas déja.
      * @param nomVille
-     * @param nomVoisinne
-     */
-
-    public void supprimerRoute(String nomVille,String nomVoisinne) {
-        Ville v1= new Ville(nomVille);
-        Ville v2= new Ville(nomVoisinne);
-        Set<Ville> eV1 = voisin.get(v1);
-        Set<Ville> eV2 = voisin.get(v2);
-        if (eV1 !=null){
-            eV1.remove(v2);
-        }
-        if (eV2 !=null){
-            eV2.remove(v1);
+     *  Nom de la ville a ajouté.
+     * */
+    public void ajouterVille(String nomVille) {
+        Ville ville = getVille(nomVille);
+        if (voisin.containsKey(new Ville(nomVille))) { /* Si la ville existe déja on s'arrête ici. */
+            System.out.println("Cette ville existe déjà !");
+        } else {
+            /* On insère la relation de la nouvelle ville dans l'ensemble de voisins. */
+            voisin.putIfAbsent(ville,new HashSet<>());
+            /* On crée une école dans la nouvelle ville et on insère la relation de cette nouvelle école dans l'ensemble d'écoles. */
+            ecole.putIfAbsent(ville.getNom(),ville);
         }
     }
+
+
 
 
     public boolean tousVoisinsOntEcole(Ville ville) {
@@ -128,12 +124,15 @@ public class CA2 {
         }
         return bool;
     }
-
-    public boolean parcourtVoisin(Ville nom, Ville nom2) {
+    /**
+     *
+     *
+     * */
+    public boolean parcourtVoisin(String nom, String nom2) {
         if (!ecole.containsKey(nom)) {
-            if (getVillesVoisinnes(nom).size() != 1) {
-                for (Ville voisin : getVillesVoisinnes(nom)) {
-                    if (ecole.containsKey(voisin) && !(voisin.equals(nom2))){
+            if (getVillesVoisinnes(getVille(nom)).size() != 1) {
+                for (Ville voisin : getVillesVoisinnes(getVille(nom))) {
+                    if (ecole.containsKey(voisin.getNom()) && !(voisin.getNom().equals(nom2))){
                         return true;
                     }
                 }
@@ -157,45 +156,33 @@ public class CA2 {
         if (tousVoisinsOntEcole(ville))// Si tous les voisins possédent une école il n'y pas de problème.
             isPossible = true;
 
-            for (Ville voisin : getVillesVoisinnes(ville)) {
-                isPossible = parcourtVoisin(voisin, ville);
-                if (!isPossible) break;
+        System.out.println(ville);
+        for (Ville voisin : getVillesVoisinnes(ville)) {
+            System.out.println("On traite du sommet "+voisin);
+            isPossible = parcourtVoisin(voisin.getNom(), ville.getNom());
+            System.out.println(isPossible?"Se sera possible":"Se ne sera pas possible");
+            if (!isPossible) break;
             }
 
         if (isPossible) {
-            Set<Ville> eV1;
-            for (Ville ko : getVillesVoisinnes(ville)) {
-                eV1=ecole.get(ko);
-                if (eV1!=null) {
-                    eV1.remove(ville);
-                }
-            }
-            ecole.remove(ville); // Si le retrait de l'école ne viole pas la contrainte d'accessibilité.
+            System.out.println("La suppression de "+nomEcole+"est un succsée !");
+            ecole.remove(ville.getNom()); // Si le retrait de l'école ne viole pas la contrainte d'accessibilité.
         } else System.out.println("La suppression de " + nomEcole + " est impossible");
     }
 
 
+    /**
+     * Vérifie si une ville existe.
+     * @param nomVille
+     *  Nom de la ville à laquelle on cherche a vérifier l'existence.
+     * @return
+     *  true si la ville existe.
+     *  false si la ville n'existe pas.
+     * */
    public boolean villeExist(String nomVille) {
         Ville villeTmp = new Ville(nomVille);
        return voisin.containsKey(villeTmp);
     }
-
-    /**
-     * Ajoute une ville a la communauter d'aglomération si elle n'existe pas déja.
-     *
-     * @param nomVille
-     *  Nom de la ville a ajouter
-     */
-    public void ajouterVille(String nomVille) {
-        Ville v = getVille(nomVille);
-         
-        if (voisin.containsKey(new Ville(nomVille))){
-            System.out.println("Cette ville existe déjà !");
-        }
-        voisin.putIfAbsent(v,new HashSet<>());
-        ecole.putIfAbsent(v, new HashSet<>());
-    }
-
 
 
     /**
@@ -216,10 +203,10 @@ public class CA2 {
                 if(!villeTmpA.equals(villeTmpB)){ // Si les deux ville ne sont pas les mêmes
                     voisin.get(villeTmpA).add(villeTmpB); // On ajoute la ville A comme voisine de B
                     voisin.get(villeTmpB).add(villeTmpA); // On ajoute la ville B comme voisine de A
-                    System.out.println("On ajouter " + villeTmpA + "au dependance de "+villeTmpB );
+                    /* System.out.println("On ajouter " + villeTmpA + "au dependance de "+villeTmpB );
                     ecole.get(villeTmpA).add(villeTmpB); // On ajoute dans les dependance a l'ecole
                     System.out.println("On ajouter " + villeTmpB + "au dependance de "+villeTmpA );
-                    ecole.get(villeTmpB).add(villeTmpA); // On ajoute dans les dependance a l'ecole
+                    ecole.get(villeTmpB).add(villeTmpA); // On ajoute dans les dependance a l'ecole */
                 }
             } else System.out.println("la ville de départ n'existe pas");
         } else System.out.println("la ville d'arriver n'existe pas");
@@ -238,17 +225,10 @@ public class CA2 {
      *  Un booléen indiquant si la ville a bien était ajouter.
      */
     public boolean ajouterEcole(String nomVille) {
-        Ville villeTMp = getVille(nomVille); // On récupère l'objet de la ville a traiter.
-        if (voisin.containsKey(villeTMp)) { // Si la ville existe pas.
-            ecole.putIfAbsent(villeTMp, getVillesVoisinnes(villeTMp)); // On ajoute une école a la ville si cel ci n'en possède pas.
-            System.out.println(getVillesVoisinnes(villeTMp));
-            for (Ville ville : getVillesVoisinnes(villeTMp)) { // Pour toute ville voisine de notre école.
-                if (ecole.get(ville)!=null) {
-                    System.out.println("On ajoute "+ville +"\t"+ecole.get(villeTMp));
-                    ecole.get(villeTMp).add(ville); // On ajoute notre ville dans la liste
-                }
-            }
-            System.out.println("Une école viens d'étre construite dans la ville "+villeTMp.getNom());
+        Ville villeTMp = getVille(nomVille); /* On récupere la ville de 'nomVille'. */
+        if (voisin.containsKey(villeTMp)) { /* Si la ville n'existe pas. */
+            ecole.putIfAbsent(villeTMp.getNom(), villeTMp); /* On ajoute une école a la ville si cel ci n'en possède pas. */
+            System.out.println("Une école vient d'être construite dans la ville "+villeTMp.getNom()+".");
             return true;
         }
         System.out.println("la ville n'existe pas");

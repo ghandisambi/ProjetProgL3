@@ -1,15 +1,29 @@
 package com.company.nico;
 
-
+/**
+ * Ville est la classe représentant l'ensemble des variables et des méthodes nécessaires à la création et à la modification
+ * d'une ville.
+ */
 public class Ville implements Cloneable {
 
+    /* Le nom de la ville, unique pour chaque ville. */
     private final String nom;
-    private int nombreDeVoisin=0;
 
-    public Ville(String nom2) {
-        this.nom = nom2;
+    /**
+     * Constructeur de la classe CA.
+     * Il permet de construire et initialise une nouvelle ville.
+     * @param nomVille
+     *  Nom de la ville à construire.
+     */
+    public Ville(String nomVille) {
+        this.nom = nomVille;
     }
 
+    /**
+     * Getter de la variable nom.
+     * @return nom
+     *  Le nom de la ville.
+     */
     public String getNom() {
         return nom;
     }
@@ -49,22 +63,14 @@ public class Ville implements Cloneable {
         }
     }
 
-
+    /**
+     *
+     * Redéfinition de la classe toString.
+     * @return
+     *  Une chaine de caractère contenant les informations de la ville.
+     */
     @Override
     public String toString() {
         return nom ;
     }
-
-    public int getNombreDeVoisin() {
-        return nombreDeVoisin;
-    }
-
-    public void setNombreDeVoisin(int nombreDeVoisin) {
-        this.nombreDeVoisin = nombreDeVoisin;
-    }
-    
-    
-    
-
-    
 }

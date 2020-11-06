@@ -1,13 +1,13 @@
 package com.company.nico;
 
-
-import com.company.ghandi.Ville2;
-
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 
-
+/**
+ * Main et la classe principale contenant l'ensemble des méthodes et déclaration permettant d'utiliser
+ * l'interface utilisateur.
+ */
 public class Main {
 
     /**
@@ -41,10 +41,10 @@ public class Main {
      * @return
      *  La chaîne de caractère saisie.
      */
-    public static String saisieVille(Scanner scanner,CA2 ca2){
+    public static String saisieVille(Scanner scanner, CA ca){
             String s = "";
             s = scanner.nextLine();
-            if (ca2.villeExist(s))
+            if (ca.villeExist(s))
             return s;
             else return null;
     }
@@ -68,11 +68,11 @@ public class Main {
     }
 
     /**
-     * affichage du programme
+     * Affichage du programme.
      * @param nCa
      *  Communauter d'aglomeration
      */
-    public static void Affichage(CA2 nCa){
+    public static void Affichage(CA nCa){
         int n = 0 ;
         String s;
         Scanner scanner = new Scanner(System.in);
@@ -156,10 +156,10 @@ public class Main {
 
 
     /**
-     * Fonction main.
+     * Lancement du programme.
      */
     public static void main(String[] args) {
-        CA2 nCa = new CA2();
+        CA nCa = new CA();
         Affichage(nCa);
     }
 }
