@@ -1,6 +1,8 @@
 package com.company.nico;
 
 
+import com.company.ghandi.Ville2;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -10,23 +12,24 @@ public class Main {
 
     /**
      * Affiche le menu correspondant et retourne le choix de l'utilisateur
-     * @return menu d'affichage
+     * @return
+     *  menu d'affichage
      */
-    public static int menu(int etape){
+    public static int menu(int etape,Scanner scanner){
         System.out.println("Quelle opération souhaitez-vous effectuer ?");
         int n = 0; /* Choix de l'utilisateur a retourner */
         switch (etape){
             case 1:
                 do{
-                    n = saisieEntier(new Scanner(System.in),
-                            "1 - Ajouter une route\n2 - Fin");
-                } while(n < 1 || n > 2);
+                    System.out.println("1 - Ajouter une route\n2 - Fin");
+                    n = saisieEntier(scanner); //On demande une saisie d'entier.
+                } while (n < 1 || n > 2); //Tant que l'utilisateur ne choisit pas la bonne option.
                 break;
             case 2:
                 do{
-                    n = saisieEntier(new Scanner(System.in),
-                            "1 - Ajouter une école\n2 - Retirer une école\n3 - Fin / Quitter");
-                }while(n < 0 || n > 3);
+                    System.out.println("1 - Ajouter une école\n2 - Retirer une école\n3 - Fin / Quitter");
+                    n = saisieEntier(scanner); //On demande une saisie d'entier.
+                }while (n < 0 || n > 3); //Tant que l'utilisateur ne choisit pas la bonne option.
             default:
                 break;
         }
@@ -34,92 +37,96 @@ public class Main {
     }
 
     /**
-     * permet de simplifier la saisie de chaîne de caractères
-     * @param sc
-     * @param tag
+     * Permet la saisie d'une chaine de caractère.
      * @return
+     *  La chaîne de caractère saisie.
      */
-    public static String  saisie(Scanner sc,String tag){
-        
-        String s = "";
-        
-        System.out.print(tag);
-        s = sc.nextLine();
-        
-        return s ;
+    public static String saisieVille(Scanner scanner,CA2 ca2){
+            String s = "";
+            s = scanner.nextLine();
+            if (ca2.villeExist(s))
+            return s;
+            else return null;
     }
+
+
     /**
-     * permet de simplifier la saisie des entiers
-     * 
-     * @param sc
-     * @param tag
+     * Permet la saisie sécuriser d'un entier.
      * @return
+     *  L'entier saisie.
      */
-    public static int saisieEntier(Scanner sc,String tag){
-       int entier = 0;
-          
-            try {
-                System.out.print(tag);
-                entier= sc.nextInt();
-            } catch (InputMismatchException e) {
-                System.out.println(e.getMessage());
-            }
+    public static int saisieEntier(Scanner scanner){
+        int entier = 0;
+
+        try {
+            entier= scanner.nextInt();
+        } catch (InputMismatchException e) {
+            System.out.println("Erreur -> Votre saisie ne correspond pas à la valeur attendue");
+            scanner.next();
+        }
         return entier ;
     }
 
     /**
      * affichage du programme
      * @param nCa
+     *  Communauter d'aglomeration
      */
     public static void Affichage(CA2 nCa){
         int n = 0 ;
         String s;
+        Scanner scanner = new Scanner(System.in);
 
+        /* On demande a l'utilisateur le nombre de villes qu'il souhaite. */
         do {
-            n = saisieEntier(new Scanner(System.in), "Entrez le nombre de Ville entre (1/26):");
-        }
-        while(n < 0 || n >= 26); /* Tant que le nombre de ville n'a pas le bon format */
+            System.out.println("Entrez le nombre de Ville souhaiter entre 1 et 26 : ");
+            n = saisieEntier(scanner);
+        } while (n < 1 || n > 26); /* Tant que le nombre de ville n'est pas entre 1 et 26 */
 
-        for (int i = 0 ;i < n; i++){ /* On créé n ville */
+        /* On crée n ville */
+        for (int i = 0 ;i < n; i++){
             s = Character.toString(i+65); /* On rajoute 65 pour avoir la representation d'une lettre majuscule dans le code ASCII */
             nCa.ajouterVille(s); /* On ajoute la ville créé a la CA */
         }
-        System.out.println(nCa.toString()); /* Test a supprimer */
 
+        /* Etape 1 */
         int option = 0;
         do {
             System.out.println("__________________________________________________________________________");
             System.out.println("****************************  Etape 1   ***************************");
-            option = menu(1);
+            option = menu(1,scanner); /* L'utilisateur choisit parmit les options de l'étape 1 */
 
             switch(option) {
 
                 case 1: /* Ajouter une route */
                     String v1,v2;
                     do{
-                        v1 = saisie(new Scanner(System.in), "Nom de la ville:");
-                        v2 = saisie(new Scanner(System.in), "Nom de la ville voisinne:");
+                        System.out.println("Nom de la ville : ");
+                        v1 = saisieVille(new Scanner(System.in),nCa);
+                        System.out.println("Nom de la ville voisine :");
+                        v2 = saisieVille(new Scanner(System.in),nCa);
                     } while(!nCa.ajouterRoute(v1, v2));
-                    System.out.println("\n********Voici la liste des villes et des routes entrez*************** ");
+                    System.out.println("\n********  Voici la liste des villes et des routes entrer  *************** ");
                     System.out.println(nCa.toString());
                 break;
 
                 case 2: /* Fin , on poursuit le programme */
                     nCa.initRoute();
-                    System.out.println("***************************Nombre de voisin****************************");
+                    System.out.println("***************************  Nombre de voisin  ****************************");
                     for(Ville m:nCa.getVoisin().keySet()){
                         nCa.CompteVoisin(m);
                     }
                     do {
                         System.out.println("__________________________________________________________________________");
                         System.out.println("****************************  Etape 2   ***************************");
-                        option=menu(2);
+                        option=menu(2,scanner);
                         nCa.afficheEcole();
                         switch (option) {
                             case 1:
                                 do {
                                     System.out.println("************************** << Etape 2 ajout  >> *****************************");
-                                    s = saisie(new Scanner(System.in), "Dans quelle ville voulez-vous ajouter l'école =>");
+                                    System.out.println("Dans quelle ville voulez-vous ajouter l'école => ");
+                                    s = saisieVille(new Scanner(System.in),nCa);
                                 } while (!nCa.ajouterEcole(s));
                                 System.out.println(nCa.toString());
                                 nCa.afficheEcole();
@@ -127,7 +134,8 @@ public class Main {
 
                             case 2:
                                 System.out.println("**************************** << Etape 2 suppression >> ***************************");
-                                s = saisie(new Scanner(System.in), "Dans quelle ville voulez-vous supprimer l'école => ");
+                                System.out.println("Dans quelle ville voulez-vous supprimer l'école => ");
+                                s = saisieVille(new Scanner(System.in),nCa);
                                 nCa.supprimerEcole(s);
                                 nCa.afficheEcole();
                                 break;
@@ -145,12 +153,13 @@ public class Main {
                 default:
                 break;
             }
-        } while(option!=0);
+        } while(option != 0);
+        scanner.close();
     }
 
+
     /**
-     * Teste du programme
-     * @param args
+     * Fonction main.
      */
     public static void main(String[] args) {
         CA2 nCa = new CA2();

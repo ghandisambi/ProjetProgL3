@@ -1,6 +1,8 @@
 package com.company.nico;
 
 
+import com.company.ghandi.Ville2;
+
 import java.util.*;
 
 
@@ -58,15 +60,17 @@ public class CA2 {
     }
 
     Ville getVille (String name) {
-        Ville ville2 = new Ville(name);
+        Ville villeTmp = new Ville(name);
         for (Ville ville : voisin.keySet()) {
             if (ville.getNom().equals(name)) {
-                ville2 = (Ville) ville.clone();
+                villeTmp = (Ville) ville.clone();
             }
         }
-        if (ville2==null)
-            System.out.println("La ville"+name+"n'existe pas !");
-        return ville2;
+        if (villeTmp == null) {
+            System.out.println("La ville" + name + "n'existe pas !");
+            return null;
+        }
+        return villeTmp;
     }
 
     /**
@@ -125,12 +129,10 @@ public class CA2 {
     }
 
     public boolean parcourtVoisin(Ville nom, Ville nom2) {
-        System.out.println("nom :" + nom + " Get ville voisine : " + getVillesVoisinnes(nom));
         if (!ecole.containsKey(nom)) {
             if (getVillesVoisinnes(nom).size() != 1) {
                 for (Ville voisin : getVillesVoisinnes(nom)) {
                     if (ecole.containsKey(voisin) && !(voisin.equals(nom2))){
-                        System.out.println(voisin+"\t"+nom2);
                         return true;
                     }
                 }
@@ -141,20 +143,13 @@ public class CA2 {
             return true;
         }
     }
+
     /**
-     * Méthode SupprimerEcole permet de supprimer une ecole si celle-ci existe
-     * @param nomEcole: nom de la ville dans laquel supprimer l'école.
+     * Supprime une école si cela est possible.
+     *
+     * @param nomEcole
+     *  Le nom de l'école a supprimé.
      */
-    /*
-     * On regarder si tous les voisins de la villes ont une école
-     *   Si oui
-     *       on supprime
-     *   Sinon On regarde dans les voisins des voisins si il possede une ecole differente de celle qu'on veut supprimer
-     * Si Oui
-     *   on remove
-     * Sinon
-     *   Pas possible
-     * */
     public void supprimerEcole(String nomEcole) {
        Ville ville = getVille(nomEcole);
         boolean isPossible = false; // Au départ la suppression est impossible
@@ -171,25 +166,29 @@ public class CA2 {
             for (Ville ko : getVillesVoisinnes(ville)) {
                 eV1=ecole.get(ko);
                 if (eV1!=null) {
-                    System.out.println(ville +" va être supprimer de la liste de dependance de "+ko);
                     eV1.remove(ville);
                 }
             }
-            ecole.remove(ville);
+            ecole.remove(ville); // Si le retrait de l'école ne viole pas la contrainte d'accessibilité.
         } else System.out.println("La suppression de " + nomEcole + " est impossible");
     }
+
+
+   public boolean villeExist(String nomVille) {
+        Ville villeTmp = new Ville(nomVille);
+       return voisin.containsKey(villeTmp);
+    }
+
     /**
-     * La méthode ajouterVille permet d'ajouter une ville dans la collection de
-     * données rappel une ville est équivalente au sommet d'un graphe
-     * 
-     * @param nom
+     * Ajoute une ville a la communauter d'aglomération si elle n'existe pas déja.
+     *
+     * @param nomVille
+     *  Nom de la ville a ajouter
      */
-
-
-    public void ajouterVille(String nom) {
-        Ville v = getVille(nom);
+    public void ajouterVille(String nomVille) {
+        Ville v = getVille(nomVille);
          
-        if (voisin.containsKey(new Ville(nom))){ //
+        if (voisin.containsKey(new Ville(nomVille))){
             System.out.println("Cette ville existe déjà !");
         }
         voisin.putIfAbsent(v,new HashSet<>());
@@ -232,10 +231,8 @@ public class CA2 {
                     System.out.println("On ajouter " + villeTmpB + "au dependance de "+villeTmpA );
                     ecole.get(villeTmpB).add(villeTmpA); // On ajoute dans les dependance a l'ecole
                 }
-            } else System.out.println("la ville voisinne entrer n'existe pas");
-
-        } else System.out.println("la ville entrer n'existe pas");
-        afficheEcole();
+            } else System.out.println("la ville de départ n'existe pas");
+        } else System.out.println("la ville d'arriver n'existe pas");
        return voisin.containsKey(villeTmpA)&&voisin.containsKey(villeTmpB);
     }
 
