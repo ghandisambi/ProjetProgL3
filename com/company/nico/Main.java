@@ -112,10 +112,7 @@ public class Main {
 
                 case 2: /* Fin , on poursuit le programme */
                     nCa.initRoute();
-                    System.out.println("***************************  Nombre de voisin  ****************************");
-                    for(Ville m:nCa.getVoisin().keySet()){
-                        nCa.CompteVoisin(m);
-                    }
+                    System.out.println(nCa.toString());
                     do {
                         System.out.println("__________________________________________________________________________");
                         System.out.println("****************************  Etape 2   ***************************");

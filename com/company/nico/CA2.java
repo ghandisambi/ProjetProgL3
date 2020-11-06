@@ -1,9 +1,10 @@
 package com.company.nico;
 
 
-import com.company.ghandi.Ville2;
-
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 
 /**
@@ -196,30 +197,19 @@ public class CA2 {
     }
 
 
+
     /**
-     * La méthode supprimerVille permet de supprimer une ville de la collection
-     * de données
-     * @param nom
-     */
-    public void supprimerVille(String nom){
-        Ville v = new Ville(nom);
-        
-        voisin.values().forEach(e -> e.remove(v));
-        voisin.remove(new Ville(nom));
-    }
-    /**
-     * La méthode ajouterRoute permet d'ajouter une route (Arète)
-     * entre 2 ville. 
-     * Cette méthode crée une nouvelle arête et met à jour la carte des
-     * sommets adjacents. 
+     * Ajoute une route entre deux villes et met à jour leurs liste de voisins.
      * 
-     * @param nomVille
-     * @param nomVoisinne
+     * @param nomVilleA
+     *  Nom de la ville A a relier avec B.
+     * @param nomVilleB
+     *  Nom de la ville B a relier avec A
      */
-    public boolean ajouterRoute(String nomVille,String nomVoisinne) {
+    public boolean ajouterRoute(String nomVilleA,String nomVilleB) {
         /* Variables locales */
-        Ville villeTmpA = new Ville(nomVille);
-        Ville villeTmpB = new Ville(nomVoisinne);
+        Ville villeTmpA = new Ville(nomVilleA);
+        Ville villeTmpB = new Ville(nomVilleB);
 
         if(voisin.containsKey(villeTmpA)){ // Si la ville A existe
             if(voisin.containsKey(villeTmpB)){ // Si la ville B existe
@@ -243,24 +233,29 @@ public class CA2 {
      * Méthode AjouterEcole permet d'ajouter une et une seule école à une ville
      * si la ville existe 
      * @param nomVille
+     *  Nom de la ville dans laquelle ajouter l'école.
      * @return
+     *  Un booléen indiquant si la ville a bien était ajouter.
      */
-    public boolean ajouterEcole(String nomVille){
+    public boolean ajouterEcole(String nomVille) {
         Ville v = getVille(nomVille);
-        if(voisin.containsKey(v)) {
+        if (voisin.containsKey(v)) {
             ecole.putIfAbsent(v, getVillesVoisinnes(v));
-            for (Ville ville:getVillesVoisinnes(v)) {
+            for (Ville ville : getVillesVoisinnes(v)) {
                 ecole.get(ville).add(v); // On ajoute dans les dependance a l'ecole
             }
             return true;
-        }
-        else{
-             System.out.println("la ville n'existe pas");
-             return false;
+        } else {
+            System.out.println("la ville n'existe pas");
+            return false;
         }
     }
+
     /**
-     * méthode d'affichage
+     * Redéfinition de la classe toString.
+     *
+     * @return
+     *  Une chaine de caractère contenant les informations de la communauter d'aglomeration
      */
     @Override
     public String toString() {
@@ -271,25 +266,6 @@ public class CA2 {
         }
         sb.append("Ecole présent\n").append(ecole.keySet());
         return sb.toString();
-    }
-
-    /**
-     * compteur 
-     * compte le nombre de ville voision à une ville 
-     * @param m
-     */
-    public void CompteVoisin(Ville m){
-            m.setNombreDeVoisin(voisin.get(m).size());
-            System.out.println(m.toString()+" = "+m.getNombreDeVoisin()); 
-    }
-
-    /**
-     * getter de CA
-     * @return
-     */
-
-    public Map<Ville, Set<Ville>> getVoisin() {
-        return voisin;
     }
 
 }
