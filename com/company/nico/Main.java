@@ -72,7 +72,7 @@ public class Main {
      * @param nCa
      *  Communauter d'aglomeration
      */
-    public static void Affichage(CA nCa){
+    public static void Affichage(CA ca){
         int n = 0 ;
         String s;
         Scanner scanner = new Scanner(System.in);
@@ -86,59 +86,59 @@ public class Main {
         /* On crée n ville */
         for (int i = 0 ;i < n; i++){
             s = Character.toString(i+65); /* On rajoute 65 pour avoir la representation d'une lettre majuscule dans le code ASCII */
-            nCa.ajouterVille(s); /* On ajoute la ville créé a la CA */
+            ca.ajouterVille(s); /* On ajoute la ville créé a la CA */
         }
 
         /* Etape 1 */
         int option = 0;
         do {
-            System.out.println("__________________________________________________________________________");
-            System.out.println("****************************  Etape 1   ***************************");
-            option = menu(1,scanner); /* L'utilisateur choisit parmit les options de l'étape 1 */
+            System.out.println("*******************************  Etape 1   *******************************");
+            option = menu(1,scanner); /* L'utilisateur choisit parmi les options de l'étape 1. */
 
             switch(option) {
 
                 case 1: /* Ajouter une route */
-                    String v1,v2;
-                    do{
+                    String v1Tmp,v2Tmp;
+                    /* Tant que v1Tmp ou v2Tmp  */
+                    do { /* Tant que v1Tmp ou v2Tmp n'existe pas. */
                         System.out.println("Nom de la ville : ");
-                        v1 = saisieVille(new Scanner(System.in),nCa);
+                        v1Tmp = saisieVille(new Scanner(System.in),ca);
                         System.out.println("Nom de la ville voisine :");
-                        v2 = saisieVille(new Scanner(System.in),nCa);
-                    } while(!nCa.ajouterRoute(v1, v2));
-                    System.out.println("\n********  Voici la liste des villes et des routes entrer  *************** ");
-                    System.out.println(nCa.toString());
+                        v2Tmp = saisieVille(new Scanner(System.in),ca);
+                    } while(!ca.ajouterRoute(v1Tmp, v2Tmp));
+                    System.out.println("La route entre "+v1Tmp+" et "+v2Tmp+ " a était crée avec succès.");
                 break;
 
+                /* Etape 2 */
                 case 2: /* Fin , on poursuit le programme */
-                    System.out.println(nCa.toString());
-                    nCa.initRoute();
+                    /* Enlever ca.InitRoute() des commentaires pour initialiser le graphe présenté dans le sujet. */
+                    ca.initRoute();
+                    System.out.println(ca.toString());
                     do {
-                        System.out.println("__________________________________________________________________________");
-                        System.out.println("****************************  Etape 2   ***************************");
+                        System.out.println("********************************  Etape 2   *******************************");
                         option=menu(2,scanner);
-                        nCa.afficheEcole();
+                        ca.afficheEcole();
                         switch (option) {
                             case 1:
                                 do {
                                     System.out.println("************************** << Etape 2 ajout  >> *****************************");
                                     System.out.println("Dans quelle ville voulez-vous ajouter l'école => ");
-                                    s = saisieVille(new Scanner(System.in),nCa);
-                                } while (!nCa.ajouterEcole(s));
-                                System.out.println(nCa.toString());
-                                nCa.afficheEcole();
+                                    s = saisieVille(new Scanner(System.in),ca);
+                                } while (!ca.ajouterEcole(s));
+                                System.out.println(ca.toString());
+                                ca.afficheEcole();
                                 break;
 
                             case 2:
                                 System.out.println("**************************** << Etape 2 suppression >> ***************************");
                                 System.out.println("Dans quelle ville voulez-vous supprimer l'école => ");
-                                s = saisieVille(new Scanner(System.in),nCa);
-                                nCa.supprimerEcole(s);
-                                nCa.afficheEcole();
+                                s = saisieVille(new Scanner(System.in),ca);
+                                ca.supprimerEcole(s);
+                                ca.afficheEcole();
                                 break;
 
                             case 3:
-                                System.out.println("Fin programme");
+                                System.out.println("Fin du programme");
                                 option = 0;
                                 break;
 
@@ -159,7 +159,7 @@ public class Main {
      * Lancement du programme.
      */
     public static void main(String[] args) {
-        CA nCa = new CA();
-        Affichage(nCa);
+        CA ca = new CA();
+        Affichage(ca);
     }
 }

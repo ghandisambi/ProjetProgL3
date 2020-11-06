@@ -28,6 +28,7 @@ public class Ville implements Cloneable {
         return nom;
     }
 
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -46,14 +47,11 @@ public class Ville implements Cloneable {
             return false;
         Ville other = (Ville) obj;
         if (nom == null) {
-            if (other.nom != null)
-                return false;
-        } else if (!nom.equals(other.nom))
-            return false;
-        return true;
+            return other.nom == null;
+        } else return nom.equals(other.nom);
     }
 
-    // Méthodes
+   @Override
     public Object clone(){
         try {
             return super.clone();
