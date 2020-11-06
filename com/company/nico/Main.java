@@ -113,6 +113,7 @@ public class Main {
                         System.out.println("__________________________________________________________________________");
                         System.out.println("****************************  Etape 2   ***************************");
                         option=menu(2);
+                        nCa.afficheEcole();
                         switch (option) {
                             case 1:
                                 do {
@@ -127,7 +128,6 @@ public class Main {
                                 System.out.println("**************************** << Etape 2 suppression >> ***************************");
                                 s = saisie(new Scanner(System.in), "Dans quelle ville voulez-vous supprimer l'école => ");
                                 nCa.supprimerEcole(s);
-                                nCa.afficheEcole();
                                 break;
 
                             case 3:

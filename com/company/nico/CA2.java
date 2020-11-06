@@ -27,22 +27,32 @@ public class CA2 {
         this.ecole = new HashMap<Ville, Set<Ville>>();
     }
 
+    public void initRoute(){
+        ajouterRoute("A", "B");
+        ajouterRoute("A", "D");
+        ajouterRoute("B","C");
+        ajouterRoute("B", "H");
+        ajouterRoute("C", "I");
+        ajouterRoute("C", "D");
+        ajouterRoute("D", "E");
+        ajouterRoute("E","F");
+        ajouterRoute("E", "G");
+        ajouterRoute("H", "K");
+        ajouterRoute("H", "J");
+        ajouterRoute("H","I");
+    }
 
     public void afficheEcole() {
         System.out.println("Voici la liste des villes possédant une école :");
         for (Ville ville2 : ecole.keySet()) {
             System.out.print(ville2.getNom()+" \t");
         }
-
-        System.out.println("liste de voisin :");
         System.out.println();
-        for (Ville v: voisin.keySet()) {
-            System.out.print(v);
-        }
-
-        System.out.println();
-        for (Set<Ville> v: voisin.values()) {
-            System.out.print(v);
+        for (Ville ville : ecole.keySet()){ // Pour chaque ecole
+            System.out.println(ville.toString()+" depend");
+            for (Ville ville1: ecole.get(ville)){ // Pour chaque dependance
+                System.out.print(ville1.toString()+"\t");}
+            System.out.println();
         }
     }
 
@@ -65,36 +75,85 @@ public class CA2 {
      * @param nom: Nom de la ville dans laquel il faut rechercher les voisins
      * @return  voisin.get(nom):
      */
-    public Set<Ville> getVillesVoisinnes(Ville nom) { return voisin.get(nom); }
+    public Set<Ville> getVillesVoisinnes(Ville nom) {
+        return voisin.get(nom);
+    }
 
-    public Set<Ville> getEcolesDependante(Ville nom) { return voisin.get(nom);}
+    public Set<Ville> getEcolesDependante(Ville nom) {
+        return ecole.get(nom);
+    }
 
+    public int getTaille(Ville nom) {
+        if (getEcolesDependante(nom)!=null) {
+            return getEcolesDependante(nom).size();
+        }else
+            return 0;
+    }
+
+    /**
+     * La méthode supprimer Route permet de supprimer une route (Arète)
+     * entre 2 ville
+     * @param nomVille
+     * @param nomVoisinne
+     */
+
+    public void supprimerRoute(String nomVille,String nomVoisinne) {
+        Ville v1= new Ville(nomVille);
+        Ville v2= new Ville(nomVoisinne);
+        Set<Ville> eV1 = voisin.get(v1);
+        Set<Ville> eV2 = voisin.get(v2);
+        if (eV1 !=null){
+            eV1.remove(v2);
+        }
+        if (eV2 !=null){
+            eV2.remove(v1);
+        }
+    }
     /**
      * Méthode SupprimerEcole permet de supprimer une ecole si celle-ci existe
      * @param nomVilleDeEcole: nom de la ville dans laquel supprimer l'école.
      */
     public void supprimerEcole(String nomVilleDeEcole) {
-       Ville ville2 = getVille(nomVilleDeEcole);
-       if (ecole.containsKey(ville2)) { /* Si l'école existe dans la ville */
-            if (!getVillesVoisinnes(ville2).isEmpty()) { /* Si la ville a un voisin qui depend de son école */
-                if (ecole.get(ville2).isEmpty()) {
-                    System.out.println("On peut la supprimer car aucune autre ville ne depend de l'ecole");
-                    ecole.remove(ville2); /* On la supprime */
-                } else {
-                    for (Ville v: getEcolesDependante(ville2)) {
-                        System.out.println("boucle");
-                        if (ecole.get(v)==null && ecole.get(v).size() == 1) {
-                            System.out.println("Pas possible car ");
-                            break;
-                        } else {
-                            System.out.println("Possible");
-                            for (Ville ville: ecole.get(v))
-                            ecole.remove(ville2);
+       Ville ville = getVille(nomVilleDeEcole); //Ville de l'école
+       if (ecole.containsKey(ville)) { /* Si l'école existe dans la ville */
+            if (!getVillesVoisinnes(ville).isEmpty()) { /* Si la ville n'a aucun voisin */
+                System.out.println(getVillesVoisinnes(ville));
+
+                    for (Ville vik:getVillesVoisinnes(ville)){
+                        System.out.println("on traite la ville :"+vik.toString()+"il a une taille "+getTaille(vik));
+                        if (!ecole.containsKey(vik) && ecole.get(vik)==null && getTaille(vik)==0) { //Si le voisin ne depend que de cette école
+                            System.out.println((!ecole.containsKey(vik)?"Premiere":"deuxieme"));
+                            System.out.println("Pas possible 1");
+                            return;
                         }
                     }
-                }
-            } else System.out.println("pas possible car pas de voisins");
-        } else System.out.println("pas possible");
+
+                    for (Ville v: getVillesVoisinnes(ville)) { // Pour chaque voisin
+                        if (getTaille(v) !=0 && ecole.get(v) == null) { //Si le voisin ne depend que de cette école
+                            System.out.println("Pas possible 2");
+                            break;
+                        } else {
+                             Set<Ville> eV1;
+                             for (Ville ko : getVillesVoisinnes(ville)) {
+                                 System.out.println("boucle");
+                                 eV1=ecole.get(ko);
+                                 if (eV1!=null) {
+                                     System.out.println(ville +" va être supprimer de la liste de dependance de "+ko);
+                                     eV1.remove(ville);
+                                 }
+                            }
+                             System.out.println("L'école de "+ville +" va etre supprimer");
+                             ecole.remove(ville);
+                             break;
+                        }
+                    }
+
+
+
+
+
+            } else System.out.println("Pas possible car la ville ne depend d'aucune autre école car elle n'a pas de voisin");
+        } else System.out.println("Pas possible");
     }
     /**
      * La méthode ajouterVille permet d'ajouter une ville dans la collection de
@@ -140,39 +199,24 @@ public class CA2 {
         Ville villeTmpA = new Ville(nomVille);
         Ville villeTmpB = new Ville(nomVoisinne);
 
-        if(voisin.containsKey(villeTmpA)){
-            if(voisin.containsKey(villeTmpB)){
-                if(!villeTmpA.equals(villeTmpB)){
-                    voisin.get(villeTmpA).add(villeTmpB);
-                    voisin.get(villeTmpB).add(villeTmpA);
-                    ecole.get(villeTmpA).add(villeTmpB);
-                    ecole.get(villeTmpB).add(villeTmpB);
+        if(voisin.containsKey(villeTmpA)){ // Si la ville A existe
+            if(voisin.containsKey(villeTmpB)){ // Si la ville B existe
+                if(!villeTmpA.equals(villeTmpB)){ // Si les deux ville ne sont pas les mêmes
+                    voisin.get(villeTmpA).add(villeTmpB); // On ajoute la ville A comme voisine de B
+                    voisin.get(villeTmpB).add(villeTmpA); // On ajoute la ville B comme voisine de A
+                    System.out.println("On ajouter " + villeTmpA + "au dependance de "+villeTmpB );
+                    ecole.get(villeTmpA).add(villeTmpB); // On ajoute dans les dependance a l'ecole
+                    System.out.println("On ajouter " + villeTmpB + "au dependance de "+villeTmpA );
+                    ecole.get(villeTmpB).add(villeTmpA); // On ajoute dans les dependance a l'ecole
                 }
             } else System.out.println("la ville voisinne entrer n'existe pas");
 
         } else System.out.println("la ville entrer n'existe pas");
+        afficheEcole();
        return voisin.containsKey(villeTmpA)&&voisin.containsKey(villeTmpB);
     }
 
-    /**
-     * La méthode supprimer Route permet de supprimer une route (Arète)
-     * entre 2 ville
-     * @param nomVille
-     * @param nomVoisinne
-     */
 
-    public void supprimerRoute(String nomVille,String nomVoisinne ){
-        Ville v1= new Ville(nomVille);
-        Ville v2= new Ville(nomVoisinne);
-        Set<Ville> eV1 = voisin.get(v1);
-        Set<Ville> eV2 = voisin.get(v2);
-        if (eV1 !=null){
-            eV1.remove(v2);
-        }
-        if (eV2 !=null){
-            eV2.remove(v1);
-        }
-    }
     
  
     /**
@@ -185,6 +229,9 @@ public class CA2 {
         Ville v = getVille(nomVille);
         if(voisin.containsKey(v)) {
             ecole.putIfAbsent(v, getVillesVoisinnes(v));
+            for (Ville ville:getVillesVoisinnes(v)) {
+                ecole.get(ville).add(v); // On ajoute dans les dependance a l'ecole
+            }
             return true;
         }
         else{
