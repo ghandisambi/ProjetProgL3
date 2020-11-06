@@ -69,7 +69,7 @@ public class Main {
 
     /**
      * Affichage du programme.
-     * @param nCa
+     * @param Ca
      *  Communauter d'aglomeration
      */
     public static void Affichage(CA ca){
