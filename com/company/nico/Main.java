@@ -111,8 +111,8 @@ public class Main {
                 break;
 
                 case 2: /* Fin , on poursuit le programme */
-                    nCa.initRoute();
                     System.out.println(nCa.toString());
+                    nCa.initRoute();
                     do {
                         System.out.println("__________________________________________________________________________");
                         System.out.println("****************************  Etape 2   ***************************");

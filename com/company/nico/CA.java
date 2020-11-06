@@ -144,6 +144,15 @@ public class CA {
         }
     }
 
+    public boolean dependance(String nom) {
+        boolean y =false;
+        if (ecole.containsKey(nom)) {
+            y=true;
+            return y;
+        } else
+            return y;
+    }
+
     /**
      * Supprime une école si cela est possible.
      *
@@ -153,10 +162,21 @@ public class CA {
     public void supprimerEcole(String nomEcole) {
        Ville ville = getVille(nomEcole);
         boolean isPossible = false; // Au départ la suppression est impossible
+        boolean b = false;
+        for (Ville voisin:getVillesVoisinnes(getVille(nomEcole))) {
+            if (dependance(voisin.getNom())){
+                b = true;
+                break;
+            }
+        }
+        if (!b) {
+            System.out.println("La ville n'est relié a aucune autre école");
+            return;
+        }
+        System.out.println("ici notre boolean est "+b);
+
         if (tousVoisinsOntEcole(ville))// Si tous les voisins possédent une école il n'y pas de problème.
             isPossible = true;
-
-        System.out.println(ville);
         for (Ville voisin : getVillesVoisinnes(ville)) {
             System.out.println("On traite du sommet "+voisin);
             isPossible = parcourtVoisin(voisin.getNom(), ville.getNom());
