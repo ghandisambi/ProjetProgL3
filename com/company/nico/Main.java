@@ -112,7 +112,7 @@ public class Main {
                 /* Etape 2 */
                 case 2: /* Fin , on poursuit le programme. */
                     /* Enlever ca.InitRoute() des commentaires pour initialiser le graphe présenté dans le sujet. */
-                    // ca.initRoute();
+                     ca.initRoute();
                     System.out.println(ca.toString());
                     do {
                         System.out.println("********************************  Etape 2   *******************************");
