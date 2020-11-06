@@ -105,6 +105,7 @@ public class Main {
                 break;
 
                 case 2: /* Fin , on poursuit le programme */
+                    nCa.initRoute();
                     System.out.println("***************************Nombre de voisin****************************");
                     for(Ville m:nCa.getVoisin().keySet()){
                         nCa.CompteVoisin(m);
@@ -128,6 +129,7 @@ public class Main {
                                 System.out.println("**************************** << Etape 2 suppression >> ***************************");
                                 s = saisie(new Scanner(System.in), "Dans quelle ville voulez-vous supprimer l'école => ");
                                 nCa.supprimerEcole(s);
+                                nCa.afficheEcole();
                                 break;
 
                             case 3:

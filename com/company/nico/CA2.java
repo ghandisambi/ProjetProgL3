@@ -28,31 +28,24 @@ public class CA2 {
     }
 
     public void initRoute(){
-        ajouterRoute("A", "B");
-        ajouterRoute("A", "D");
-        ajouterRoute("B","C");
-        ajouterRoute("B", "H");
-        ajouterRoute("C", "I");
-        ajouterRoute("C", "D");
-        ajouterRoute("D", "E");
-        ajouterRoute("E","F");
+        ajouterRoute("F", "E");
         ajouterRoute("E", "G");
-        ajouterRoute("H", "K");
-        ajouterRoute("H", "J");
-        ajouterRoute("H","I");
+        ajouterRoute("E","D");
+        ajouterRoute("D", "A");
+        ajouterRoute("D", "C");
+        ajouterRoute("A", "B");
+        ajouterRoute("B", "C");
+        ajouterRoute("C", "I");
+        ajouterRoute("B", "H");
+        ajouterRoute("H", "I");
+        ajouterRoute("H","J");
+        ajouterRoute("H","K");
     }
 
     public void afficheEcole() {
         System.out.println("Voici la liste des villes possédant une école :");
         for (Ville ville2 : ecole.keySet()) {
             System.out.print(ville2.getNom()+" \t");
-        }
-        System.out.println();
-        for (Ville ville : ecole.keySet()){ // Pour chaque ecole
-            System.out.println(ville.toString()+" depend");
-            for (Ville ville1: ecole.get(ville)){ // Pour chaque dependance
-                System.out.print(ville1.toString()+"\t");}
-            System.out.println();
         }
     }
 
@@ -109,51 +102,63 @@ public class CA2 {
             eV2.remove(v1);
         }
     }
+
+
+    public boolean tousVoisinsOntEcole(Ville ville) {
+        boolean bool = true;
+        for (Ville voisin:getVillesVoisinnes(ville)){
+            if (!ecole.containsKey(voisin))
+                bool= false;
+        }
+        return bool;
+    }
+    public boolean voisinPossedeEcoleDifferente(Ville nom,Ville nom2){
+        for (Ville ville:getVillesVoisinnes(nom)) {
+            if (ecole.containsKey(nom) && ville!=nom2){
+                return true;
+            }
+        }
+        return false;
+    }
     /**
      * Méthode SupprimerEcole permet de supprimer une ecole si celle-ci existe
      * @param nomVilleDeEcole: nom de la ville dans laquel supprimer l'école.
      */
+    /*
+     * On regarder si tous les voisins de la villes ont une école
+     *   Si oui
+     *       on supprime
+     *   Sinon On regarde dans les voisins des voisins si il possede une ecole differente de celle qu'on veut supprimer
+     * Si Oui
+     *   on remove
+     * Sinon
+     *   Pas possible
+     * */
     public void supprimerEcole(String nomVilleDeEcole) {
        Ville ville = getVille(nomVilleDeEcole); //Ville de l'école
-       if (ecole.containsKey(ville)) { /* Si l'école existe dans la ville */
-            if (!getVillesVoisinnes(ville).isEmpty()) { /* Si la ville n'a aucun voisin */
-                System.out.println(getVillesVoisinnes(ville));
 
-                    for (Ville vik:getVillesVoisinnes(ville)){
-                        System.out.println("on traite la ville :"+vik.toString()+"il a une taille "+getTaille(vik));
-                        if (!ecole.containsKey(vik) && ecole.get(vik)==null && getTaille(vik)==0) { //Si le voisin ne depend que de cette école
-                            System.out.println((!ecole.containsKey(vik)?"Premiere":"deuxieme"));
-                            System.out.println("Pas possible 1");
-                            return;
-                        }
-                    }
-
-                    for (Ville v: getVillesVoisinnes(ville)) { // Pour chaque voisin
-                        if (getTaille(v) !=0 && ecole.get(v) == null) { //Si le voisin ne depend que de cette école
-                            System.out.println("Pas possible 2");
-                            break;
-                        } else {
-                             Set<Ville> eV1;
-                             for (Ville ko : getVillesVoisinnes(ville)) {
-                                 System.out.println("boucle");
-                                 eV1=ecole.get(ko);
-                                 if (eV1!=null) {
-                                     System.out.println(ville +" va être supprimer de la liste de dependance de "+ko);
-                                     eV1.remove(ville);
-                                 }
-                            }
-                             System.out.println("L'école de "+ville +" va etre supprimer");
-                             ecole.remove(ville);
-                             break;
-                        }
-                    }
+        boolean b=false;
+        if (tousVoisinsOntEcole(ville))
+            b = true;
 
 
-
-
-
-            } else System.out.println("Pas possible car la ville ne depend d'aucune autre école car elle n'a pas de voisin");
-        } else System.out.println("Pas possible");
+        for (Ville voisin:getVillesVoisinnes(ville)){
+            if(voisinPossedeEcoleDifferente(voisin,ville))
+                b=true;
+            System.out.println(b);
+        }
+        System.out.println(b);
+        if (b) {
+            Set<Ville> eV1;
+            for (Ville ko : getVillesVoisinnes(ville)) {
+                eV1=ecole.get(ko);
+                if (eV1!=null) {
+                    System.out.println(ville +" va être supprimer de la liste de dependance de "+ko);
+                    eV1.remove(ville);
+                }
+            }
+            ecole.remove(ville);
+        } else System.out.println("Pas possible 2");
     }
     /**
      * La méthode ajouterVille permet d'ajouter une ville dans la collection de
