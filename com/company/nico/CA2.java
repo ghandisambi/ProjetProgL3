@@ -238,17 +238,21 @@ public class CA2 {
      *  Un booléen indiquant si la ville a bien était ajouter.
      */
     public boolean ajouterEcole(String nomVille) {
-        Ville v = getVille(nomVille);
-        if (voisin.containsKey(v)) {
-            ecole.putIfAbsent(v, getVillesVoisinnes(v));
-            for (Ville ville : getVillesVoisinnes(v)) {
-                ecole.get(ville).add(v); // On ajoute dans les dependance a l'ecole
+        Ville villeTMp = getVille(nomVille); // On récupère l'objet de la ville a traiter.
+        if (voisin.containsKey(villeTMp)) { // Si la ville existe pas.
+            ecole.putIfAbsent(villeTMp, getVillesVoisinnes(villeTMp)); // On ajoute une école a la ville si cel ci n'en possède pas.
+            System.out.println(getVillesVoisinnes(villeTMp));
+            for (Ville ville : getVillesVoisinnes(villeTMp)) { // Pour toute ville voisine de notre école.
+                if (ecole.get(ville)!=null) {
+                    System.out.println("On ajoute "+ville +"\t"+ecole.get(villeTMp));
+                    ecole.get(villeTMp).add(ville); // On ajoute notre ville dans la liste
+                }
             }
+            System.out.println("Une école viens d'étre construite dans la ville "+villeTMp.getNom());
             return true;
-        } else {
-            System.out.println("la ville n'existe pas");
-            return false;
         }
+        System.out.println("la ville n'existe pas");
+        return false;
     }
 
     /**
