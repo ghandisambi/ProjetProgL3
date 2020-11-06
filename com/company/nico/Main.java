@@ -73,7 +73,7 @@ public class Main {
      *  Communauter d'aglomeration
      */
     public static void Affichage(CA ca){
-        int n = 0 ;
+        int n;
         String s;
         Scanner scanner = new Scanner(System.in);
 
