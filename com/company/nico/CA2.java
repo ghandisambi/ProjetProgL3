@@ -40,6 +40,14 @@ public class CA2 {
         ajouterRoute("H", "I");
         ajouterRoute("H","J");
         ajouterRoute("H","K");
+        supprimerEcole("F");
+        supprimerEcole("G");
+        supprimerEcole("A");
+        supprimerEcole("D");
+        supprimerEcole("C");
+        supprimerEcole("I");
+        supprimerEcole("J");
+        supprimerEcole("K");
     }
 
     public void afficheEcole() {
@@ -107,22 +115,35 @@ public class CA2 {
     public boolean tousVoisinsOntEcole(Ville ville) {
         boolean bool = true;
         for (Ville voisin:getVillesVoisinnes(ville)){
-            if (!ecole.containsKey(voisin))
-                bool= false;
+            if (!ecole.containsKey(voisin)) {
+                bool = false;
+                break;
+            }
+            System.out.println(voisin+" possède ecole");
         }
         return bool;
     }
-    public boolean voisinPossedeEcoleDifferente(Ville nom,Ville nom2){
-        for (Ville ville:getVillesVoisinnes(nom)) {
-            if (ecole.containsKey(nom) && ville!=nom2){
-                return true;
-            }
+
+    public boolean parcourtVoisin(Ville nom, Ville nom2) {
+        System.out.println("nom :" + nom + " Get ville voisine : " + getVillesVoisinnes(nom));
+        if (!ecole.containsKey(nom)) {
+            if (getVillesVoisinnes(nom).size() != 1) {
+                for (Ville voisin : getVillesVoisinnes(nom)) {
+                    if (ecole.containsKey(voisin) && !(voisin.equals(nom2))){
+                        System.out.println(voisin+"\t"+nom2);
+                        return true;
+                    }
+                }
+                return false;
+            } else return false;
+        } else {
+            System.out.println(nom+" contient une ecole");
+            return true;
         }
-        return false;
     }
     /**
      * Méthode SupprimerEcole permet de supprimer une ecole si celle-ci existe
-     * @param nomVilleDeEcole: nom de la ville dans laquel supprimer l'école.
+     * @param nomEcole: nom de la ville dans laquel supprimer l'école.
      */
     /*
      * On regarder si tous les voisins de la villes ont une école
@@ -134,21 +155,18 @@ public class CA2 {
      * Sinon
      *   Pas possible
      * */
-    public void supprimerEcole(String nomVilleDeEcole) {
-       Ville ville = getVille(nomVilleDeEcole); //Ville de l'école
+    public void supprimerEcole(String nomEcole) {
+       Ville ville = getVille(nomEcole);
+        boolean isPossible = false; // Au départ la suppression est impossible
+        if (tousVoisinsOntEcole(ville))// Si tous les voisins possédent une école il n'y pas de problème.
+            isPossible = true;
 
-        boolean b=false;
-        if (tousVoisinsOntEcole(ville))
-            b = true;
+            for (Ville voisin : getVillesVoisinnes(ville)) {
+                isPossible = parcourtVoisin(voisin, ville);
+                if (!isPossible) break;
+            }
 
-
-        for (Ville voisin:getVillesVoisinnes(ville)){
-            if(voisinPossedeEcoleDifferente(voisin,ville))
-                b=true;
-            System.out.println(b);
-        }
-        System.out.println(b);
-        if (b) {
+        if (isPossible) {
             Set<Ville> eV1;
             for (Ville ko : getVillesVoisinnes(ville)) {
                 eV1=ecole.get(ko);
@@ -158,7 +176,7 @@ public class CA2 {
                 }
             }
             ecole.remove(ville);
-        } else System.out.println("Pas possible 2");
+        } else System.out.println("La suppression de " + nomEcole + " est impossible");
     }
     /**
      * La méthode ajouterVille permet d'ajouter une ville dans la collection de
