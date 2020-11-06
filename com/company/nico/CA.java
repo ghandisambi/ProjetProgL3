@@ -58,6 +58,7 @@ public class CA {
         return voisin.get(ville);
     }
 
+
     /**
      * Permets d'initialiser automatiquement le graphe proposé dans le sujet.
      * */
@@ -84,6 +85,7 @@ public class CA {
         supprimerEcole("K");
     }
 
+
     /**
      * Affiche les villes possédant une école.
      */
@@ -94,6 +96,7 @@ public class CA {
         }
         System.out.println("\n");
     }
+
 
     /**
      * Ajouter une ville si elle n'existe pas déja.
@@ -114,14 +117,24 @@ public class CA {
 
 
     /**
-     * Parcours
+     * À partir d'un sommet de référence et d'un sommet voisin du sommet de référence on vérifie si ce sommet voisin
+     * peut dépendre d'une autre école différente de l'école du sommet de référence.
+     *
+     * @param sommetVoisin
+     *  Nom du sommet voisin au sommet de référence à parcourir.
+     * @param sommetRef
+     *  Nom du sommet de référence.
+     * @return
+     *  true : si le sommet de référence peut dépendre d'une autre école.
+     * @return
+     * false : si le sommet de référence ne peut dépendre d'une autre école.
      */
-    public boolean parcourtSommet(String nom, String nom2) {
+    public boolean parcourtSommet(String sommetVoisin, String sommetRef) {
 
-        if (!ecole.containsKey(nom)) {
-            if (getVillesVoisinnes(getVille(nom)).size() != 1) {
-                for (Ville voisin : getVillesVoisinnes(getVille(nom))) {
-                    if (ecole.containsKey(voisin.getNom()) && !(voisin.getNom().equals(nom2))) {
+        if (!ecole.containsKey(sommetVoisin)) {
+            if (getVillesVoisinnes(getVille(sommetVoisin)).size() != 1) {
+                for (Ville voisin : getVillesVoisinnes(getVille(sommetVoisin))) {
+                    if (ecole.containsKey(voisin.getNom()) && !(voisin.getNom().equals(sommetRef))) {
                         return true;
                     }
                 }
@@ -132,23 +145,6 @@ public class CA {
         }
     }
 
-    /**
-     * Test si la ville donnée en argument possède une école.
-     *
-     * @param nomVille Nom de la ville tester.
-     * @return true : si la ville possède une école.
-     * false : si la ville ne possède pas d'école.
-     */
-    public boolean dependance(String nomVille) {
-        boolean y = false;
-        if (ecole.containsKey(nomVille)) {
-            y = true;
-            return y;
-        } else {
-            System.out.println("Erreur - impossible car "+nomVille+" ne dépendra plus d'aucune école.");
-            return y;
-        }
-    }
 
     /**
      * Supprime une école si cela est possible.
@@ -186,6 +182,26 @@ public class CA {
             ecole.remove(ville.getNom()); // Si le retrait de l'école ne viole pas la contrainte d'accessibilité.
         } else System.out.println("La suppression de " + nomEcole + " est impossible.");
     }
+
+
+    /**
+     * Test si la ville donnée en argument possède une école.
+     *
+     * @param nomVille Nom de la ville tester.
+     * @return true : si la ville possède une école.
+     * false : si la ville ne possède pas d'école.
+     */
+    public boolean dependance(String nomVille) {
+        boolean y = false;
+        if (ecole.containsKey(nomVille)) {
+            y = true;
+            return y;
+        } else {
+            System.out.println("Erreur - impossible car "+nomVille+" ne dépendra plus d'aucune école.");
+            return y;
+        }
+    }
+
 
     /**
      * Vérifie si une ville existe.
@@ -240,6 +256,7 @@ public class CA {
         System.out.println("la ville n'existe pas");
         return false;
     }
+
 
     /**
      * Redéfinition de la classe toString.

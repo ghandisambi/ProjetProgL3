@@ -110,9 +110,9 @@ public class Main {
                 break;
 
                 /* Etape 2 */
-                case 2: /* Fin , on poursuit le programme */
+                case 2: /* Fin , on poursuit le programme. */
                     /* Enlever ca.InitRoute() des commentaires pour initialiser le graphe présenté dans le sujet. */
-                    ca.initRoute();
+                    // ca.initRoute();
                     System.out.println(ca.toString());
                     do {
                         System.out.println("********************************  Etape 2   *******************************");
@@ -145,7 +145,7 @@ public class Main {
                             default:
                                 break;
                         }
-                    } while (option != 0); /* Tant qu'on ne demande pas la fin du programme on reste a l'étape 2 */
+                    } while (option != 0); /* Tant qu'on ne demande pas la fin du programme on reste a l'étape 2. */
                     break;
                 default:
                 break;
