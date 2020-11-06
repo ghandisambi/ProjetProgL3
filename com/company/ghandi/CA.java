@@ -1,6 +1,7 @@
 package com.company.ghandi;
 
 import java.util.*;
+import java.util.concurrent.RecursiveAction;
 
 
 /**
@@ -125,21 +126,16 @@ public class CA {
      * Méthode SupprimerEcole permet de supprimer une ecole si celle-ci existe 
      * @param ville
      */
+
     public void supprimerEcole(Ville2 ville){
-           
             
-            if (ecole.containsValue(ville))   { /* Si l'école existe */
-                
-                if(!getVillesVoisinnes(ville).isEmpty()) {
-                if(iteration(ville)){
-                ecole.remove(ville.getEcole());
-                System.out.println("Vous avez supprimez l'école dans la ville " + ville.toString() + ".");
-                }
-                }else{
-                System.out.println(ville.getNom()+" n'a pas de voisin. Vous ne pouvrez pas supprimez l'école "+ville.getEcole()+" dans cette ville."); 
-                }
-             }
-            else System.out.println("La ville "+ ville.toString() + " ne possédent pas d'école.");
+            if(test(ville))
+            { ecole.remove(ville.getEcole());/** Si les test de la méthode test renvoie vrai on supprime l'école */
+              System.out.println("Vous avez supprimez l'école dans la ville " + ville.toString() + ".");
+            }else {
+                System.out.println(ville.getNom()+" n'a pas de voisin. Vous ne pouvrez pas supprimez l'école "+ville.getEcole()+" dans cette ville.");
+            }
+           
     }
 
     /**
@@ -197,40 +193,85 @@ public class CA {
         return voisin;
     }
 
-   
+    public boolean villePossedeEcole(Ville2 ville){
+        return ecole.containsKey(ville.getEcole());
+    }
+
+    public boolean test(Ville2 ville){
+        boolean rep = true;
+        if (villePossedeEcole(ville))
+            if(!getVillesVoisinnes(ville).isEmpty())rep=supprimerSiVoisin(getVillesVoisinnes(ville));
+            else rep=false;
+        else {
+            rep = false;
+            System.out.println("La ville "+ ville.toString() + " ne possédent pas d'école.");
+        }
+        return rep;
+    }
+    private boolean supprimerSiVoisin(Set<Ville2> listVoisin){
+        boolean rep = true;
+        Set<Ville2> listeDesVillesProblematique= new HashSet<Ville2>();
+        Map<Ville2,Boolean> testSiVpossedeE= new HashMap<Ville2,Boolean>();
+        for (Ville2 ville : listVoisin) {
+            testSiVpossedeE.putIfAbsent(ville, villePossedeEcole(ville));
+        }
+        for(Map.Entry<Ville2,Boolean> valeurTest: testSiVpossedeE.entrySet()){
+            rep= rep && valeurTest.getValue();
+            if(!rep){
+                listeDesVillesProblematique.add(valeurTest.getKey());
+            }
+        }
+
+        if(rep) return true;
+        else {
+            if(!listeDesVillesProblematique.isEmpty()) return false;
+            else return false;
+        }
+    }
+
+
+    
     public boolean iteration(Ville2 ville) {
-        boolean villePossedeEcole =true;
+        
+        System.out.println("************|Vous voulais supprimer la ville "+ville+" |*************");
+       
         boolean reponseFinal = true;
         Ville2 villeVoisin; 
         Ville2 villeVoisin2;
+        Set<Ville2>clone= new HashSet<Ville2>();
+        Set<Ville2>clone0= new HashSet<Ville2>();
         System.out.println("la ville "+ville.getNom()+" possède l'ecole (nom de l'école: |"+ville.getEcole()+"|) elle a pour voisin :");
+        clone0= getVillesVoisinnes(ville);
         Iterator it = getVillesVoisinnes(ville).iterator(); /** liste des villes voisinnes de la ville à supprimer */
         while(it.hasNext()){ /** on parcourt la liste des voisins de la ville à supprimer  */
             villeVoisin=contientVille(it.next().toString()); /** correspond au voisin selectionner dans la liste */
             System.out.print("\t- La ville "+villeVoisin+" qui est liée à lui ("+ville+"-->"+villeVoisin+")");
             if(ecole.containsKey(villeVoisin.getEcole())) { /** Si la ville voisinne possède une ecole */
+                clone.add(villeVoisin);
                 System.out.println(" et possède l'ecole "+ villeVoisin.getEcole()+" dont la ville "+ville+" dépendra");
                 
             }
             else{ /** Si la ville voisinne ne possède pas d'ecole */
                 System.out.println(" dépend de lui ");
                 
+                Set<Ville2> clone2 = getVillesVoisinnes(villeVoisin);
                 it = getVillesVoisinnes(villeVoisin).iterator(); /** Pour chacun des voisins de la ville voisinne  */
-                Set<Ville2> clone = getVillesVoisinnes(villeVoisin);
+                
                 System.out.println("*************************************************************************");
-                System.out.println("parcourt des voisins "+villeVoisin+clone.contains(villeVoisin)+villeVoisin+" et contient ville "+villeVoisin+clone.contains(ville)+ville+" et la liste est "+clone.toString());
+                System.out.println("parcourt des voisins "+villeVoisin+clone2.contains(villeVoisin)+villeVoisin+" et contient ville "+villeVoisin+clone2.contains(ville)+ville+
+                                    " et la liste est (clone2) "+clone2.toString()+" plus le clone"+clone.toString()+
+                                    " clone0 est"+clone0.toString()+" j'enleve J dans clone0");
                 System.out.println("*************************************************************************");
                 while(it.hasNext()){ /** on parcourt la liste des voisins de la ville voisinne */
                     villeVoisin2=contientVille(it.next().toString()); /** correspond au voisin selectionner dans la liste */
                     
-                    if(ecole.containsKey(villeVoisin2.getEcole())&&!ecole.containsValue(villeVoisin)&&!ecole.containsValue(ville)){ /** Si le voisin de la  ville voisinne possède une ecole  */
-                        System.out.println(". Mais un de ses voisins possède une école donc, il est liée à l'école("+ville.getEcole()+") de la ville "+ville);
-                    }else if(ecole.containsValue(ville)&&ecole.containsKey(villeVoisin2.getEcole())){/** si la ville que l'on doit supprimer contient bien une ecole  */
+                  if(ecole.containsValue(ville)&&ecole.containsKey(villeVoisin2.getEcole())){/** si la ville que l'on doit supprimer contient bien une ecole  */
                         System.out.println("la ville "+villeVoisin2+" est voisin de "+villeVoisin);
+                        //**continue */
                         reponseFinal=false;
                     }
                     else{
-
+                        
                         System.out.println(" et aucune de ses villes voisinnes en possède.");
                         reponseFinal=false;
                     }
@@ -248,6 +289,7 @@ public class CA {
 
        return new Ville2(s,e);
     }
+
     public void initRoute(){
         ajouterRoute(contientVille("A"), contientVille("B"));
         ajouterRoute(contientVille("A"), contientVille("D"));
@@ -280,6 +322,26 @@ public class CA {
         supprimerEcole(contientVille("D"));
         supprimerEcole(contientVille("E"));
         
+    }
+
+    public static Set<Ville2> parcourtEnprofondeur(CA graph, Ville2 ville) {
+        Set<Ville2> visited = new LinkedHashSet<Ville2>();
+        Stack<Ville2> stack = new Stack<Ville2>();
+        stack.push(ville);
+        while (!stack.isEmpty()) {
+            Ville2 vertex = stack.pop();
+            if (!visited.contains(vertex)) {
+                  visited.add(vertex);
+                for (Ville2 v : graph.getVillesVoisinnes(ville)) {
+                    stack.push(v);
+                    System.out.println(ville+ "-> "+graph.getVillesVoisinnes(v).toString());  
+                      
+                    
+                }
+                
+            }
+        }
+        return visited;
     }
 
 

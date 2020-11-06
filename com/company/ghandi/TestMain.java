@@ -162,6 +162,18 @@ public class TestMain {
     public static void main(String[] args) {
         CA nCa = new CA();
         Affichage(nCa);
+        System.out.println(CA.parcourtEnprofondeur(nCa, nCa.contientVille("A")).toString());
+        System.out.println(CA.parcourtEnprofondeur(nCa, nCa.contientVille("B")).toString());
+        System.out.println(CA.parcourtEnprofondeur(nCa, nCa.contientVille("C")).toString());
+        System.out.println(CA.parcourtEnprofondeur(nCa, nCa.contientVille("D")).toString());
+        System.out.println(CA.parcourtEnprofondeur(nCa, nCa.contientVille("E")).toString());
+        System.out.println(CA.parcourtEnprofondeur(nCa, nCa.contientVille("F")).toString());
+        System.out.println(CA.parcourtEnprofondeur(nCa, nCa.contientVille("H")).toString());
+        System.out.println(CA.parcourtEnprofondeur(nCa, nCa.contientVille("G")).toString());
+        System.out.println(CA.parcourtEnprofondeur(nCa, nCa.contientVille("I")).toString());
+        System.out.println(CA.parcourtEnprofondeur(nCa, nCa.contientVille("J")).toString());
+        System.out.println(CA.parcourtEnprofondeur(nCa, nCa.contientVille("K")).toString());
+
         
     }
 }
