@@ -97,6 +97,7 @@ public class TestMain {
                 case 1: /* Ajouter une route */
                     String v1,v2;
                     Ville2 a,b;
+                    nCa.initRoute();
                     do{
                         v1 = saisie(new Scanner(System.in), "Nom de la ville:");
                         a=nCa.contientVille(v1);
@@ -128,6 +129,7 @@ public class TestMain {
                                 break;
 
                             case 2:
+                                nCa.initSuppression();
                                 System.out.println("**************************** << Etape 2 suppression >> ***************************");
                                 s = saisie(new Scanner(System.in), "Dans quelle ville voulez-vous supprimer l'école => ");
                                 v=nCa.contientVille(s);

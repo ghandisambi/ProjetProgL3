@@ -199,38 +199,45 @@ public class CA {
 
    
     public boolean iteration(Ville2 ville) {
-        Ville2 villeVoisin;
+        boolean villePossedeEcole =true;
+        boolean reponseFinal = true;
+        Ville2 villeVoisin; 
         Ville2 villeVoisin2;
         System.out.println("la ville "+ville.getNom()+" possède l'ecole (nom de l'école: |"+ville.getEcole()+"|) elle a pour voisin :");
-        Iterator it = getVillesVoisinnes(ville).iterator();
-        while(it.hasNext()){
-            villeVoisin=contientVille(it.next().toString());
+        Iterator it = getVillesVoisinnes(ville).iterator(); /** liste des villes voisinnes de la ville à supprimer */
+        while(it.hasNext()){ /** on parcourt la liste des voisins de la ville à supprimer  */
+            villeVoisin=contientVille(it.next().toString()); /** correspond au voisin selectionner dans la liste */
             System.out.print("\t- La ville "+villeVoisin+" qui est liée à lui ("+ville+"-->"+villeVoisin+")");
-            if(ecole.containsKey(villeVoisin.getEcole())) {
+            if(ecole.containsKey(villeVoisin.getEcole())) { /** Si la ville voisinne possède une ecole */
                 System.out.println(" et possède l'ecole "+ villeVoisin.getEcole()+" dont la ville "+ville+" dépendra");
+                
             }
-            else{
+            else{ /** Si la ville voisinne ne possède pas d'ecole */
                 System.out.println(" dépend de lui ");
                 
-                it = getVillesVoisinnes(villeVoisin).iterator();
-                while(it.hasNext()){
-                    villeVoisin2=contientVille(it.next().toString());
+                it = getVillesVoisinnes(villeVoisin).iterator(); /** Pour chacun des voisins de la ville voisinne  */
+                Set<Ville2> clone = getVillesVoisinnes(villeVoisin);
+                System.out.println("*************************************************************************");
+                System.out.println("parcourt des voisins "+villeVoisin+clone.contains(villeVoisin)+villeVoisin+" et contient ville "+villeVoisin+clone.contains(ville)+ville+" et la liste est "+clone.toString());
+                System.out.println("*************************************************************************");
+                while(it.hasNext()){ /** on parcourt la liste des voisins de la ville voisinne */
+                    villeVoisin2=contientVille(it.next().toString()); /** correspond au voisin selectionner dans la liste */
                     
-                    if(ecole.containsKey(villeVoisin2.getEcole())&&!ecole.containsValue(ville)){
+                    if(ecole.containsKey(villeVoisin2.getEcole())&&!ecole.containsValue(villeVoisin)&&!ecole.containsValue(ville)){ /** Si le voisin de la  ville voisinne possède une ecole  */
                         System.out.println(". Mais un de ses voisins possède une école donc, il est liée à l'école("+ville.getEcole()+") de la ville "+ville);
-                    }else if(ecole.containsValue(ville)&&ecole.containsKey(villeVoisin2.getEcole())){
+                    }else if(ecole.containsValue(ville)&&ecole.containsKey(villeVoisin2.getEcole())){/** si la ville que l'on doit supprimer contient bien une ecole  */
                         System.out.println("la ville "+villeVoisin2+" est voisin de "+villeVoisin);
-                        return false;
+                        reponseFinal=false;
                     }
                     else{
 
                         System.out.println(" et aucune de ses villes voisinnes en possède.");
-                        return false;
+                        reponseFinal=false;
                     }
                 }   
             }
         }
-        return true;
+        return reponseFinal;
     }
     public Ville2 contientVille(String s){
         int e=0;
@@ -241,6 +248,40 @@ public class CA {
 
        return new Ville2(s,e);
     }
+    public void initRoute(){
+        ajouterRoute(contientVille("A"), contientVille("B"));
+        ajouterRoute(contientVille("A"), contientVille("D"));
+        ajouterRoute(contientVille("B"), contientVille("C"));
+        ajouterRoute(contientVille("B"), contientVille("H"));
+        ajouterRoute(contientVille("C"), contientVille("I"));
+        ajouterRoute(contientVille("C"), contientVille("D"));
+        ajouterRoute(contientVille("D"), contientVille("E"));
+        ajouterRoute(contientVille("E"), contientVille("F"));
+        ajouterRoute(contientVille("E"), contientVille("G"));
+        ajouterRoute(contientVille("H"), contientVille("K"));
+        ajouterRoute(contientVille("H"), contientVille("J"));
+        ajouterRoute(contientVille("H"), contientVille("I"));
+
+        
+    }
+
+    public void initSuppression(){
+        
+        
+        supprimerEcole(contientVille("G"));
+        supprimerEcole(contientVille("F"));
+        supprimerEcole(contientVille("J"));
+        supprimerEcole(contientVille("K"));
+        supprimerEcole(contientVille("H"));
+        supprimerEcole(contientVille("A"));
+        supprimerEcole(contientVille("I"));
+        supprimerEcole(contientVille("C"));
+        supprimerEcole(contientVille("B"));
+        supprimerEcole(contientVille("D"));
+        supprimerEcole(contientVille("E"));
+        
+    }
+
 
     
    
