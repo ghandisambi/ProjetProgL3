@@ -3,6 +3,8 @@ package com.company.ghandi;
 import java.util.*;
 import java.util.concurrent.RecursiveAction;
 
+import com.company.nico.Ville;
+
 
 /**
  * La classe CA(communauté d'agglomération) représente un graphe
@@ -128,13 +130,17 @@ public class CA {
      */
 
     public void supprimerEcole(Ville2 ville){
-            
+        System.out.println("Vous voulez supprimer l'école de la Ville :" +ville);    
+        if(villePossedeEcole(ville)){
             if(test(ville))
             { ecole.remove(ville.getEcole());/** Si les test de la méthode test renvoie vrai on supprime l'école */
               System.out.println("Vous avez supprimez l'école dans la ville " + ville.toString() + ".");
             }else {
-                System.out.println(ville.getNom()+" n'a pas de voisin. Vous ne pouvrez pas supprimez l'école "+ville.getEcole()+" dans cette ville.");
+                System.out.println(ville.getNom()+" Vous ne pouvrez pas supprimez l'école "+ville.getEcole()+" dans cette ville.");
             }
+        }else{
+            System.out.println("La ville "+ ville.toString() + " ne possédent pas d'école.");
+        }
            
     }
 
@@ -199,34 +205,65 @@ public class CA {
 
     public boolean test(Ville2 ville){
         boolean rep = true;
-        if (villePossedeEcole(ville))
-            if(!getVillesVoisinnes(ville).isEmpty())rep=supprimerSiVoisin(getVillesVoisinnes(ville));
+        
+            if(!getVillesVoisinnes(ville).isEmpty())rep=dependance(getVillesVoisinnes(ville),ville);
             else rep=false;
-        else {
-            rep = false;
-            System.out.println("La ville "+ ville.toString() + " ne possédent pas d'école.");
-        }
         return rep;
     }
-    private boolean supprimerSiVoisin(Set<Ville2> listVoisin){
+    private boolean dependance(Set<Ville2> listVoisin,Ville2 v){
+        System.out.println("********<<La liste des villes voisinnes de  :"+v+" est "+listVoisin.toString());
         boolean rep = true;
-        Set<Ville2> listeDesVillesProblematique= new HashSet<Ville2>();
+        
+        Set<Ville2> listeVSansEcole= new HashSet<Ville2>();
+        Set<Ville2> listeVAvecEcole= new HashSet<Ville2>();
         Map<Ville2,Boolean> testSiVpossedeE= new HashMap<Ville2,Boolean>();
         for (Ville2 ville : listVoisin) {
             testSiVpossedeE.putIfAbsent(ville, villePossedeEcole(ville));
         }
         for(Map.Entry<Ville2,Boolean> valeurTest: testSiVpossedeE.entrySet()){
             rep= rep && valeurTest.getValue();
-            if(!rep){
-                listeDesVillesProblematique.add(valeurTest.getKey());
+            if(rep){
+                listeVAvecEcole.add(valeurTest.getKey());
+                System.out.println("********<<La liste des villes avec école  :"+v+" est "+listeVAvecEcole.toString());    
+            }else{
+                listeVSansEcole.add(valeurTest.getKey());
+                System.out.println("********<<La liste des villes sans école  :"+v+" est "+listeVSansEcole.toString()); 
             }
         }
 
         if(rep) return true;
         else {
-            if(!listeDesVillesProblematique.isEmpty()) return false;
-            else return false;
+            if(!listeVSansEcole.isEmpty())
+            {   
+                for(Ville2 lSE : listeVSansEcole){
+                    
+                    if(getVillesVoisinnes(lSE).contains(v)){
+                        Set<Ville2> lseClone = getVillesVoisinnes(lSE);
+                        Set<Ville2> supprimeVille=getVillesVoisinnes(v);
+                        supprimeVille.remove(lSE);
+                        
+                        System.out.println("tu vas supprimer"+v+" de la liste "+ lseClone.toString());
+
+                        lseClone.remove(v);
+                        for (Ville2 ville2 : lseClone) {
+                            if(villePossedeEcole(ville2)){
+                                rep=true;
+                            }
+                            else rep = false;
+                        }
+                        
+                        lseClone.add(v);
+                        
+
+                        
+                    }
+                }
+                System.out.println();
+                
+            }
+            else rep= false;
         }
+        return rep;
     }
 
 
@@ -303,8 +340,6 @@ public class CA {
         ajouterRoute(contientVille("H"), contientVille("K"));
         ajouterRoute(contientVille("H"), contientVille("J"));
         ajouterRoute(contientVille("H"), contientVille("I"));
-
-        
     }
 
     public void initSuppression(){

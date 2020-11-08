@@ -97,7 +97,7 @@ public class TestMain {
                 case 1: /* Ajouter une route */
                     String v1,v2;
                     Ville2 a,b;
-                    nCa.initRoute();
+                    
                     do{
                         v1 = saisie(new Scanner(System.in), "Nom de la ville:");
                         a=nCa.contientVille(v1);
@@ -109,9 +109,12 @@ public class TestMain {
                 break;
 
                 case 2: /* Fin , on poursuit le programme */
+                    nCa.initRoute();
                     System.out.println("***************************Nombre de voisin****************************");
                     for(Ville2 m:nCa.getVoisin().keySet()){
                         nCa.CompteVoisin(m);
+                        
+
                     }
                     do {
                         System.out.println("__________________________________________________________________________");
@@ -129,16 +132,17 @@ public class TestMain {
                                 break;
 
                             case 2:
-                                nCa.initSuppression();
+                                
                                 System.out.println("**************************** << Etape 2 suppression >> ***************************");
                                 s = saisie(new Scanner(System.in), "Dans quelle ville voulez-vous supprimer l'école => ");
                                 v=nCa.contientVille(s);
                                 nCa.supprimerEcole(v);
                                 nCa.afficheEcole();
+                                System.out.println(nCa.toString());
                                 break;
 
                             case 3:
-                                
+                                System.out.println(nCa.toString());
                                 System.out.println("Fin programme ");
                                 option = 0;
                                 break;
@@ -162,17 +166,7 @@ public class TestMain {
     public static void main(String[] args) {
         CA nCa = new CA();
         Affichage(nCa);
-        System.out.println(CA.parcourtEnprofondeur(nCa, nCa.contientVille("A")).toString());
-        System.out.println(CA.parcourtEnprofondeur(nCa, nCa.contientVille("B")).toString());
-        System.out.println(CA.parcourtEnprofondeur(nCa, nCa.contientVille("C")).toString());
-        System.out.println(CA.parcourtEnprofondeur(nCa, nCa.contientVille("D")).toString());
-        System.out.println(CA.parcourtEnprofondeur(nCa, nCa.contientVille("E")).toString());
-        System.out.println(CA.parcourtEnprofondeur(nCa, nCa.contientVille("F")).toString());
-        System.out.println(CA.parcourtEnprofondeur(nCa, nCa.contientVille("H")).toString());
-        System.out.println(CA.parcourtEnprofondeur(nCa, nCa.contientVille("G")).toString());
-        System.out.println(CA.parcourtEnprofondeur(nCa, nCa.contientVille("I")).toString());
-        System.out.println(CA.parcourtEnprofondeur(nCa, nCa.contientVille("J")).toString());
-        System.out.println(CA.parcourtEnprofondeur(nCa, nCa.contientVille("K")).toString());
+        
 
         
     }
