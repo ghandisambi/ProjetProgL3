@@ -4,6 +4,7 @@ package com.company.nico;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 
 
@@ -188,6 +189,7 @@ public class CA {
         /* Si tous les voisins possédent une école.  */
         if (!dependance) {
             //System.out.println("Erreur - La ville n'est relié a aucune autre école.");
+            System.out.println("La suppression de " + nomEcole + " est impossible.");
             return;
         }
 
@@ -199,7 +201,7 @@ public class CA {
         }
 
         if (isPossible) {
-            System.out.println("La suppression de " + nomEcole + "est un succès !");
+            System.out.println("La suppression de " + nomEcole + " est un succès !");
             ecole.remove(ville.getNom()); // Si le retrait de l'école ne viole pas la contrainte d'accessibilité.
         } else System.out.println("La suppression de " + nomEcole + " est impossible.");
     }
@@ -218,7 +220,7 @@ public class CA {
             y = true;
             return y;
         } else {
-            System.out.println("Erreur - impossible car "+nomVille+" ne dépendra plus d'aucune école.");
+            System.out.println("Erreur - impossible de supprimer la ville , car la ville "+nomVille+" ne dépendra plus d'aucune école.");
             return y;
         }
     }
@@ -277,6 +279,25 @@ public class CA {
         System.out.println("la ville n'existe pas");
         return false;
     }
+
+    /**
+     * Permet de connaître le nombre d'école
+     * @return nombre d'école
+     */
+    public int score(){
+
+        return ecole.size();
+    }
+
+    public Ville getRandomVille(){
+        Random rnd = new Random();
+        char c = (char)('A'+rnd.nextInt(voisin.keySet().size()));
+        return getVille(Character.toString(c));
+    }
+    public int nombreVille(){
+        return voisin.keySet().size();
+    }
+    
 
 
     /**
