@@ -2,6 +2,7 @@ package com.company.nico;
 
 import java.io.File;
 import java.util.LinkedList;
+import java.util.Scanner;
 
 
 import com.company.nico.fichier.UtilFile;
@@ -18,6 +19,12 @@ public class Main {
     public static void main(String[] args) {
         CA ca = new CA();/** Création de la communauté d'agglomération */
         boolean modeAutomatique = true;
+        int n;
+        do {
+            System.out.println("Afficher le menu");
+            break;
+
+        } while (true);
         
         
         
