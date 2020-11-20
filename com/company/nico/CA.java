@@ -111,8 +111,29 @@ public class CA {
             /* On insère la relation de la nouvelle ville dans l'ensemble de voisins. */
             voisin.putIfAbsent(ville, new HashSet<>());
             /* On crée une école dans la nouvelle ville et on insère la relation de cette nouvelle école dans l'ensemble d'écoles. */
-            ecole.putIfAbsent(ville.getNom(), ville);
+            
         }
+    }
+    public void ajouterVille(String nomVille,boolean avecEcole){
+        Ville ville = getVille(nomVille);
+
+        if (voisin.containsKey(new Ville(nomVille))) { /* Si la ville existe déja on s'arrête ici. */
+            System.out.println("Cette ville existe déjà !");
+        } else {
+            /* On insère la relation de la nouvelle ville dans l'ensemble de voisins. */
+            voisin.putIfAbsent(ville, new HashSet<>());
+            /* On crée une école dans la nouvelle ville et on insère la relation de cette nouvelle école dans l'ensemble d'écoles. */
+            if(avecEcole) ecole.putIfAbsent(ville.getNom(), ville);
+        }
+    }
+
+    public void afficheRoute(){
+        StringBuilder sb = new StringBuilder();
+        for (Ville v : voisin.keySet()) {
+            sb.append(v).append("->");
+            sb.append(voisin.get(v)).append("\n");
+        }
+        System.out.println(sb.toString());
     }
 
 
