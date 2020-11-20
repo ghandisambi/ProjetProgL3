@@ -25,8 +25,12 @@ public class Automatique {
 
         ca.afficheRoute();
         algorithmeNaif(ca, ca.nombreVille());
-        
         ca.afficheEcole();
+        affiche("\n__________________________________________________________________________\n");
+        affiche("\n__________________________________________________________________________\n");
+        algorithmeNaif(ca, ca.nombreVille());
+        ca.afficheEcole();
+        
         
         
         
@@ -65,12 +69,14 @@ public class Automatique {
         affiche("alorithme optimiser");
         int i=0;
         int scoreCourant = ca.score();
-        List<String> list = new LinkedList<>();
+        List<Ville> list = new LinkedList<>();
         while(i<k){
             Ville ville = ca.getRandomVille();
 
 
-           if(ca.villeExist(ville.toString())){
+           if(!list.contains(ville)){
+               list.add(ville);
+               if(ca.villeExist(ville.toString())){
                 if(ca.villePossedeEcole(ville.toString())){
                 
                     affiche("Supprime "+ville.toString());
@@ -90,6 +96,7 @@ public class Automatique {
                   affiche("---------------->le score est : "+scoreCourant);
 
                 }else i++;
+            }
             
             }else affiche("la ville n'existe pas");
         
