@@ -14,9 +14,11 @@ public class Main {
     /**
      * Lancement du programme.
      */
+
     public static void main(String[] args) {
         CA ca = new CA();/** Création de la communauté d'agglomération */
         boolean modeAutomatique = true;
+        
         
         
 

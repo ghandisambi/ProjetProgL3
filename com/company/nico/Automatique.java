@@ -1,6 +1,7 @@
 package com.company.nico;
 
 import java.util.LinkedList;
+import java.util.List;
 
 public class Automatique {
 
@@ -22,8 +23,7 @@ public class Automatique {
             ca.ajouterEcole(l.poll());
         }
 
-        algorithme(ca,ca.nombreVille());
-        ca.afficheEcole();
+        ca.afficheRoute();
         algorithmeNaif(ca, ca.nombreVille());
         
         ca.afficheEcole();
@@ -37,46 +37,62 @@ public class Automatique {
     public static CA algorithmeNaif(CA ca,int k){
         int i=0;
         int scoreCourant = ca.score();
-        
-        
         while(i<k){
             Ville ville = ca.getRandomVille();
-            if(ca.dependance(ville.toString())){
+
+           if(ca.villeExist(ville.toString())){
+            if(ca.villePossedeEcole(ville.toString())){
+                
                 affiche("Supprime "+ville.toString());
                 ca.supprimerEcole(ville.toString());
+                affiche("cette ville ne peut pas être supprimer car certainnes villes dépendes d'elle car il ne possède pas d'école");
                 
             }else{
+                
                 affiche("Ajoute "+ville.toString());
+                
                 ca.ajouterEcole(ville.toString());
                 
+            }   
+                i++;
             }
-            i++;
+            else affiche("la ville n'existe pas");
         }
         
         return ca;
     }
     public static CA algorithme(CA ca,int k){
+        affiche("alorithme optimiser");
         int i=0;
         int scoreCourant = ca.score();
-
-        
-        
+        List<String> list = new LinkedList<>();
         while(i<k){
             Ville ville = ca.getRandomVille();
-            if(ca.dependance(ville.toString())){
-                affiche("Supprime "+ville.toString());
-                ca.supprimerEcole(ville.toString());
+
+
+           if(ca.villeExist(ville.toString())){
+                if(ca.villePossedeEcole(ville.toString())){
                 
-            }else{
-                affiche("Ajoute "+ville.toString());
-                ca.ajouterEcole(ville.toString());
+                    affiche("Supprime "+ville.toString());
+                    ca.supprimerEcole(ville.toString());
+                    affiche("cette ville ne peut pas être supprimer car certainnes villes dépendes d'elle car elle ne possèdent pas d'écoles le nombre d'école entrez est "+scoreCourant+" et le nombre d'école total est "+ca.score());  
+                }else{
+                 affiche("Ajoute "+ville.toString());
+                    
+                    ca.ajouterEcole(ville.toString());
+                    affiche("le nombre d'école entrez est "+scoreCourant+" et le nombre d'école total est "+ca.score());
                 
-            }
-            if(ca.score()<scoreCourant){
-                i=0;
-                scoreCourant = ca.score();
-            }else i++;
+                }   
+                if(ca.score()<scoreCourant){
+                  
+                  i=0;
+                  scoreCourant = ca.score();  
+                  affiche("---------------->le score est : "+scoreCourant);
+
+                }else i++;
             
+            }else affiche("la ville n'existe pas");
+        
         }
         
         return ca;

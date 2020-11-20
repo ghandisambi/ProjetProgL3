@@ -224,6 +224,14 @@ public class CA {
             return y;
         }
     }
+    public boolean villePossedeEcole(String nomVille){
+        if(ecole.containsValue(getVille(nomVille))){
+            Automatique.affiche("Cette ville possède une école");
+            return true;
+        }
+        Automatique.affiche("Cette ville ne possède pas d'école");
+        return false;
+    }
 
 
     /**
