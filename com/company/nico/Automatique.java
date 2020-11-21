@@ -126,12 +126,18 @@ public class Automatique {
                     if(ca.score()<scoreCourant){
                         break;
                     }else if(ca.score()==scoreCourant){
+                        if(precision(ca).score()<scoreCourant)
                         break;
+                        else break;
                     }
                 }
             }
             affiche("La meilleur solution est: "+ca.getEcoleList());
         return ca;
+    }
+    public static CA precision(CA ca) {
+        algorithme(ca, ca.nombreVille());
+       return ca; 
     }
 
     public static void affiche(String s){
