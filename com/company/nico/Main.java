@@ -18,7 +18,7 @@ public class Main {
 
     public static void main(String[] args) {
         CA ca = new CA();/** Création de la communauté d'agglomération */
-        boolean modeAutomatique = true;
+        
 
         String fichierVille = "com" + File.separator + "company" + File.separator + "nico" + File.separator + "fichier"
                 + File.separator + "ville.txt";/** Lien fichier des Villes et Routes */
