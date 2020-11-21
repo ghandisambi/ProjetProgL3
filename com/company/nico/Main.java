@@ -36,9 +36,9 @@ public class Main {
         
         int n;
         do {
-            System.out.println("1) résoudre manuellement;\n" +
-                    "2) résoudre automatiquement;\n" +
-                    "3) sauvegarder;\n" +
+            System.out.println("1) résoudre manuellement.\n" +
+                    "2) résoudre automatiquement.\n" +
+                    "3) sauvegarder.\n" +
                     "4) fin.");
             do {
                 n = Manuelle.saisieEntier(new Scanner(System.in));
