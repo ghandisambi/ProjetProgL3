@@ -189,7 +189,7 @@ public class CA {
         /* Si tous les voisins possédent une école.  */
         if (!dependance) {
             //System.out.println("Erreur - La ville n'est relié a aucune autre école.");
-            System.out.println("La suppression de " + nomEcole + " est impossible.");
+            //System.out.println("La suppression de " + nomEcole + " est impossible.");
             return;
         }
 
@@ -201,9 +201,9 @@ public class CA {
         }
 
         if (isPossible) {
-            System.out.println("La suppression de " + nomEcole + " est un succès !");
+            //System.out.println("La suppression de " + nomEcole + " est un succès !");
             ecole.remove(ville.getNom()); // Si le retrait de l'école ne viole pas la contrainte d'accessibilité.
-        } else System.out.println("La suppression de " + nomEcole + " est impossible.");
+        } //else System.out.println("La suppression de " + nomEcole + " est impossible.");
     }
     /**
      * Test si on a la possibilité de supprimer une école.
@@ -260,7 +260,7 @@ public class CA {
             y = true;
             return y;
         } else {
-            System.out.println("Erreur - impossible de supprimer la ville , car la ville "+nomVille+" ne dépendra plus d'aucune école.");
+           // System.out.println("Erreur - impossible de supprimer la ville , car la ville "+nomVille+" ne dépendra plus d'aucune école.");
             return y;
         }
     }
@@ -322,7 +322,7 @@ public class CA {
         Ville villeTMp = getVille(nomVille); /* On récupere la ville de 'nomVille'. */
         if (voisin.containsKey(villeTMp)) { /* Si la ville n'existe pas. */
             ecole.putIfAbsent(villeTMp.getNom(), villeTMp); /* On ajoute une école a la ville si cel ci n'en possède pas. */
-            System.out.println("Une école vient d'être construite dans la ville " + villeTMp.getNom() + ".");
+            //System.out.println("Une école vient d'être construite dans la ville " + villeTMp.getNom() + ".");
             return true;
         }
         System.out.println("la ville n'existe pas");
