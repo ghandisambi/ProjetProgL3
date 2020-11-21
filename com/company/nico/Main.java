@@ -33,6 +33,8 @@ public class Main {
         
         donneefichier.addAll(UtilFile.lire(fichierVille));/**On ajoute les données du fichier des villes  */
         donneefichier.addAll(UtilFile.lire(fichierEcole));/**On ajoute les données du fichier des ecoles  */
+
+        UtilFile.lecture(ca, donneefichier);
         
         int n;
         do {

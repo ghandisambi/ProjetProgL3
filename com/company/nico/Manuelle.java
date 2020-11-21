@@ -142,7 +142,7 @@ public class Manuelle {
                 break;
             }
         } while(option != 0);
-        scanner.close();
+        
     }
 
 }
