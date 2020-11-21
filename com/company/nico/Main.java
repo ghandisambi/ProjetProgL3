@@ -2,7 +2,7 @@ package com.company.nico;
 
 import java.io.File;
 import java.util.LinkedList;
-import java.util.Scanner;
+
 
 
 import com.company.nico.fichier.UtilFile;
@@ -19,7 +19,12 @@ public class Main {
     public static void main(String[] args) {
         CA ca = new CA();/** Création de la communauté d'agglomération */
         boolean modeAutomatique = true;
+        int n;
+        do {
+            System.out.println("Afficher le menu");
+            break;
 
+        } while (true);
          
 
         String fichierVille="com" + File.separator + "company" + File.separator + "nico" + File.separator + "fichier"
@@ -34,31 +39,9 @@ public class Main {
         donneefichier.addAll(UtilFile.lire(fichierVille));/**On ajoute les données du fichier des villes  */
         donneefichier.addAll(UtilFile.lire(fichierEcole));/**On ajoute les données du fichier des ecoles  */
         
-        int n;
-        do {
-            System.out.println("1) résoudre manuellement.\n" +
-                    "2) résoudre automatiquement.\n" +
-                    "3) sauvegarder.\n" +
-                    "4) fin.");
-            do {
-                n = Manuelle.saisieEntier(new Scanner(System.in));
-            } while (n<1||n>4);
-            switch (n) {
-                case 1 -> {
-                    System.out.println("Mode manuel !");
-                    Manuelle.Affichage(ca);
-
-                }
-                case 2 -> {
-                    System.out.println("Mode automatique !");
-                    Automatique.Solution(ca, donneefichier);
-                }
-                case 3 -> System.out.println("Sauvegarde");
-                case 4 -> {
-                    n = 0;
-                    System.out.println("Au revoir !");
-                }
-            }
-        } while (n!=0);
+        if(modeAutomatique)Automatique.Solution(ca,donneefichier);/** On fait appelle à la méthode static (Solution) de la classe Automatique pour résoudre le problème en fonction du choix */
+        else Manuelle.Affichage(ca);/**Sinon On fait appelle à la méthode static (Affichage) de la classe Manuelle pour nous permetre de résoudre le problème */
+    
+    
     }
 }
