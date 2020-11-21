@@ -126,9 +126,7 @@ public class Automatique {
                     if(ca.score()<scoreCourant){
                         break;
                     }else if(ca.score()==scoreCourant){
-                        if(precision(ca).score()<scoreCourant)
                         break;
-                        else break;
                     }
                 }
             }
