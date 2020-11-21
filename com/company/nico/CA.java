@@ -264,12 +264,13 @@ public class CA {
             return y;
         }
     }
+    
     public boolean villePossedeEcole(String nomVille){
         if(ecole.containsValue(getVille(nomVille))){
-            Automatique.affiche("Cette ville possède une école");
+            
             return true;
         }
-        Automatique.affiche("Cette ville ne possède pas d'école");
+        
         return false;
     }
 
@@ -326,6 +327,11 @@ public class CA {
         }
         System.out.println("la ville n'existe pas");
         return false;
+    }
+    public void initEcole(){
+        for(Ville v:getVoisin().keySet()){
+            ajouterEcole(v.toString());
+        }
     }
 
     /**

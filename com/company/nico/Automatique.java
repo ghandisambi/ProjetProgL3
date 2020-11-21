@@ -1,7 +1,9 @@
 package com.company.nico;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 public class Automatique {
 
@@ -23,13 +25,9 @@ public class Automatique {
             ca.ajouterEcole(l.poll());
         }
 
-        ca.afficheRoute();
-        algorithmeNaif(ca, ca.nombreVille());
-        ca.afficheEcole();
-        affiche("\n__________________________________________________________________________\n");
-        affiche("\n__________________________________________________________________________\n");
-        algorithmeNaif(ca, ca.nombreVille());
-        ca.afficheEcole();
+        
+        algorithmeOptimiser(ca);
+        
         
         
         
@@ -65,43 +63,74 @@ public class Automatique {
         
         return ca;
     }
-    public static CA algorithme(CA ca,int k){
-        affiche("alorithme optimiser");
-        int i=0;
-        int scoreCourant = ca.score();
-        List<Ville> list = new LinkedList<>();
-        while(i<k){
+
+
+    public static CA algorithme(CA ca, int k) {
+        
+
+        int i = 0;
+        int scoreCourant = ca.score() ;
+
+        
+        
+        Map<Ville, Boolean> ecole = new HashMap<>();
+
+        
+        while (i < k) {
             Ville ville = ca.getRandomVille();
 
+            if (ca.villeExist(ville.toString())) {
+                if (ca.villePossedeEcole(ville.toString())) {
 
-           if(!list.contains(ville)){
-               list.add(ville);
-               if(ca.villeExist(ville.toString())){
-                if(ca.villePossedeEcole(ville.toString())){
-                
-                    affiche("Supprime "+ville.toString());
-                    ca.supprimerEcole(ville.toString());
-                    affiche("cette ville ne peut pas être supprimer car certainnes villes dépendes d'elle car elle ne possèdent pas d'écoles le nombre d'école entrez est "+scoreCourant+" et le nombre d'école total est "+ca.score());  
-                }else{
-                 affiche("Ajoute "+ville.toString());
                     
-                    ca.ajouterEcole(ville.toString());
-                    affiche("le nombre d'école entrez est "+scoreCourant+" et le nombre d'école total est "+ca.score());
-                
-                }   
-                if(ca.score()<scoreCourant){
-                  
-                  i=0;
-                  scoreCourant = ca.score();  
-                  affiche("---------------->le score est : "+scoreCourant);
+                    ca.supprimerEcole(ville.toString());
 
-                }else i++;
+                } else {
+                    
+
+                    ca.ajouterEcole(ville.toString());
+                    
+
+                }
+                if (ca.score() < scoreCourant) {
+                    for (Map.Entry<String, Ville> e : ca.getEcole().entrySet()) {
+                        if (ca.testSuppressionEcole(e.getKey())) {
+                            ecole.put(e.getValue(), true);
+                        }
+                    }
+
+                    break;
+                } else
+                    i++;
             }
-            
-            }else affiche("la ville n'existe pas");
-        
+
         }
         
+        for (Map.Entry<Ville, Boolean> e : ecole.entrySet()) {
+            ca.supprimerEcole(e.getKey().toString());
+        }
+        affiche(ca.getEcoleList().toString());
+        return ca;
+    }
+
+    public static CA algorithmeOptimiser(CA ca){
+        int scoreCourant=ca.score();
+        if(ca.getEcole().size()<ca.nombreVille()/3){
+            ca.initEcole();
+            scoreCourant=ca.score();
+        }else scoreCourant=ca.score();   
+        
+            while (ca.score()>=scoreCourant) {
+                algorithme(ca, ca.nombreVille()).getEcoleList();
+                if(ca.score()<=scoreCourant){
+                    if(ca.score()<scoreCourant){
+                        break;
+                    }else if(ca.score()==scoreCourant){
+                        break;
+                    }
+                }
+            }
+            affiche("La meilleur solution est: "+ca.getEcoleList());
         return ca;
     }
 
