@@ -319,9 +319,16 @@ public class CA {
         for (Ville v : voisin.keySet()) {
             sb.append(v).append("->");
             sb.append(voisin.get(v)).append("\n");
+        
         }
         sb.append("Ecole présent\n").append(ecole.keySet());
         return sb.toString();
     }
+
+    public Map<Ville, Set<Ville>> getVoisin() {
+        return voisin;
+    }
+    
+
 
 }

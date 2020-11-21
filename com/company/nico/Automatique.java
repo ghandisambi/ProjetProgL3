@@ -49,7 +49,7 @@ public class Automatique {
                 
                 affiche("Supprime "+ville.toString());
                 ca.supprimerEcole(ville.toString());
-                affiche("cette ville ne peut pas être supprimer car certainnes villes dépendes d'elle car il ne possède pas d'école");
+                
                 
             }else{
                 
@@ -70,6 +70,8 @@ public class Automatique {
         int i=0;
         int scoreCourant = ca.score();
         List<Ville> list = new LinkedList<>();
+
+        
         while(i<k){
             Ville ville = ca.getRandomVille();
 
