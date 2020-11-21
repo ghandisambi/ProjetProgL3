@@ -109,7 +109,7 @@ public class Automatique {
         for (Map.Entry<Ville, Boolean> e : ecole.entrySet()) {
             ca.supprimerEcole(e.getKey().toString());
         }
-        affiche(ca.getEcoleList().toString());
+        //affiche(ca.getEcoleList().toString());
         return ca;
     }
 
