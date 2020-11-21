@@ -48,6 +48,7 @@ public class Manuelle {
      */
     public static int saisieEntier(Scanner scanner){
         int entier = 0;
+
         try {
             entier= scanner.nextInt();
         } catch (InputMismatchException e) {
@@ -63,13 +64,27 @@ public class Manuelle {
      *  Communauter d'aglomeration
      */
     public static void Affichage(CA ca){
+        int n;
         String s;
+        Scanner scanner = new Scanner(System.in);
+
+        /* On demande a l'utilisateur le nombre de villes qu'il souhaite. */
+        do {
+            System.out.println("Entrez le nombre de Ville souhaiter entre 1 et 26 : ");
+            n = saisieEntier(scanner);
+        } while (n < 1 || n > 26); /* Tant que le nombre de ville n'est pas entre 1 et 26 */
+
+        /* On crée n ville */
+        for (int i = 0 ;i < n; i++){
+            s = Character.toString(i+65); /* On rajoute 65 pour avoir la representation d'une lettre majuscule dans le code ASCII */
+            ca.ajouterVille(s); /* On ajoute la ville créé a la CA */
+        }
 
         /* Etape 1 */
         int option = 0;
         do {
             System.out.println("*******************************  Etape 1   *******************************");
-            option = menu(1,new Scanner(System.in)); /* L'utilisateur choisit parmi les options de l'étape 1. */
+            option = menu(1,scanner); /* L'utilisateur choisit parmi les options de l'étape 1. */
 
             switch(option) {
 
@@ -92,7 +107,7 @@ public class Manuelle {
                     System.out.println(ca.toString());
                     do {
                         System.out.println("********************************  Etape 2   *******************************");
-                        option=menu(2,new Scanner(System.in));
+                        option=menu(2,scanner);
                         ca.afficheEcole();
                         switch (option) {
                             case 1:
@@ -115,7 +130,7 @@ public class Manuelle {
 
                             case 3:
                                 System.out.println("Fin du programme");
-                                option=0;
+                                option = 0;
                                 break;
 
                             default:
@@ -127,6 +142,7 @@ public class Manuelle {
                 break;
             }
         } while(option != 0);
+        scanner.close();
     }
 
 }
