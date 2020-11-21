@@ -205,6 +205,46 @@ public class CA {
             ecole.remove(ville.getNom()); // Si le retrait de l'école ne viole pas la contrainte d'accessibilité.
         } else System.out.println("La suppression de " + nomEcole + " est impossible.");
     }
+    /**
+     * Test si on a la possibilité de supprimer une école.
+     * @param nomEcole
+     * @return boolean vrai si il n'y a pas d'école sinon faux
+     */
+    public boolean testSuppressionEcole(String nomEcole) {
+        
+        Ville ville = getVille(nomEcole);
+        boolean isPossible = false;
+        boolean dependance = false;
+
+        /* Pour chaque ville voisine de la ville qui possède l'école que l'on veut supprimer. */
+        for (Ville voisin : getVillesVoisinnes(getVille(nomEcole))) {
+            /* On regarde si son voisin possède une école. */
+            if (dependance(voisin.getNom())) {
+                dependance = true;
+                //break;
+            }
+        }
+        /* Si tous les voisins possédent une école.  */
+        if (!dependance) {
+            //System.out.println("Erreur - La ville n'est relié a aucune autre école.");
+          
+            return false;
+        }
+
+        /* Pour chaque ville voisine de la ville qui possède l'école que l'on veut supprimer. */
+        for (Ville voisin : getVillesVoisinnes(ville)) {
+            /* On regarde en parcourant les villes voisines du voisin si il a la possibilité de dépendre d'une autre école. */
+            isPossible = parcourtSommet(voisin.getNom(), ville.getNom());
+            if (!isPossible) break;
+        }
+
+        if (isPossible) {
+            
+            return true; // Si le retrait de l'école ne viole pas la contrainte d'accessibilité.
+        } 
+    
+    return false;
+}
 
 
     /**
@@ -304,6 +344,28 @@ public class CA {
     }
     public int nombreVille(){
         return voisin.keySet().size();
+    }
+    /**
+     * 
+     * @return liste des voisins pour chaque ville
+     */
+    public Map<Ville, Set<Ville>> getVoisin() {
+        return voisin;
+    }
+    /**
+     * 
+     * @return la liste des écoles associés aux villes
+     */
+    public Map<String, Ville> getEcole() {
+        return ecole;
+        
+    }
+    /**
+     * Liste des écoles 
+     * @return La liste des écoles 
+     */
+    public Set<String> getEcoleList() {
+        return ecole.keySet();
     }
     
 
