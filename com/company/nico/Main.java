@@ -45,12 +45,13 @@ public class Main {
             } while (n<1||n>4);
             switch (n) {
                 case 1 -> {
-                    System.out.println("Mode automatique !");
-                    Automatique.Solution(ca, donneefichier);
-                }
-                case 2 -> {
                     System.out.println("Mode manuel !");
                     Manuelle.Affichage(ca);
+
+                }
+                case 2 -> {
+                    System.out.println("Mode automatique !");
+                    Automatique.Solution(ca, donneefichier);
                 }
                 case 3 -> System.out.println("Sauvegarde");
                 case 4 -> {
