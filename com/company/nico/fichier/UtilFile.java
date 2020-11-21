@@ -1,8 +1,10 @@
 package com.company.nico.fichier;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
-
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.LinkedList;
 
 import java.util.Scanner;
@@ -54,7 +56,7 @@ public class UtilFile {
         
         return l;
     }
-    
+
     public static CA lecture(CA ca,LinkedList<String> l) {
       
         /** Initalisation des villes */
@@ -74,6 +76,16 @@ public class UtilFile {
       }      
       return ca;
     }
+
+    public static void sauvegarde(CA ca,File file)throws IOException {
+        
+      FileWriter fileWriter = new FileWriter(file,true);
+      BufferedWriter bw = new BufferedWriter(fileWriter);
+      bw.write(ca.ecoleToString());
+      bw.newLine();
+      bw.close();
+      
+  }
     
     
 }

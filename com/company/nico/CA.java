@@ -60,31 +60,8 @@ public class CA {
     }
 
 
-    /**
-     * Permets d'initialiser automatiquement le graphe proposé dans le sujet.
-     * */
-    public void initRoute() {
-        ajouterRoute("F", "E");
-        ajouterRoute("E", "G");
-        ajouterRoute("E", "D");
-        ajouterRoute("D", "A");
-        ajouterRoute("D", "C");
-        ajouterRoute("A", "B");
-        ajouterRoute("B", "C");
-        ajouterRoute("C", "I");
-        ajouterRoute("B", "H");
-        ajouterRoute("H", "I");
-        ajouterRoute("H", "J");
-        ajouterRoute("H", "K");
-        supprimerEcole("F");
-        supprimerEcole("G");
-        supprimerEcole("A");
-        supprimerEcole("D");
-        supprimerEcole("C");
-        supprimerEcole("I");
-        supprimerEcole("J");
-        supprimerEcole("K");
-    }
+    
+    
 
 
     /**
@@ -96,6 +73,18 @@ public class CA {
             System.out.print(getVille(nomEcole)+"\t");
         }
         System.out.println("\n");
+    }
+    /**
+     * Les villes possédant une école.
+     */
+    public String ecoleToString(){
+        StringBuffer sb = new StringBuffer();
+        sb.append("\nVoici la liste des villes possédant une école : \n");
+        for (String nomEcole : ecole.keySet()) {
+            sb.append(getVille(nomEcole)+"\t");
+        }
+        sb.append("\n");
+        return sb.toString();
     }
 
 
