@@ -17,9 +17,15 @@ public class Main {
      */
 
     public static void main(String[] args) {
-
         CA ca = new CA();/** Création de la communauté d'agglomération */
         boolean modeAutomatique = true;
+        int n;
+        do {
+            System.out.println("Afficher le menu");
+            break;
+
+        } while (true);
+         
 
         String fichierVille="com" + File.separator + "company" + File.separator + "nico" + File.separator + "fichier"
         + File.separator + "ville.txt";/** Lien fichier des Villes et Routes */
@@ -35,12 +41,7 @@ public class Main {
         
         if(modeAutomatique)Automatique.Solution(ca,donneefichier);/** On fait appelle à la méthode static (Solution) de la classe Automatique pour résoudre le problème en fonction du choix */
         else Manuelle.Affichage(ca);/**Sinon On fait appelle à la méthode static (Affichage) de la classe Manuelle pour nous permetre de résoudre le problème */
-
-        int n;
-        do {
-            System.out.println("Afficher le menu");
-            break;
-
-        } while (true);
+    
+    
     }
 }
