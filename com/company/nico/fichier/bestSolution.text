@@ -1,0 +1,322 @@
+__________________________________________________________________________
+
+
+__________________________________________________________________________
+
+alorithme optimiser
+ 2
+Cette ville possède une école
+Supprime F
+La suppression de F est un succès !
+cette ville ne peut pas être supprimer car certainnes villes dépendes d'elle car elle ne possèdent pas d'écoles le nombre d'école entrez est 6 et le nombre d'école total est 5
+---------------->le score est : 5
+Cette ville ne possède pas d'école
+Ajoute C
+Une école vient d'être construite dans la ville C.
+le nombre d'école entrez est 5 et le nombre d'école total est 6
+Cette ville possède une école
+Supprime G
+La suppression de G est un succès !
+cette ville ne peut pas être supprimer car certainnes villes dépendes d'elle car elle ne possèdent pas d'écoles le nombre d'école entrez est 5 et le nombre d'école total est 5
+Cette ville possède une école
+Supprime A
+Erreur - impossible de supprimer la ville , car la ville D ne dépendra plus d'aucune école.
+La suppression de A est un succès !
+cette ville ne peut pas être supprimer car certainnes villes dépendes d'elle car elle ne possèdent pas d'écoles le nombre d'école entrez est 5 et le nombre d'école total est 4
+---------------->le score est : 4
+Cette ville possède une école
+Supprime C
+Erreur - impossible de supprimer la ville , car la ville D ne dépendra plus d'aucune école.
+Erreur - impossible de supprimer la ville , car la ville I ne dépendra plus d'aucune école.
+La suppression de C est un succès !
+cette ville ne peut pas être supprimer car certainnes villes dépendes d'elle car elle ne possèdent pas d'écoles le nombre d'école entrez est 4 et le nombre d'école total est 3
+---------------->le score est : 3
+Cette ville ne possède pas d'école
+Ajoute K
+Une école vient d'être construite dans la ville K.
+le nombre d'école entrez est 3 et le nombre d'école total est 4
+Cette ville ne possède pas d'école
+Ajoute F
+Une école vient d'être construite dans la ville F.
+le nombre d'école entrez est 3 et le nombre d'école total est 5
+Cette ville ne possède pas d'école
+Ajoute J
+Une école vient d'être construite dans la ville J.
+le nombre d'école entrez est 3 et le nombre d'école total est 6
+Cette ville ne possède pas d'école
+Ajoute A
+Une école vient d'être construite dans la ville A.
+le nombre d'école entrez est 3 et le nombre d'école total est 7
+Cette ville ne possède pas d'école
+Ajoute D
+Une école vient d'être construite dans la ville D.
+le nombre d'école entrez est 3 et le nombre d'école total est 8
+Cette ville possède une école
+Supprime E
+Erreur - impossible de supprimer la ville , car la ville G ne dépendra plus d'aucune école.
+La suppression de E est impossible.
+cette ville ne peut pas être supprimer car certainnes villes dépendes d'elle car elle ne possèdent pas d'écoles le nombre d'école entrez est 3 et le nombre d'école total est 8
+Cette ville possède une école
+Supprime J
+La suppression de J est un succès !
+cette ville ne peut pas être supprimer car certainnes villes dépendes d'elle car elle ne possèdent pas d'écoles le nombre d'école entrez est 3 et le nombre d'école total est 7
+Cette ville possède une école
+Supprime F
+La suppression de F est un succès !
+cette ville ne peut pas être supprimer car certainnes villes dépendes d'elle car elle ne possèdent pas d'écoles le nombre d'école entrez est 3 et le nombre d'école total est 6
+Cette ville possède une école
+Supprime K
+La suppression de K est un succès !
+cette ville ne peut pas être supprimer car certainnes villes dépendes d'elle car elle ne possèdent pas d'écoles le nombre d'école entrez est 3 et le nombre d'école total est 5
+Cette ville possède une école
+Supprime E
+Erreur - impossible de supprimer la ville , car la ville F ne dépendra plus d'aucune école.
+Erreur - impossible de supprimer la ville , car la ville G ne dépendra plus d'aucune école.
+La suppression de E est impossible.
+cette ville ne peut pas être supprimer car certainnes villes dépendes d'elle car elle ne possèdent pas d'écoles le nombre d'école entrez est 3 et le nombre d'école total est 5
+Cette ville possède une école
+Supprime A
+La suppression de A est un succès !
+cette ville ne peut pas être supprimer car certainnes villes dépendes d'elle car elle ne possèdent pas d'écoles le nombre d'école entrez est 3 et le nombre d'école total est 4
+Voici la liste des villes possédant une école :
+B       D       E       H
+
+
+
+
+---------------->le score est : 8
+-----------------------> La suppression de A est possible !
+je peu supprimeA
+Erreur - impossible de supprimer la ville , car la ville C ne dépendra plus d'aucune école.
+Erreur - impossible de supprimer la ville , car la ville H ne dépendra plus d'aucune école.
+-----------------------> La suppression de B est possible !
+je peu supprimeB
+Erreur - impossible de supprimer la ville , car la ville C ne dépendra plus d'aucune école.
+-----------------------> La suppression de D est possible !
+je peu supprimeD
+Erreur - impossible de supprimer la ville , car la ville F ne dépendra plus d'aucune école.
+La suppression de E est impossible.
+-----------------------> La suppression de G est possible !
+je peu supprimeG
+Erreur - impossible de supprimer la ville , car la ville C ne dépendra plus d'aucune école.
+Erreur - impossible de supprimer la ville , car la ville H ne dépendra plus d'aucune école.
+Erreur - impossible de supprimer la ville , car la ville H ne dépendra plus d'aucune école.
+Erreur - impossible de supprimer la ville , car la ville H ne dépendra plus d'aucune école.
+{A=true, B=true, D=true, G=true}
+La suppression de A est un succès !
+Erreur - impossible de supprimer la ville , car la ville A ne dépendra plus d'aucune école.
+Erreur - impossible de supprimer la ville , car la ville C ne dépendra plus d'aucune école.
+Erreur - impossible de supprimer la ville , car la ville H ne dépendra plus d'aucune école.
+La suppression de B est impossible.
+Erreur - impossible de supprimer la ville , car la ville A ne dépendra plus d'aucune école.
+Erreur - impossible de supprimer la ville , car la ville C ne dépendra plus d'aucune école.
+La suppression de D est un succès !
+La suppression de G est un succès !
+Voici la liste des villes possédant une école :
+B       E       I       J       K
+
+alorithme optimiser
+ 2
+Cette ville possède une école
+Supprime B
+Erreur - impossible de supprimer la ville , car la ville A ne dépendra plus d'aucune école.
+Erreur - impossible de supprimer la ville , car la ville C ne dépendra plus d'aucune école.
+Erreur - impossible de supprimer la ville , car la ville H ne dépendra plus d'aucune école.
+La suppression de B est impossible.
+Cette ville possède une école
+Supprime J
+Erreur - impossible de supprimer la ville , car la ville H ne dépendra plus d'aucune école.
+La suppression de J est impossible.
+Cette ville ne possède pas d'école
+Ajoute D
+Une école vient d'être construite dans la ville D.
+le nombre d'école entrez est 5 et le nombre d'école total est 6
+Cette ville ne possède pas d'école
+Ajoute C
+Une école vient d'être construite dans la ville C.
+le nombre d'école entrez est 5 et le nombre d'école total est 7
+Cette ville ne possède pas d'école
+Ajoute G
+Une école vient d'être construite dans la ville G.
+le nombre d'école entrez est 5 et le nombre d'école total est 8
+Cette ville ne possède pas d'école
+Ajoute H
+Une école vient d'être construite dans la ville H.
+le nombre d'école entrez est 5 et le nombre d'école total est 9
+Cette ville possède une école
+Supprime D
+Erreur - impossible de supprimer la ville , car la ville A ne dépendra plus d'aucune école.
+La suppression de D est un succès !
+Cette ville possède une école
+Supprime G
+La suppression de G est un succès !
+Cette ville ne possède pas d'école
+Ajoute G
+Une école vient d'être construite dans la ville G.
+le nombre d'école entrez est 5 et le nombre d'école total est 8
+Cette ville possède une école
+Supprime J
+La suppression de J est un succès !
+Cette ville possède une école
+Supprime C
+Erreur - impossible de supprimer la ville , car la ville D ne dépendra plus d'aucune école.
+La suppression de C est un succès !
+{}
+Voici la liste des villes possédant une école :
+B       E       G       H       I       K
+
+alorithme optimiser
+ 2
+Cette ville possède une école
+Supprime K
+La suppression de K est un succès !
+---------------->le score est : 5
+Erreur - impossible de supprimer la ville , car la ville A ne dépendra plus d'aucune école.
+Erreur - impossible de supprimer la ville , car la ville C ne dépendra plus d'aucune école.
+La suppression de B est impossible.
+Erreur - impossible de supprimer la ville , car la ville D ne dépendra plus d'aucune école.
+Erreur - impossible de supprimer la ville , car la ville F ne dépendra plus d'aucune école.
+La suppression de E est impossible.
+-----------------------> La suppression de G est possible !
+je peu supprimeG
+Erreur - impossible de supprimer la ville , car la ville J ne dépendra plus d'aucune école.
+Erreur - impossible de supprimer la ville , car la ville K ne dépendra plus d'aucune école.
+La suppression de H est impossible.
+Erreur - impossible de supprimer la ville , car la ville C ne dépendra plus d'aucune école.
+-----------------------> La suppression de I est possible !
+je peu supprimeI
+{G=true, I=true}
+La suppression de G est un succès !
+Erreur - impossible de supprimer la ville , car la ville C ne dépendra plus d'aucune école.
+La suppression de I est un succès !
+Voici la liste des villes possédant une école :
+B       E       H
+alorithme optimiser
+ 2
+Cette ville ne possède pas d'école
+Ajoute F
+Une école vient d'être construite dans la ville F.
+le nombre d'école entrez est 3 et le nombre d'école total est 4
+Cette ville possède une école
+Supprime F
+La suppression de F est un succès !
+Cette ville ne possède pas d'école
+Ajoute C
+Une école vient d'être construite dans la ville C.
+le nombre d'école entrez est 3 et le nombre d'école total est 4
+Cette ville ne possède pas d'école
+Ajoute D
+Une école vient d'être construite dans la ville D.
+le nombre d'école entrez est 3 et le nombre d'école total est 5
+Cette ville ne possède pas d'école
+Ajoute G
+Une école vient d'être construite dans la ville G.
+le nombre d'école entrez est 3 et le nombre d'école total est 6
+Cette ville ne possède pas d'école
+Ajoute A
+Une école vient d'être construite dans la ville A.
+le nombre d'école entrez est 3 et le nombre d'école total est 7
+Cette ville possède une école
+Supprime C
+Erreur - impossible de supprimer la ville , car la ville I ne dépendra plus d'aucune école.
+La suppression de C est un succès !
+Cette ville possède une école
+Supprime A
+La suppression de A est un succès !
+Cette ville possède une école
+Supprime E
+Erreur - impossible de supprimer la ville , car la ville F ne dépendra plus d'aucune école.
+La suppression de E est impossible.
+Cette ville ne possède pas d'école
+Ajoute A
+Une école vient d'être construite dans la ville A.
+le nombre d'école entrez est 3 et le nombre d'école total est 6
+Cette ville ne possède pas d'école
+Ajoute C
+Une école vient d'être construite dans la ville C.
+le nombre d'école entrez est 3 et le nombre d'école total est 7
+{}
+Voici la liste des villes possédant une école :
+A       B       C       D       E       G       H
+
+alorithme optimiser
+ 2
+Cette ville ne possède pas d'école
+Ajoute F
+Une école vient d'être construite dans la ville F.
+le nombre d'école entrez est 7 et le nombre d'école total est 8
+Cette ville possède une école
+Supprime A
+La suppression de A est un succès !
+Cette ville possède une école
+Supprime H
+Erreur - impossible de supprimer la ville , car la ville I ne dépendra plus d'aucune école.
+Erreur - impossible de supprimer la ville , car la ville J ne dépendra plus d'aucune école.
+Erreur - impossible de supprimer la ville , car la ville K ne dépendra plus d'aucune école.
+La suppression de H est impossible.
+Cette ville ne possède pas d'école
+Ajoute K
+Une école vient d'être construite dans la ville K.
+le nombre d'école entrez est 7 et le nombre d'école total est 8
+Cette ville possède une école
+Supprime K
+La suppression de K est un succès !
+Cette ville ne possède pas d'école
+Ajoute J
+Une école vient d'être construite dans la ville J.
+le nombre d'école entrez est 7 et le nombre d'école total est 8
+Cette ville ne possède pas d'école
+Ajoute I
+Une école vient d'être construite dans la ville I.
+le nombre d'école entrez est 7 et le nombre d'école total est 9
+Cette ville possède une école
+Supprime G
+La suppression de G est un succès !
+Cette ville possède une école
+Supprime C
+La suppression de C est un succès !
+Cette ville ne possède pas d'école
+Ajoute A
+Une école vient d'être construite dans la ville A.
+le nombre d'école entrez est 7 et le nombre d'école total est 8
+Cette ville possède une école
+Supprime F
+La suppression de F est un succès !
+{}
+Voici la liste des villes possédant une école :
+A       B       D       E       H       I       J       
+
+alorithme optimiser
+ 2
+Cette ville possède une école
+Supprime I
+Erreur - impossible de supprimer la ville , car la ville C ne dépendra plus d'aucune école.
+La suppression de I est un succès !
+---------------->le score est : 6
+-----------------------> La suppression de A est possible !
+je peu supprimeA
+Erreur - impossible de supprimer la ville , car la ville C ne dépendra plus d'aucune école.
+-----------------------> La suppression de B est possible !
+je peu supprimeB
+Erreur - impossible de supprimer la ville , car la ville C ne dépendra plus d'aucune école.
+-----------------------> La suppression de D est possible !
+je peu supprimeD
+Erreur - impossible de supprimer la ville , car la ville F ne dépendra plus d'aucune école.
+Erreur - impossible de supprimer la ville , car la ville G ne dépendra plus d'aucune école.
+La suppression de E est impossible.
+Erreur - impossible de supprimer la ville , car la ville I ne dépendra plus d'aucune école.
+Erreur - impossible de supprimer la ville , car la ville K ne dépendra plus d'aucune école.
+La suppression de H est impossible.
+-----------------------> La suppression de J est possible !
+je peu supprimeJ
+{A=true, B=true, D=true, J=true}
+La suppression de A est un succès !
+Erreur - impossible de supprimer la ville , car la ville A ne dépendra plus d'aucune école.
+Erreur - impossible de supprimer la ville , car la ville C ne dépendra plus d'aucune école.
+La suppression de B est un succès !
+Erreur - impossible de supprimer la ville , car la ville A ne dépendra plus d'aucune école.
+Erreur - impossible de supprimer la ville , car la ville C ne dépendra plus d'aucune école.
+La suppression de D est impossible.
+La suppression de J est un succès !
+Voici la liste des villes possédant une école :
+D       E       H
