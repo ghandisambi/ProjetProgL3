@@ -48,11 +48,17 @@ public class Main {
             } while (n < 1 || n > 4);
             switch (n) {
                 case 1:
+                    if(ca.getEcoleList().isEmpty()){
+                        Automatique.algorithmeNaif(ca, ca.nombreVille());
+                    }
                     System.out.println("Mode manuel !");
                     Manuelle.Affichage(ca);
                     break;
 
                 case 2:
+                    if(ca.getEcoleList().isEmpty()){
+                        Automatique.algorithmeNaif(ca, ca.nombreVille());
+                    }
                     System.out.println("Mode automatique !");
                     Automatique.Solution(ca, donneefichier);
                     break;

@@ -30,3 +30,7 @@ D	E	H
 Voici la liste des villes possédant une école : 
 D	E	H	
 
+
+Voici la liste des villes possédant une école : 
+D	E	H	
+

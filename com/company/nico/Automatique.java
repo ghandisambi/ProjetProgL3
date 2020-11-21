@@ -2,16 +2,18 @@ package com.company.nico;
 
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 
 public class Automatique {
 
+    
     public static void Solution(CA ca,LinkedList<String> l){
+        
         algorithmeOptimiser(ca);   
     }
 
     public static CA algorithmeNaif(CA ca,int k){
+        affiche("Algorithme naif");
         int i=0;
         int scoreCourant = ca.score();
         while(i<k){
@@ -30,6 +32,7 @@ public class Automatique {
                 i++;
             }
             //else affiche("la ville n'existe pas");
+            affiche(ca.toString());
         }
         return ca;
     }
