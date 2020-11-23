@@ -1,7 +1,6 @@
 package com.company.nico;
 
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.Map;
 
 public class Automatique {
@@ -43,11 +42,9 @@ public class Automatique {
 
         while (i < k) {
             Ville ville = ca.getRandomVille();
-
             if (ca.villeExist(ville.toString())) {
                 if (ca.villePossedeEcole(ville.toString())) {
                     ca.supprimerEcole(ville.toString());
-
                 } else {
                     ca.ajouterEcole(ville.toString());
                 }
@@ -57,7 +54,6 @@ public class Automatique {
                             ecole.put(e.getValue(), true);
                         }
                     }
-
                     break;
                 } else
                     i++;
@@ -66,7 +62,6 @@ public class Automatique {
         for (Map.Entry<Ville, Boolean> e : ecole.entrySet()) {
             ca.supprimerEcole(e.getKey().toString());
         }
-        //affiche(ca.getEcoleList().toString());
         return ca;
     }
 

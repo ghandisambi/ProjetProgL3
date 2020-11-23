@@ -24,8 +24,8 @@ public class CA {
      * Il initialise les variables 'voisins' et 'ecole' en tant que nouveau HashMap initialement.
      */
     public CA() {
-        this.voisin = new HashMap<Ville, Set<Ville>>();
-        this.ecole = new HashMap<String, Ville>();
+        this.voisin = new HashMap<>();
+        this.ecole = new HashMap<>();
     }
 
     /**
@@ -78,10 +78,10 @@ public class CA {
      * Les villes possédant une école.
      */
     public String ecoleToString(){
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         sb.append("\nVoici la liste des villes possédant une école : \n");
         for (String nomEcole : ecole.keySet()) {
-            sb.append(getVille(nomEcole)+"\t");
+            sb.append(getVille(nomEcole)).append("\t");
         }
         sb.append("\n");
         return sb.toString();
@@ -104,27 +104,6 @@ public class CA {
             
         }
     }
-    public void ajouterVille(String nomVille,boolean avecEcole){
-        Ville ville = getVille(nomVille);
-
-        if (voisin.containsKey(new Ville(nomVille))) { /* Si la ville existe déja on s'arrête ici. */
-            System.out.println("Cette ville existe déjà !");
-        } else {
-            /* On insère la relation de la nouvelle ville dans l'ensemble de voisins. */
-            voisin.putIfAbsent(ville, new HashSet<>());
-            /* On crée une école dans la nouvelle ville et on insère la relation de cette nouvelle école dans l'ensemble d'écoles. */
-            if(avecEcole) ecole.putIfAbsent(ville.getNom(), ville);
-        }
-    }
-
-    public void afficheRoute(){
-        StringBuilder sb = new StringBuilder();
-        for (Ville v : voisin.keySet()) {
-            sb.append(v).append("->");
-            sb.append(voisin.get(v)).append("\n");
-        }
-        System.out.println(sb.toString());
-    }
 
 
     /**
@@ -137,11 +116,9 @@ public class CA {
      *  Nom du sommet de référence.
      * @return
      *  true : si le sommet de référence peut dépendre d'une autre école.
-     * @return
-     * false : si le sommet de référence ne peut dépendre d'une autre école.
+     *  false : si le sommet de référence ne peut dépendre d'une autre école.
      */
     public boolean parcourtSommet(String sommetVoisin, String sommetRef) {
-
         if (!ecole.containsKey(sommetVoisin)) {
             if (getVillesVoisinnes(getVille(sommetVoisin)).size() != 1) {
                 for (Ville voisin : getVillesVoisinnes(getVille(sommetVoisin))) {
@@ -149,13 +126,12 @@ public class CA {
                         return true;
                     }
                 }
-                return false;
-            } else return false;
+            }
+            return false;
         } else {
             return true;
         }
     }
-
 
     /**
      * Supprime une école si cela est possible.
@@ -196,7 +172,7 @@ public class CA {
     }
     /**
      * Test si on a la possibilité de supprimer une école.
-     * @param nomEcole
+     * @param nomEcole Nom de l'école a supprimer.
      * @return boolean vrai si il n'y a pas d'école sinon faux
      */
     public boolean testSuppressionEcole(String nomEcole) {
@@ -227,14 +203,8 @@ public class CA {
             if (!isPossible) break;
         }
 
-        if (isPossible) {
-            
-            return true; // Si le retrait de l'école ne viole pas la contrainte d'accessibilité.
-        } 
-    
-    return false;
-}
-
+        return isPossible; // Si le retrait de l'école ne viole pas la contrainte d'accessibilité.
+    }
 
     /**
      * Test si la ville donnée en argument possède une école.
@@ -247,20 +217,12 @@ public class CA {
         boolean y = false;
         if (ecole.containsKey(nomVille)) {
             y = true;
-            return y;
-        } else {
-           // System.out.println("Erreur - impossible de supprimer la ville , car la ville "+nomVille+" ne dépendra plus d'aucune école.");
-            return y;
         }
+        return y;
     }
     
     public boolean villePossedeEcole(String nomVille){
-        if(ecole.containsValue(getVille(nomVille))){
-            
-            return true;
-        }
-        
-        return false;
+        return ecole.containsValue(getVille(nomVille));
     }
 
 
@@ -279,11 +241,10 @@ public class CA {
 
     /**
      * Ajoute une route entre deux villes et met à jour leurs liste de voisins.
-     *
-     * @param nomVilleA Nom de la ville A a relier avec B.
-     * @param nomVilleB Nom de la ville B a relier avec A.
+     *  @param nomVilleA Nom de la ville A a relier avec B.
+     *  @param nomVilleB Nom de la ville B a relier avec A.
      */
-    public boolean ajouterRoute(String nomVilleA, String nomVilleB) {
+    public void ajouterRoute(String nomVilleA, String nomVilleB) {
         /* Variables locales */
         Ville villeTmpA = new Ville(nomVilleA);
         System.out.println(villeTmpA);
@@ -298,7 +259,6 @@ public class CA {
                 }
             } else System.out.println("la ville de départ n'existe pas");
         } else System.out.println("la ville d'arriver n'existe pas");
-        return voisin.containsKey(villeTmpA) && voisin.containsKey(villeTmpB);
     }
 
 

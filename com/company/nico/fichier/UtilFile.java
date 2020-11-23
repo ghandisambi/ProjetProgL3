@@ -72,76 +72,10 @@ public static void lireLignes(String chemin,CA ca) {
         }
 
     public static void sauvegarde(CA ca,File file)throws IOException {
-
         FileWriter fileWriter = new FileWriter(file,true);
         BufferedWriter bw = new BufferedWriter(fileWriter);
         bw.write(ca.ecoleToString());
         bw.newLine();
         bw.close();
-
     }
-
-    /* public static void file(String[] args) {
-         try {
-             File fichier = new File(args[0]);
-             Scanner myReader = new Scanner(fichier);
-          while (myReader.hasNextLine()) {
-            String ligne = myReader.nextLine();
-            System.out.println(ligne);
-          }
-          myReader.close();
-        } catch (FileNotFoundException e) {
-          System.out.println("Le fichier n'existe pas("+e.getMessage()+")");
-        }
-    }
-*/
-    /* public static LinkedList<String> lire(String chemin) {
-        
-        LinkedList<String> l = new LinkedList<>();
-        try {
-            
-            StringTokenizer st;
-            StringBuilder sb = new StringBuilder();
-            File fichier = new File(chemin); 
-            Scanner sc = new Scanner(fichier);
-          while (sc.hasNextLine()) {
-
-              sb.append(sc.nextLine());
-          }
-          sc.close();
-          st = new StringTokenizer(sb.toString(),"("+"."+","+")");
-
-          while (st.hasMoreTokens()) {
-              l.add(st.nextToken());
-          }
-        } catch (FileNotFoundException e) {
-          System.out.println("Le fichier n'existe pas("+e.getMessage()+")");
-        }
-        
-        return l;
-    }
-*/
-    /*
-    public static CA lecture(CA ca,LinkedList<String> l) {
-
-      while (l.contains("ville")) {
-            l.remove("ville");
-            ca.ajouterVille(l.poll());
-      }
-
-      while (l.contains("route")) {
-            l.remove("route");
-            ca.ajouterRoute(l.pop(), l.pop()); 
-      }
-
-      while (l.contains("ecole")) {
-            l.remove("ecole");
-            ca.ajouterEcole(l.poll());
-      }      
-      return ca;
-    }
-*/
-
-    
-    
 }
