@@ -281,12 +281,14 @@ public class CA {
      * Ajoute une route entre deux villes et met à jour leurs liste de voisins.
      *
      * @param nomVilleA Nom de la ville A a relier avec B.
-     * @param nomVilleB Nom de la ville B a relier avec A
+     * @param nomVilleB Nom de la ville B a relier avec A.
      */
     public boolean ajouterRoute(String nomVilleA, String nomVilleB) {
         /* Variables locales */
         Ville villeTmpA = new Ville(nomVilleA);
+        System.out.println(villeTmpA);
         Ville villeTmpB = new Ville(nomVilleB);
+        System.out.println(villeTmpB);
 
         if (voisin.containsKey(villeTmpA)) { // Si la ville A existe
             if (voisin.containsKey(villeTmpB)) { // Si la ville B existe

@@ -7,12 +7,11 @@ import java.util.Map;
 public class Automatique {
 
     
-    public static void Solution(CA ca,LinkedList<String> l){
-        
+    public static void Solution(CA ca){
         algorithmeOptimiser(ca);   
     }
 
-    public static CA algorithmeNaif(CA ca,int k){
+    public static void algorithmeNaif(CA ca,int k){
         affiche("Algorithme naif");
         int i=0;
         int scoreCourant = ca.score();
@@ -34,7 +33,6 @@ public class Automatique {
             //else affiche("la ville n'existe pas");
             affiche(ca.toString());
         }
-        return ca;
     }
 
 
@@ -72,7 +70,7 @@ public class Automatique {
         return ca;
     }
 
-    public static CA algorithmeOptimiser(CA ca){
+    public static void algorithmeOptimiser(CA ca){
         int scoreCourant=ca.score();
         if(ca.getEcole().size()<ca.nombreVille()/3){
             ca.initEcole();
@@ -90,8 +88,8 @@ public class Automatique {
                 }
             }
             affiche("La meilleur solution est: "+ca.getEcoleList());
-        return ca;
     }
+
     public static CA precision(CA ca) {
         algorithme(ca, ca.nombreVille());
        return ca; 

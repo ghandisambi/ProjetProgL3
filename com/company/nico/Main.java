@@ -1,7 +1,6 @@
 package com.company.nico;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.LinkedList;
 import java.util.Scanner;
 
@@ -15,29 +14,12 @@ public class Main {
     /**
      * Lancement du programme.
      */
-
-    public static void main(String[] args) {
-        CA ca = new CA();/** Création de la communauté d'agglomération */
-        
-
-        String fichierVille = "com" + File.separator + "company" + File.separator + "nico" + File.separator + "fichier"
-                + File.separator + "ville.txt";/** Lien fichier des Villes et Routes */
-
-        String fichierEcole = "com" + File.separator + "company" + File.separator + "nico" + File.separator + "fichier"
-                + File.separator + "exemple.ca";/** Lien fichier des ecoles */
+    public static void main(String[] args) throws IOException {
+        CA ca = new CA();/* Création de la communauté d'agglomération */
+        UtilFile.loadDataFile(args,ca);
         String fichierSolution = "com" + File.separator + "company" + File.separator + "nico" + File.separator
                 + "fichier" + File.separator + "solution.txt";
         File file = new File(fichierSolution);
-
-        LinkedList<String> donneefichier = new LinkedList<>(); /**
-                                                                * liste qui stock les données de plusieur fichier peu
-                                                                * importe la taille
-                                                                */
-
-        donneefichier.addAll(UtilFile.lire(fichierVille));/** On ajoute les données du fichier des villes */
-        donneefichier.addAll(UtilFile.lire(fichierEcole));/** On ajoute les données du fichier des ecoles */
-
-        UtilFile.lecture(ca, donneefichier);
 
         int n;
         do {
@@ -60,7 +42,7 @@ public class Main {
                         Automatique.algorithmeNaif(ca, ca.nombreVille());
                     }
                     System.out.println("Mode automatique !");
-                    Automatique.Solution(ca, donneefichier);
+                    Automatique.Solution(ca);
                     break;
                 case 3:
                     System.out.println("Sauvegarde");

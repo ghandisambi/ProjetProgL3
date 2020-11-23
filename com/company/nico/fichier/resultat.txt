@@ -1,6 +1,0 @@
-Mode automatique !
-[B, E, H, I, J, K]
-[A, B, D, E, F, G, H, J]
-[D, F, G, H]
-
-La meilleur solution est: [D, F, G, H]
