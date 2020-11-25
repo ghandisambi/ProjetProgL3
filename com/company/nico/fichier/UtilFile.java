@@ -56,20 +56,20 @@ public static void lireLignes(String chemin,CA ca) {
      */
     public static void traitementLigne(String line,CA ca) {
         String argument;
-        String substring = line.substring(line.indexOf('(') + 1, line.indexOf(')'));
         if (Pattern.matches("ville(.*)", line)) {
-            argument = substring;
+            argument = line.substring(line.indexOf('(') + 1, line.indexOf(')'));;
             if (argument.length() == 1) {
                 ca.ajouterVille(argument);
             } else System.out.println("Erreur création de ville - Un argument est incorrect !");
         }
         if (Pattern.matches("route(.*)", line)){
-            argument = substring;
+            argument = line.substring(line.indexOf('(') + 1, line.indexOf(')'));;
                 if (argument.contains(",") && argument.length() == 3) {
                     ca.ajouterRoute(argument.substring(0,argument.indexOf(',')),argument.substring(argument.indexOf(',')+1,3));
                 } else System.out.println("Erreur création de route - Un argument est incorrect !");
-            }
         }
+        }
+
 
     public static void sauvegarde(CA ca,File file)throws IOException {
         FileWriter fileWriter = new FileWriter(file,true);
