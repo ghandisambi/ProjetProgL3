@@ -20,3 +20,4 @@ route(E,F).
 route(E,G).
 route(H,I).
 route(H,J).
+route(H,K).
