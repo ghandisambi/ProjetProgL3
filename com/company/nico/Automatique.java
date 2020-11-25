@@ -1,7 +1,11 @@
 package com.company.nico;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class Automatique {
 
@@ -30,18 +34,21 @@ public class Automatique {
                 i++;
             }
             //else affiche("la ville n'existe pas");
-            affiche(ca.toString());
+           
         }
     }
 
+    
+
+    
 
     public static CA algorithme(CA ca, int k) {
         int i = 0;
         int scoreCourant = ca.score() ;
         Map<Ville, Boolean> ecole = new HashMap<>();
-
+        Ville ville = ca.getRandomVille();
         while (i < k) {
-            Ville ville = ca.getRandomVille();
+            
             if (ca.villeExist(ville.toString())) {
                 if (ca.villePossedeEcole(ville.toString())) {
                     ca.supprimerEcole(ville.toString());
@@ -52,6 +59,7 @@ public class Automatique {
                     for (Map.Entry<String, Ville> e : ca.getEcole().entrySet()) {
                         if (ca.testSuppressionEcole(e.getKey())) {
                             ecole.put(e.getValue(), true);
+                            
                         }
                     }
                     break;
@@ -60,34 +68,54 @@ public class Automatique {
             }
         }
         for (Map.Entry<Ville, Boolean> e : ecole.entrySet()) {
+            affiche(""+ca.ecoleToString());
             ca.supprimerEcole(e.getKey().toString());
         }
         return ca;
     }
+    public static int minorant(List<Integer>list){
+            if (list == null || list.size() == 0) { 
+                return Integer.MIN_VALUE; 
+            }  
+            List<Integer> listTrie = new ArrayList<>(list); 
+            Collections.sort(listTrie); 
+            return listTrie.get(0); 
+    }
+
+    public static int majorant(List<Integer>list){
+        if (list == null || list.size() == 0) { 
+            return Integer.MIN_VALUE; 
+        }  
+        List<Integer> listTrie = new ArrayList<>(list); 
+        Collections.sort(listTrie); 
+        return listTrie.get(listTrie.size() - 1); 
+    }
+
+    
 
     public static void algorithmeOptimiser(CA ca){
-        int scoreCourant=ca.score();
-        if(ca.getEcole().size()<ca.nombreVille()/3){
-            ca.initEcole();
-            scoreCourant=ca.score();
-        }else scoreCourant=ca.score();   
+        List<Integer> list = new ArrayList<>();
+
+        for (Map.Entry<Ville, Set<Ville>> e : ca.getVoisin().entrySet()) {
+              list.add(e.getValue().size());
+        }
         
+        
+        int scoreCourant=ca.score();
             while (ca.score()>=scoreCourant) {
-                algorithme(ca, ca.nombreVille()).getEcoleList();
+                algorithme(ca, ca.nombreVille());
+                scoreCourant=majorant(list);
                 if(ca.score()<=scoreCourant){
                     if(ca.score()<scoreCourant){
+                        affiche(scoreCourant+"<"+ca.ecoleToString());
                         break;
                     }else if(ca.score()==scoreCourant){
+                        affiche(scoreCourant+"=="+ca.ecoleToString());
                         break;
                     }
                 }
             }
             affiche("La meilleur solution est: "+ca.getEcoleList());
-    }
-
-    public static CA precision(CA ca) {
-        algorithme(ca, ca.nombreVille());
-       return ca; 
     }
 
     public static void affiche(String s){

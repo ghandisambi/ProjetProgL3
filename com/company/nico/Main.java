@@ -20,6 +20,7 @@ public class Main {
         String fichierSolution = "com" + File.separator + "company" + File.separator + "nico" + File.separator
                 + "fichier" + File.separator + "solution.txt";
         File file = new File(fichierSolution);
+        Automatique.affiche(ca.toString());
 
         int n;
         do {
