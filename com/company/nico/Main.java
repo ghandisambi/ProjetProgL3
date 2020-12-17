@@ -15,12 +15,12 @@ public class Main {
      * Lancement du programme.
      */
     public static void main(String[] args) throws IOException {
-        CA ca = new CA();/* Création de la communauté d'agglomération */
-        UtilFile.loadDataFile(args,ca);
-        String fichierSolution = "com" + File.separator + "company" + File.separator + "nico" + File.separator
-                + "fichier" + File.separator + "solution.txt";
+        /* Création de la communauté d'agglomération */
+        CA ca = new CA();
+
+        String fichierSolution = "com" + File.separator + "company" + File.separator + "nico" + File.separator + "fichier" + File.separator + "solution.txt";
+
         File file = new File(fichierSolution);
-        Automatique.affiche(ca.toString());
 
         int n;
         do {
@@ -31,6 +31,7 @@ public class Main {
             } while (n < 1 || n > 4);
             switch (n) {
                 case 1:
+                    UtilFile.loadDataFile(args,ca);
                     if(ca.getEcoleList().isEmpty()){
                         Automatique.algorithmeNaif(ca, ca.nombreVille());
                     }
@@ -39,9 +40,10 @@ public class Main {
                     break;
 
                 case 2:
-                    if(ca.getEcoleList().isEmpty()){
-                        Automatique.algorithmeNaif(ca, ca.nombreVille());
-                    }
+                    /* On essaye de charger un fichier contenant les villes. */
+                    UtilFile.loadDataFile(args,ca);
+
+
                     System.out.println("Mode automatique !");
                     Automatique.Solution(ca);
                     break;

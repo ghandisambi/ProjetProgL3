@@ -16,11 +16,13 @@ import com.company.nico.CA;
 public class UtilFile {
 
 
-public static void loadDataFile(String[] args,CA ca) {
-    if (args.length==0)
-        System.out.println("Un argument est attendu !");
-    else {
+public static boolean loadDataFile(String[] args,CA ca) {
+    if (args.length==0) {
+        System.out.println("Vous n'avez pas indiqué de fichier !");
+        return false;
+    } else {
         lireLignes(args[0],ca);
+        return true;
     }
 }
 
@@ -28,9 +30,11 @@ public static void loadDataFile(String[] args,CA ca) {
 public static void lireLignes(String chemin,CA ca) {
     BufferedReader bufferedreader = null;
     FileReader filereader = null;
+
     try {
         filereader = new FileReader("com/company/nico/fichier/"+chemin);
         bufferedreader = new BufferedReader(filereader);
+
         String strCurrentLine;
         while ((strCurrentLine = bufferedreader.readLine()) != null) {
             traitementLigne(strCurrentLine,ca);}

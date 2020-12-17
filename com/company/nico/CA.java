@@ -60,8 +60,6 @@ public class CA {
     }
 
 
-    
-    
 
 
     /**
@@ -296,9 +294,11 @@ public class CA {
 
     public Ville getRandomVille(){
         Random rnd = new Random();
-        char c = (char)('A'+rnd.nextInt(voisin.keySet().size()));
+        System.out.println(voisin.keySet().size());
+        char c = (char) ('A'+rnd.nextInt(voisin.keySet().size()));
         return getVille(Character.toString(c));
     }
+
     public int nombreVille(){
         return voisin.keySet().size();
     }

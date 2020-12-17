@@ -38,9 +38,6 @@ public class Automatique {
         }
     }
 
-    
-
-    
 
     public static CA algorithme(CA ca, int k) {
         int i = 0;
@@ -73,6 +70,8 @@ public class Automatique {
         }
         return ca;
     }
+
+
     public static int minorant(List<Integer>list){
             if (list == null || list.size() == 0) { 
                 return Integer.MIN_VALUE; 
