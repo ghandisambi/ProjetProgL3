@@ -4,7 +4,6 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 
-
 public class Manuelle {
     public static int menu(int etape,Scanner scanner){
         System.out.println("Quelle opération souhaitez-vous effectuer ?");

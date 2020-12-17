@@ -16,13 +16,17 @@ import com.company.nico.CA;
 public class UtilFile {
 
 
-public static boolean loadDataFile(String[] args,CA ca) {
+public static CA loadDataFile(String[] args) {
+    CA ca =null;
+
     if (args.length==0) {
         System.out.println("Vous n'avez pas indiqué de fichier !");
-        return false;
+        return ca;
     } else {
+        ca = new CA();
         lireLignes(args[0],ca);
-        return true;
+        System.out.println(ca.toString());
+        return ca;
     }
 }
 
@@ -59,27 +63,42 @@ public static void lireLignes(String chemin,CA ca) {
      * @param ca La communauté d'agglomérations sur laquelle appliquer des changements.
      */
     public static void traitementLigne(String line,CA ca) {
-        String argument;
+        String argument = line.substring(line.indexOf('(') + 1, line.indexOf(')'));;
         if (Pattern.matches("ville(.*)", line)) {
-            argument = line.substring(line.indexOf('(') + 1, line.indexOf(')'));;
             if (argument.length() == 1) {
                 ca.ajouterVille(argument);
             } else System.out.println("Erreur création de ville - Un argument est incorrect !");
         }
-        if (Pattern.matches("route(.*)", line)){
-            argument = line.substring(line.indexOf('(') + 1, line.indexOf(')'));;
+        if (Pattern.matches("route(.*)", line)) {
                 if (argument.contains(",") && argument.length() == 3) {
                     ca.ajouterRoute(argument.substring(0,argument.indexOf(',')),argument.substring(argument.indexOf(',')+1,3));
                 } else System.out.println("Erreur création de route - Un argument est incorrect !");
         }
+
+        if (Pattern.matches("ecole(.*)",line)) {
+                if (argument.length() == 1) {
+                    ca.ajouterEcole(argument);
+                }
+        }
+    }
+
+
+    public static void sauvegarde(CA ca)throws IOException {
+        BufferedWriter bufferedWriter = null;
+        FileWriter fileWriter = null;
+
+        try {
+            String fichierSolution = "com" + File.separator + "company" + File.separator + "nico" + File.separator + "fichier" + File.separator + "solution.txt";
+            File file = new File(fichierSolution);
+            fileWriter = new FileWriter(file,true);
+            BufferedWriter bw = new BufferedWriter(fileWriter);
+
+            bw.write(ca.ecoleToString());
+            bw.newLine();
+            bw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
-
-    public static void sauvegarde(CA ca,File file)throws IOException {
-        FileWriter fileWriter = new FileWriter(file,true);
-        BufferedWriter bw = new BufferedWriter(fileWriter);
-        bw.write(ca.ecoleToString());
-        bw.newLine();
-        bw.close();
     }
 }

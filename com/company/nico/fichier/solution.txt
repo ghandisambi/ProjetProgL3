@@ -30,3 +30,15 @@ C
 Voici la liste des villes possédant une école : 
 C	
 
+
+Voici la liste des villes possédant une école : 
+B	C	F	H	
+
+
+Voici la liste des villes possédant une école : 
+B	C	F	H	
+
+
+Voici la liste des villes possédant une école : 
+D	E	H	
+

@@ -6,6 +6,8 @@ import java.util.Scanner;
 
 import com.company.nico.fichier.UtilFile;
 
+import javax.swing.*;
+
 /**
  * Main et la classe principale contenant l'ensemble des méthodes et déclaration
  * permettant d'utiliser l'interface utilisateur.
@@ -16,11 +18,14 @@ public class Main {
      */
     public static void main(String[] args) throws IOException {
         /* Création de la communauté d'agglomération */
-        CA ca = new CA();
 
-        String fichierSolution = "com" + File.separator + "company" + File.separator + "nico" + File.separator + "fichier" + File.separator + "solution.txt";
-
-        File file = new File(fichierSolution);
+        CA ca = null;
+        ca = UtilFile.loadDataFile(args);
+        if(ca.getEcoleList().isEmpty()) {
+            for (String ville : ca.ajouteEcoleDansVilles()) {
+                ca.ajouterEcole(ville);
+            }
+        }
 
         int n;
         do {
@@ -31,31 +36,29 @@ public class Main {
             } while (n < 1 || n > 4);
             switch (n) {
                 case 1:
-                    UtilFile.loadDataFile(args,ca);
-                    if(ca.getEcoleList().isEmpty()){
-                        Automatique.algorithmeNaif(ca, ca.nombreVille());
-                    }
-                    System.out.println("Mode manuel !");
+                    System.out.println("====== Résolution manuelle ======");
                     Manuelle.Affichage(ca);
                     break;
 
                 case 2:
-                    /* On essaye de charger un fichier contenant les villes. */
-                    UtilFile.loadDataFile(args,ca);
+                    System.out.println("====== Résolution automatique ======");
+                    /////////////////////////Attention erreur si le Ca na pas de ville.
+                    if (ca.getEcoleList().isEmpty()){
+                        Algorithme.algoNaif(ca,ca.nombreVille());
+                        System.out.println("apre naif : "+ca.toString());
+                    }
+                    Algorithme.Solution(ca);
 
-
-                    System.out.println("Mode automatique !");
-                    Automatique.Solution(ca);
                     break;
                 case 3:
-                    System.out.println("Sauvegarde");
+                    System.out.println("====== Sauvegarde ======");
                     try {
-                        UtilFile.sauvegarde(ca, file);
+                        UtilFile.sauvegarde(ca);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
 
-               break;
+                    break;
                case 4:
                     n = 0;
                     System.out.println("Au revoir !");

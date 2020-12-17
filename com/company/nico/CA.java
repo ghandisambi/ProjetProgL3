@@ -1,11 +1,7 @@
 package com.company.nico;
 
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 
 
 /**
@@ -19,6 +15,7 @@ public class CA {
     /* Association représentant le nom d'une ville comme clé la ville dans laquelle elle se situe comme valeur. */
     private final Map<String, Ville> ecole;
 
+
     /**
      * Constructeur de la classe CA.
      * Il initialise les variables 'voisins' et 'ecole' en tant que nouveau HashMap initialement.
@@ -27,6 +24,7 @@ public class CA {
         this.voisin = new HashMap<>();
         this.ecole = new HashMap<>();
     }
+
 
     /**
      * Permets de retourner un objet ville identifier par son nom de ville.
@@ -49,6 +47,8 @@ public class CA {
         return villeTmp;
     }
 
+
+
     /**
      * Permets de retourner à partir d'une ville un ensemble de ses voisins.
      *
@@ -59,30 +59,29 @@ public class CA {
         return voisin.get(ville);
     }
 
-
-
-
     /**
-     * Affiche les villes possédant une école.
+     *
+     * @return liste des voisins pour chaque ville
      */
-    public void afficheEcole() {
-        System.out.println("Voici la liste des villes possédant une école :");
-        for (String nomEcole : ecole.keySet()) {
-            System.out.print(getVille(nomEcole)+"\t");
-        }
-        System.out.println("\n");
+    public Map<Ville, Set<Ville>> getVoisin() {
+        return voisin;
     }
     /**
-     * Les villes possédant une école.
+     *
+     * @return la liste des écoles associés aux villes
      */
-    public String ecoleToString(){
-        StringBuilder sb = new StringBuilder();
-        sb.append("\nVoici la liste des villes possédant une école : \n");
-        for (String nomEcole : ecole.keySet()) {
-            sb.append(getVille(nomEcole)).append("\t");
-        }
-        sb.append("\n");
-        return sb.toString();
+    public Map<String, Ville> getEcole() {
+        return ecole;
+
+    }
+
+
+    /**
+     * Liste des écoles
+     * @return La liste des écoles
+     */
+    public Set<String> getEcoleList() {
+        return ecole.keySet();
     }
 
 
@@ -245,9 +244,7 @@ public class CA {
     public void ajouterRoute(String nomVilleA, String nomVilleB) {
         /* Variables locales */
         Ville villeTmpA = new Ville(nomVilleA);
-        System.out.println(villeTmpA);
         Ville villeTmpB = new Ville(nomVilleB);
-        System.out.println(villeTmpB);
 
         if (voisin.containsKey(villeTmpA)) { // Si la ville A existe
             if (voisin.containsKey(villeTmpB)) { // Si la ville B existe
@@ -287,42 +284,50 @@ public class CA {
      * Permet de connaître le nombre d'école
      * @return nombre d'école
      */
-    public int score(){
-
+    public int score() {
         return ecole.size();
     }
 
     public Ville getRandomVille(){
         Random rnd = new Random();
-        System.out.println(voisin.keySet().size());
         char c = (char) ('A'+rnd.nextInt(voisin.keySet().size()));
         return getVille(Character.toString(c));
+    }
+
+    public ArrayList<String> ajouteEcoleDansVilles() {
+        ArrayList<String> villes = new ArrayList<>();
+        for (Ville ville:voisin.keySet()) {
+            villes.add(ville.getNom());
+        }
+        return villes;
     }
 
     public int nombreVille(){
         return voisin.keySet().size();
     }
+
     /**
-     * 
-     * @return liste des voisins pour chaque ville
+     * Affiche les villes possédant une école.
      */
-    public Map<Ville, Set<Ville>> getVoisin() {
-        return voisin;
+    public void afficheEcole() {
+        System.out.println("Voici la liste des villes possédant une école :");
+        for (String nomEcole : ecole.keySet()) {
+            System.out.print(getVille(nomEcole)+"\t");
+        }
+        System.out.println("\n");
     }
+
     /**
-     * 
-     * @return la liste des écoles associés aux villes
+     * Les villes possédant une école.
      */
-    public Map<String, Ville> getEcole() {
-        return ecole;
-        
-    }
-    /**
-     * Liste des écoles 
-     * @return La liste des écoles 
-     */
-    public Set<String> getEcoleList() {
-        return ecole.keySet();
+    public String ecoleToString(){
+        StringBuilder sb = new StringBuilder();
+        sb.append("\nVoici la liste des villes possédant une école : \n");
+        for (String nomEcole : ecole.keySet()) {
+            sb.append(getVille(nomEcole)).append("\t");
+        }
+        sb.append("\n");
+        return sb.toString();
     }
     
 
