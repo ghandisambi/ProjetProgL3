@@ -340,8 +340,12 @@ public class CA {
 
     public Ville getRandomVille(){
         Random rnd = new Random();
-        char c = (char) ('A'+rnd.nextInt(voisin.keySet().size()));
-        return getVille(Character.toString(c));
+        int aux= 0;
+        List<String> list = new LinkedList<>();
+        list.addAll(this.getListVille());
+        aux = rnd.nextInt(list.size());
+        
+        return getVille(list.get(aux).toString());
     }
 
     public ArrayList<String> getListVille() {
