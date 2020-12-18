@@ -4,9 +4,14 @@ import java.util.*;
 
 public class Algorithme {
 
-    public static void Solution(CA ca) {
-        algorithmeOptimiser(ca);
-        precision(ca);
+    public static void Solution(CA ca,int nb) {
+        if (nb==1){
+            algoNaif(ca,ca.nombreVille());
+        } else if (nb==2){
+            algorithmeOptimiser(ca);
+            precision(ca);
+        }
+
     }
 
    /* public static void algoApproximation(CA ca, int k) {
