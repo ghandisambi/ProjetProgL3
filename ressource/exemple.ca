@@ -10,6 +10,7 @@ ville(I).
 ville(J).
 ville(K).
 route(A,B).
+route(A,B).
 route(A,D).
 route(B,C).
 route(B,H).

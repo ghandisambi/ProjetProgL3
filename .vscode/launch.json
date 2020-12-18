@@ -9,9 +9,8 @@
             "type": "java",
             "name": "Debug (Launch)",
             "request": "launch",
-            "mainClass": "com.company.nico.Main",
-            "args": "exemple.ca"
-
+            "mainClass": "com.company.nkg.Main",
+            "args": "ressource"
         },
         {
             "type": "java",

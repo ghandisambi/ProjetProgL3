@@ -1,14 +1,37 @@
-package com.company.nico;
+package com.company.nkg;
+
+import com.company.nkg.Utils.UtilSaisie;
 
 import java.util.*;
 
 public class Algorithme {
 
-    public static void Solution(CA ca) {
-        algorithmeOptimiser(ca);
+
+    public static void choixAlgo(Scanner scanner,CA ca) {
+        int choix;
+        System.out.println((ca.nombreVille()<=4)?"Il n'y a pas beaucoup de ville dans votre communauté " +
+                "Nous vous conseillons d'utiliser l'algorithme naïf qui fera l'affaire.":"Votre communauté " +
+                "d'agglomération a un nombre conséquent de ville l'algorithme optimisé sera plus approprié.");
+        do {
+            System.out.println("Quelle algorithme voulez vous utilisé ?\n1 - Algorithme naïf\n2 - Algorithme optimisé");
+            choix = UtilSaisie.saisieEntier(scanner);
+            if (choix < 1 || choix > 2)
+                System.out.println("Choix incorrecte !");
+        } while (choix < 1 || choix > 2);
+        Solution(ca,choix);
+
     }
 
-    public static void algoApproximation(CA ca, int k) {
+    public static void Solution(CA ca,int nb) {
+        if (nb==1){
+            algoNaif(ca,ca.nombreVille());
+        } else if (nb==2){
+            algorithmeOptimiser(ca);
+            precision(ca);
+        }
+    }
+
+   /* public static void algoApproximation(CA ca, int k) {
 
         int i = 0;
         int scoreCourant = ca.score();
@@ -39,8 +62,8 @@ public class Algorithme {
         }
         System.out.println(ca.getEcoleList().toString());
     }
-
-
+*/
+   /*
     public static void algoOptimiser(CA ca) {
         List<Integer> list = new ArrayList<>();
 
@@ -65,19 +88,18 @@ public class Algorithme {
         }
         System.out.println("La meilleur solution est: " + ca.getEcoleList());
     }
+*/
 
-
-    public static int majorant(List<Integer> list) {
+    /*  public static int majorant(List<Integer> list) {
         if (list == null || list.size() == 0) {
             return Integer.MIN_VALUE;
         }
         List<Integer> listTrie = new ArrayList<>(list);
         Collections.sort(listTrie);
         return listTrie.get(listTrie.size() - 1);
-    }
+    }*/
 
     public static void algoNaif(CA ca, int k) {
-        System.out.println("com.company.nico.Algorithme naif");
         int i = 0;
 
         while (i < k) {
@@ -130,29 +152,61 @@ public class Algorithme {
 
     public static CA algorithmeOptimiser(CA ca){
         int scoreCourant=ca.score();
-        if(ca.getEcole().size()<ca.nombreVille()/3){
+        
+
+       /* if(ca.getEcole().size()<ca.nombreVille()/3){
             ca.initEcole();
             scoreCourant=ca.score();
         }else scoreCourant=ca.score();
 
-        while (ca.score()>=scoreCourant) {
-            algorithme(ca, ca.nombreVille()).getEcoleList();
-            if(ca.score()<=scoreCourant){
-                if(ca.score()<scoreCourant){
-                    break;
-                }else if(ca.score()==scoreCourant){
-                    break;
+*/       
+            while (ca.score() >= scoreCourant) {
+                algorithme(ca, ca.nombreVille()).getEcoleList();
+                if (ca.score() <= scoreCourant) {
+                    if (ca.score() < scoreCourant) {
+                        break;
+                    } else if (ca.score() == scoreCourant) {
+                        break;
+                    }
                 }
+
             }
-        }
+    
+            
+        
         affiche("La meilleur solution est: "+ca.getEcoleList());
         return ca;
-    }
-    public static CA precision(CA ca) {
-        algorithme(ca, ca.nombreVille());
-        return ca;
+
     }
 
+    public static CA precision(CA ca) {
+        Map<Ville, Boolean> ecole = new HashMap<>();
+        Map<Ville, String> verification = new LinkedHashMap<>();
+        for (Map.Entry<String, Ville> e : ca.getEcole().entrySet()) {
+            if(ca.getVillesVoisinnes(e.getValue()).size()==1)
+            verification.put(e.getValue(), ca.getVillesVoisinnes(e.getValue()).toString());
+        }
+
+        if(!verification.isEmpty()){
+                Queue<Ville> cles= new LinkedList<>();
+                Queue<String> values= new LinkedList<>();
+                cles.addAll(verification.keySet());
+                values.addAll(verification.values());
+                for (Map.Entry<Ville, String> e : verification.entrySet()) {
+                    if(cles.contains(e.getKey())&&values.contains(e.getValue())){
+                        Ville maville = new Ville(e.getValue());
+                        StringTokenizer str = new StringTokenizer(maville.toString(),"[]");
+                        String s = str.nextToken().toString();
+                        
+                        ca.ajouterEcole(s);
+                        ca.supprimerEcole(e.getKey().toString());
+                    }
+                }
+            affiche(ca.ecoleToString());
+
+        }
+        return ca;
+    }
     public static void affiche(String s){
         System.out.println(s);
     }

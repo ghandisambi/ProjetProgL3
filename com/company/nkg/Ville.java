@@ -1,4 +1,4 @@
-package com.company.nico;
+package com.company.nkg;
 
 /**
  * Ville est la classe représentant l'ensemble des variables et des méthodes nécessaires à la création et à la modification
