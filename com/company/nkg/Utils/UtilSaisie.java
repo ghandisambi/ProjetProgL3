@@ -7,9 +7,6 @@ import java.util.Scanner;
 
 public class UtilSaisie {
 
-
-
-
     /**
      * Permet la saisie d'une chaine de caractère.
      * @return

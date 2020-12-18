@@ -18,8 +18,6 @@ public class Main {
         int choix;
         /* Création de la communauté d'agglomération */
         do {
-
-
             if (args.length > 0) {
                 CA ca = null;
                 ca = UtilFile.chargement(args[0]);
@@ -29,7 +27,6 @@ public class Main {
                             ca.ajouterEcole(ville);
                         }
                     }
-
                     System.out.println(ca.toString());
                     Commande.menu(ca);
                 } else System.out.println("Ce repertoire n'existe pas !");
