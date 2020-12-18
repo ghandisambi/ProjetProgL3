@@ -87,12 +87,12 @@ public class Commande {
             ca.afficheEcole();
             switch (option) {
                 case 1:
-                    do {
-                        System.out.println("************************** << Etape 2 ajout  >> *****************************");
-                        System.out.println("Dans quelle ville voulez-vous ajouter l'école => ");
-                        s = saisieVille(new Scanner(System.in), ca);
-                    } while (!ca.ajouterEcole(s));
-
+                    System.out.println("************************** << Etape 2 ajout  >> *****************************");
+                    System.out.println("Dans quelle ville voulez-vous ajouter l'école => ");
+                    s = saisieVille(new Scanner(System.in), ca);
+                    if(!ca.ajouterEcole(s)){
+                        System.out.println("Impossible de rajouter une école dans la ville !");
+                    }
                     System.out.println(ca.toString());
                     ca.afficheEcole();
                     break;

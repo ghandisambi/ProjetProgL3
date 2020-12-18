@@ -322,6 +322,8 @@ public class CA {
         }else System.out.println("L'ecole existe déja vous ne pouvais pas en créer ");
         return false;
     }
+
+
     public void initEcole(){
         for(Ville v:getVoisin().keySet()){
             ajouterEcole(v.toString());
