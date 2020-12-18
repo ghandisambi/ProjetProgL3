@@ -170,10 +170,6 @@ public class Algorithme {
                 Queue<String> values= new LinkedList<>();
                 cles.addAll(verification.keySet());
                 values.addAll(verification.values());
-
-                affiche(cles.toString()+"->"+values.toString());
-
-
                 for (Map.Entry<Ville, String> e : verification.entrySet()) {
                     if(cles.contains(e.getKey())&&values.contains(e.getValue())){
                         Ville maville = new Ville(e.getValue());
@@ -184,7 +180,6 @@ public class Algorithme {
                         ca.supprimerEcole(e.getKey().toString());
                     }
                 }
-
             affiche(ca.ecoleToString());
 
         }
