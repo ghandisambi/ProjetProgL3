@@ -6,6 +6,7 @@ public class Algorithme {
 
     public static void Solution(CA ca) {
         algorithmeOptimiser(ca);
+        precision(ca);
     }
 
    /* public static void algoApproximation(CA ca, int k) {
@@ -129,14 +130,14 @@ public class Algorithme {
 
     public static CA algorithmeOptimiser(CA ca){
         int scoreCourant=ca.score();
-        int i=0;
+        
 
        /* if(ca.getEcole().size()<ca.nombreVille()/3){
             ca.initEcole();
             scoreCourant=ca.score();
         }else scoreCourant=ca.score();
 
-*/       do {
+*/       
             while (ca.score() >= scoreCourant) {
                 algorithme(ca, ca.nombreVille()).getEcoleList();
                 if (ca.score() <= scoreCourant) {
@@ -148,26 +149,48 @@ public class Algorithme {
                 }
 
             }
-            i++;
-            System.out.println(i);
-        } while (i<ca.nombreVille());
+    
+            
+        
         affiche("La meilleur solution est: "+ca.getEcoleList());
         return ca;
 
     }
 
-
-    /*public static CA precision(CA ca) {
+    public static CA precision(CA ca) {
         Map<Ville, Boolean> ecole = new HashMap<>();
-        Map<Ville, Integer> verification = new HashMap();
+        Map<Ville, String> verification = new LinkedHashMap<>();
         for (Map.Entry<String, Ville> e : ca.getEcole().entrySet()) {
-            affiche(e.toString());
+            if(ca.getVillesVoisinnes(e.getValue()).size()==1)
+            verification.put(e.getValue(), ca.getVillesVoisinnes(e.getValue()).toString());
+            affiche(ca.getVillesVoisinnes(e.getValue()).size()+"");
         }
 
+        if(!verification.isEmpty()){
+                Queue<Ville> cles= new LinkedList<>();
+                Queue<String> values= new LinkedList<>();
+                cles.addAll(verification.keySet());
+                values.addAll(verification.values());
 
+                affiche(cles.toString()+"->"+values.toString());
+
+
+                for (Map.Entry<Ville, String> e : verification.entrySet()) {
+                    if(cles.contains(e.getKey())&&values.contains(e.getValue())){
+                        Ville maville = new Ville(e.getValue());
+                        StringTokenizer str = new StringTokenizer(maville.toString(),"[]");
+                        String s = str.nextToken().toString();
+                        affiche("la ville est "+s);
+                        ca.ajouterEcole(s);
+                        ca.supprimerEcole(e.getKey().toString());
+                    }
+                }
+
+            affiche(ca.ecoleToString());
+
+        }
         return ca;
     }
-*/
     public static void affiche(String s){
         System.out.println(s);
     }
