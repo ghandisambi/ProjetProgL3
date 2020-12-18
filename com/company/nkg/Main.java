@@ -1,9 +1,8 @@
-package com.company.nico;
+package com.company.nkg;
 
 import java.io.*;
-import java.util.Scanner;
 
-import com.company.nico.fichier.UtilFile;
+import com.company.nkg.Utils.UtilFile;
 
 /**
  * Main et la classe principale contenant l'ensemble des méthodes et déclaration
@@ -17,7 +16,7 @@ public class Main {
         /* Création de la communauté d'agglomération */
         if (args.length > 0) {
             CA ca = null;
-            ca = UtilFile.loadDataFile(args[0]);
+            ca = UtilFile.chargement(args[0]);
             if (ca!=null){
             if (!ca.respectContrainte()) {
                 for (String ville : ca.getListVille()) {
@@ -26,7 +25,7 @@ public class Main {
             }
 
             System.out.println(ca.toString());
-            Commande.commande(ca);
+            Commande.menu(ca);
             } else System.out.println("Ce repertoire n'existe pas !");
         } else {
             System.out.println("Veuillez specifier le nom du repertoire !");

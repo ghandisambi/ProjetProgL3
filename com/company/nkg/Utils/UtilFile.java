@@ -1,6 +1,6 @@
-package com.company.nico.fichier;
+package com.company.nkg.Utils;
 
-import com.company.nico.CA;
+import com.company.nkg.CA;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -8,10 +8,17 @@ import java.util.Scanner;
 import java.util.regex.Pattern;
 
 /**
- * UtilFile
+ * UtilFile : Contient les méthodes de lecture/écriture néccesaire au programme.
  */
 public class UtilFile {
 
+
+    /**
+     * Permet a l'utilisateur de choisir un nom de fichier parmis un repertoire spécifier en paramètre.
+     *
+     * @param rep le repertoire.
+     * @return un nom de fichier.
+     */
     public static String choixFichier(String rep) {
 
         File repertoire = new File(rep);
@@ -48,12 +55,13 @@ public class UtilFile {
             } while (!dispo.contains(fichier));
 
         } else {
+            scanner.close();
             return fichier;
         }
         return fichier;
     }
 
-    public static CA loadDataFile(String chemin) {
+    public static CA chargement(String chemin) {
         String fichier = choixFichier(chemin);
         CA ca = null;
 
@@ -71,6 +79,13 @@ public class UtilFile {
     }
 
 
+    /**
+     * Lis un fichier ligne par ligne et traite chaque ligne afin de remplir une communauter d'agglomération.
+     *
+     * @param chemin le chemin du repertoire
+     * @param fichier le chemin du fichier
+     * @param ca une communauter d'agglomération.
+     */
     public static void lireLignes(String chemin, String fichier, CA ca) {
         BufferedReader bufferedreader = null;
         FileReader filereader = null;
@@ -124,11 +139,26 @@ public class UtilFile {
     }
 
 
+    /**
+     * Permet de sauvegarder une communauter d'agglomération dans un fichier.
+     *
+     * @param ca une communauter d'agglomération.
+     */
     public static void sauvegarde(CA ca) throws IOException {
         FileWriter fileWriter;
+        Scanner scanner = new Scanner(System.in);
+        String nomSauvegarde="";
+
+        do {
+            System.out.println("Sous quel nom voulez-vous enregistrer ce fichier ?");
+            nomSauvegarde = scanner.nextLine();
+            if (nomSauvegarde.isEmpty()){
+                System.out.println("Veuillez rentrer un nom de fichier pour la sauvegarde !");
+            }
+        } while (nomSauvegarde.isEmpty());
 
         try {
-            String fichierSolution = "historique" + File.separator + "solution.ca";
+            String fichierSolution = "historique" + File.separator + nomSauvegarde + ".rep";
             File file = new File(fichierSolution);
             fileWriter = new FileWriter(file, true);
             BufferedWriter bw = new BufferedWriter(fileWriter);

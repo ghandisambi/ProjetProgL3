@@ -1,4 +1,4 @@
-package com.company.nico;
+package com.company.nkg;
 
 
 import java.util.*;
