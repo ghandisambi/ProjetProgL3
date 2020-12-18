@@ -223,9 +223,11 @@ public class CA {
 
     public boolean respectContrainte() {
         boolean b = true;
+        
         if (getEcoleList().isEmpty()) {
             for (String ville : getListVille()) {
                 ajouterEcole(ville);
+                
             }
         } else {
             for (String ville : getListVille()) {
@@ -237,6 +239,7 @@ public class CA {
                         /* On regarde si son voisin possède une école. */
                         //break;
                         b= dependance(voisin.getNom());
+
 
                     }
                 }
@@ -309,12 +312,14 @@ public class CA {
      */
     public boolean ajouterEcole(String nomVille) {
         Ville villeTMp = getVille(nomVille); /* On récupere la ville de 'nomVille'. */
-        if (voisin.containsKey(villeTMp)) { /* Si la ville n'existe pas. */
-            ecole.putIfAbsent(villeTMp.getNom(), villeTMp); /* On ajoute une école a la ville si cel ci n'en possède pas. */
-            //System.out.println("Une école vient d'être construite dans la ville " + villeTMp.getNom() + ".");
-            return true;
-        }
-        System.out.println("la ville n'existe pas");
+        if(!getEcoleList().contains(nomVille)){
+            if (voisin.containsKey(villeTMp)) { /* Si la ville n'existe pas. */
+                ecole.putIfAbsent(villeTMp.getNom(), villeTMp); /* On ajoute une école a la ville si cel ci n'en possède pas. */
+                System.out.println("Une école vient d'être construite dans la ville " + villeTMp.getNom() + ".");
+                return true;
+            }
+            System.out.println("la ville n'existe pas");
+        }else System.out.println("L'ecole existe déja vous ne pouvais pas en créer ");
         return false;
     }
     public void initEcole(){
