@@ -163,7 +163,6 @@ public class Algorithme {
         for (Map.Entry<String, Ville> e : ca.getEcole().entrySet()) {
             if(ca.getVillesVoisinnes(e.getValue()).size()==1)
             verification.put(e.getValue(), ca.getVillesVoisinnes(e.getValue()).toString());
-            affiche(ca.getVillesVoisinnes(e.getValue()).size()+"");
         }
 
         if(!verification.isEmpty()){
@@ -180,7 +179,7 @@ public class Algorithme {
                         Ville maville = new Ville(e.getValue());
                         StringTokenizer str = new StringTokenizer(maville.toString(),"[]");
                         String s = str.nextToken().toString();
-                        affiche("la ville est "+s);
+                        
                         ca.ajouterEcole(s);
                         ca.supprimerEcole(e.getKey().toString());
                     }
