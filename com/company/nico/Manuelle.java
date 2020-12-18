@@ -8,18 +8,18 @@ public class Manuelle {
     public static int menu(int etape,Scanner scanner){
         System.out.println("Quelle opération souhaitez-vous effectuer ?");
         int n = 0; /* Choix de l'utilisateur a retourner */
-        switch (etape){
+        switch (etape) {
             case 1:
-                do{
+                do {
                     System.out.println("1 - Ajouter une route\n2 - Fin");
                     n = saisieEntier(scanner); //On demande une saisie d'entier.
                 } while (n < 1 || n > 2); //Tant que l'utilisateur ne choisit pas la bonne option.
                 break;
             case 2:
-                do{
+                do {
                     System.out.println("1 - Ajouter une école\n2 - Retirer une école\n3 - Fin / Quitter");
                     n = saisieEntier(scanner); //On demande une saisie d'entier.
-                }while (n < 1 || n > 3); //Tant que l'utilisateur ne choisit pas la bonne option.
+                } while (n < 1 || n > 3); //Tant que l'utilisateur ne choisit pas la bonne option.
             default:
                 break;
         }
@@ -59,7 +59,7 @@ public class Manuelle {
 
     /**
      * Affichage du programme.
-     * @param Ca
+     *
      *  Communauter d'aglomeration
      */
     public static void Affichage(CA ca){
@@ -87,6 +87,7 @@ public class Manuelle {
                 break;
 
                 case 2:
+
                     System.out.println("**************************** << Etape 2 suppression >> ***************************");
                     System.out.println("Dans quelle ville voulez-vous supprimer l'école => ");
                     s = saisieVille(new Scanner(System.in),ca);

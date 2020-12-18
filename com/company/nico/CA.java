@@ -26,6 +26,8 @@ public class CA {
     }
 
 
+
+
     /**
      * Permets de retourner un objet ville identifier par son nom de ville.
      *
@@ -84,6 +86,16 @@ public class CA {
         return ecole.keySet();
     }
 
+    public int getSommetPlusLourd() {
+        int i=0;
+        for (Set<Ville> v:voisin.values()) {
+            if (v.size()>i){
+                i=v.size();
+            }
+        }
+        return i;
+    }
+
 
     /**
      * Ajouter une ville si elle n'existe pas déja.
@@ -136,36 +148,42 @@ public class CA {
      * @param nomEcole Le nom de l'école a supprimé.
      */
     public void supprimerEcole(String nomEcole) {
-        Ville ville = getVille(nomEcole);
-        boolean isPossible = false;
-        boolean dependance = false;
+        if (villePossedeEcole(nomEcole)) {
 
-        /* Pour chaque ville voisine de la ville qui possède l'école que l'on veut supprimer. */
-        for (Ville voisin : getVillesVoisinnes(getVille(nomEcole))) {
-            /* On regarde si son voisin possède une école. */
-            if (dependance(voisin.getNom())) {
-                dependance = true;
-                //break;
+
+            Ville ville = getVille(nomEcole);
+            boolean isPossible = false;
+            boolean dependance = false;
+
+            /* Pour chaque ville voisine de la ville qui possède l'école que l'on veut supprimer. */
+            for (Ville voisin : getVillesVoisinnes(getVille(nomEcole))) {
+                /* On regarde si son voisin possède une école. */
+                if (dependance(voisin.getNom())) {
+                    dependance = true;
+                    //break;
+                }
             }
-        }
-        /* Si tous les voisins possédent une école.  */
-        if (!dependance) {
-            //System.out.println("Erreur - La ville n'est relié a aucune autre école.");
-            //System.out.println("La suppression de " + nomEcole + " est impossible.");
-            return;
-        }
+            /* Si tous les voisins possédent une école.  */
+            if (!dependance) {
+                //System.out.println("Erreur - La ville n'est relié a aucune autre école.");
+                //System.out.println("La suppression de " + nomEcole + " est impossible.");
+                return;
+            }
 
-        /* Pour chaque ville voisine de la ville qui possède l'école que l'on veut supprimer. */
-        for (Ville voisin : getVillesVoisinnes(ville)) {
-            /* On regarde en parcourant les villes voisines du voisin si il a la possibilité de dépendre d'une autre école. */
-            isPossible = parcourtSommet(voisin.getNom(), ville.getNom());
-            if (!isPossible) break;
-        }
+            /* Pour chaque ville voisine de la ville qui possède l'école que l'on veut supprimer. */
+            for (Ville voisin : getVillesVoisinnes(ville)) {
+                /* On regarde en parcourant les villes voisines du voisin si il a la possibilité de dépendre d'une autre école. */
+                isPossible = parcourtSommet(voisin.getNom(), ville.getNom());
+                if (!isPossible) break;
+            }
 
-        if (isPossible) {
-            //System.out.println("La suppression de " + nomEcole + " est un succès !");
-            ecole.remove(ville.getNom()); // Si le retrait de l'école ne viole pas la contrainte d'accessibilité.
-        } //else System.out.println("La suppression de " + nomEcole + " est impossible.");
+            if (isPossible) {
+                //System.out.println("La suppression de " + nomEcole + " est un succès !");
+                ecole.remove(ville.getNom()); // Si le retrait de l'école ne viole pas la contrainte d'accessibilité.
+            } //else System.out.println("La suppression de " + nomEcole + " est impossible.");
+        } else {
+            System.out.println("L'école n'existe pas !");
+        }
     }
     /**
      * Test si on a la possibilité de supprimer une école.
@@ -201,6 +219,31 @@ public class CA {
         }
 
         return isPossible; // Si le retrait de l'école ne viole pas la contrainte d'accessibilité.
+    }
+
+    public boolean respectContrainte() {
+        boolean b = true;
+        if (getEcoleList().isEmpty()) {
+            for (String ville : getListVille()) {
+                ajouterEcole(ville);
+            }
+        } else {
+            for (String ville : getListVille()) {
+                if (b=false)
+                    return b;
+                if (!villePossedeEcole(ville)){
+                    /* Pour chaque ville voisine de la ville qui possède l'école que l'on veut supprimer. */
+                    for (Ville voisin : getVillesVoisinnes(getVille(ville))) {
+                        /* On regarde si son voisin possède une école. */
+                        //break;
+                        b= dependance(voisin.getNom());
+
+                    }
+                }
+            }
+
+        }
+        return b;
     }
 
     /**
@@ -294,7 +337,7 @@ public class CA {
         return getVille(Character.toString(c));
     }
 
-    public ArrayList<String> ajouteEcoleDansVilles() {
+    public ArrayList<String> getListVille() {
         ArrayList<String> villes = new ArrayList<>();
         for (Ville ville:voisin.keySet()) {
             villes.add(ville.getNom());

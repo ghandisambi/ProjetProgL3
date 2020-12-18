@@ -8,7 +8,7 @@ public class Algorithme {
         algorithmeOptimiser(ca);
     }
 
-    public static void algoApproximation(CA ca, int k) {
+   /* public static void algoApproximation(CA ca, int k) {
 
         int i = 0;
         int scoreCourant = ca.score();
@@ -39,8 +39,8 @@ public class Algorithme {
         }
         System.out.println(ca.getEcoleList().toString());
     }
-
-
+*/
+   /*
     public static void algoOptimiser(CA ca) {
         List<Integer> list = new ArrayList<>();
 
@@ -65,19 +65,18 @@ public class Algorithme {
         }
         System.out.println("La meilleur solution est: " + ca.getEcoleList());
     }
+*/
 
-
-    public static int majorant(List<Integer> list) {
+    /*  public static int majorant(List<Integer> list) {
         if (list == null || list.size() == 0) {
             return Integer.MIN_VALUE;
         }
         List<Integer> listTrie = new ArrayList<>(list);
         Collections.sort(listTrie);
         return listTrie.get(listTrie.size() - 1);
-    }
+    }*/
 
     public static void algoNaif(CA ca, int k) {
-        System.out.println("com.company.nico.Algorithme naif");
         int i = 0;
 
         while (i < k) {
@@ -130,29 +129,45 @@ public class Algorithme {
 
     public static CA algorithmeOptimiser(CA ca){
         int scoreCourant=ca.score();
-        if(ca.getEcole().size()<ca.nombreVille()/3){
+        int i=0;
+
+       /* if(ca.getEcole().size()<ca.nombreVille()/3){
             ca.initEcole();
             scoreCourant=ca.score();
         }else scoreCourant=ca.score();
 
-        while (ca.score()>=scoreCourant) {
-            algorithme(ca, ca.nombreVille()).getEcoleList();
-            if(ca.score()<=scoreCourant){
-                if(ca.score()<scoreCourant){
-                    break;
-                }else if(ca.score()==scoreCourant){
-                    break;
+*/       do {
+            while (ca.score() >= scoreCourant) {
+                algorithme(ca, ca.nombreVille()).getEcoleList();
+                if (ca.score() <= scoreCourant) {
+                    if (ca.score() < scoreCourant) {
+                        break;
+                    } else if (ca.score() == scoreCourant) {
+                        break;
+                    }
                 }
+
             }
-        }
+            i++;
+            System.out.println(i);
+        } while (i<ca.nombreVille());
         affiche("La meilleur solution est: "+ca.getEcoleList());
         return ca;
-    }
-    public static CA precision(CA ca) {
-        algorithme(ca, ca.nombreVille());
-        return ca;
+
     }
 
+
+    /*public static CA precision(CA ca) {
+        Map<Ville, Boolean> ecole = new HashMap<>();
+        Map<Ville, Integer> verification = new HashMap();
+        for (Map.Entry<String, Ville> e : ca.getEcole().entrySet()) {
+            affiche(e.toString());
+        }
+
+
+        return ca;
+    }
+*/
     public static void affiche(String s){
         System.out.println(s);
     }
