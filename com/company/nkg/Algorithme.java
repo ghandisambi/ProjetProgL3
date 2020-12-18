@@ -1,8 +1,26 @@
 package com.company.nkg;
 
+import com.company.nkg.Utils.UtilSaisie;
+
 import java.util.*;
 
 public class Algorithme {
+
+
+    public static void choixAlgo(Scanner scanner,CA ca) {
+        int choix;
+        System.out.println((ca.nombreVille()<=4)?"Il n'y a pas beaucoup de ville dans votre communauté " +
+                "Nous vous conseillons d'utiliser l'algorithme naïf qui fera l'affaire.":"Votre communauté " +
+                "d'agglomération a un nombre conséquent de ville l'algorithme optimisé sera plus approprié.");
+        do {
+            System.out.println("Quelle algorithme voulez vous utilisé ?\n1 - Algorithme naïf\n2 - Algorithme optimisé");
+            choix = UtilSaisie.saisieEntier(scanner);
+            if (choix < 1 || choix > 2)
+                System.out.println("Choix incorrecte !");
+        } while (choix < 1 || choix > 2);
+        Solution(ca,choix);
+
+    }
 
     public static void Solution(CA ca,int nb) {
         if (nb==1){
@@ -11,7 +29,6 @@ public class Algorithme {
             algorithmeOptimiser(ca);
             precision(ca);
         }
-
     }
 
    /* public static void algoApproximation(CA ca, int k) {

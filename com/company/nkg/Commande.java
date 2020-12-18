@@ -8,16 +8,7 @@ import java.util.Scanner;
 
 public class Commande {
 
-    public static int choixAlgo(Scanner scanner) {
-        int choix;
-        do {
-            System.out.println("Quelle algorithme voulez vous utilisé ?\n1 - Algorithme naïf\n2 - Algorithme optimisé");
-            choix = UtilSaisie.saisieEntier(scanner);
-            if (choix < 1 || choix > 2)
-                System.out.println("Choix incorrecte !");
-        } while (choix < 1 || choix > 2);
-        return choix;
-    }
+
 
     public static void menu(CA ca) {
         System.out.println("Commande ca");
@@ -38,18 +29,9 @@ public class Commande {
 
                 case 2:
                     System.out.println("====== Résolution automatique ======");
-                    algo = choixAlgo(new Scanner(System.in));
+                    Algorithme.choixAlgo(new Scanner(System.in),ca);
                     /////////////////////////Attention erreur si le Ca na pas de ville.
-                    switch (algo) {
-                        case 1:
-                            Algorithme.Solution(ca,1);
-                            break;
-                        case 2:
-                            Algorithme.Solution(ca,2);
-                            break;
-                        default:
-                            break;
-                    }
+
                     /*if (ca.getEcoleList().isEmpty()) {
                         Algorithme.algoNaif(ca, ca.nombreVille());
                         System.out.println("apre naif : " + ca.toString());
@@ -82,12 +64,12 @@ public class Commande {
         int option = 0;
         System.out.println(ca.toString());
         do {
-            System.out.println("********************************  Etape 2   *******************************");
+            System.out.println("********************************  Méthode manuel   *******************************");
             option = menu(2, scanner);
             ca.afficheEcole();
             switch (option) {
                 case 1:
-                    System.out.println("************************** << Etape 2 ajout  >> *****************************");
+                    System.out.println("************************** << Etape Ajout  >> *****************************");
                     System.out.println("Dans quelle ville voulez-vous ajouter l'école => ");
                     s = saisieVille(new Scanner(System.in), ca);
                     if(!ca.ajouterEcole(s)){
@@ -99,7 +81,7 @@ public class Commande {
 
                 case 2:
 
-                    System.out.println("**************************** << Etape 2 suppression >> ***************************");
+                    System.out.println("**************************** << Etape Suppression >> ***************************");
                     System.out.println("Dans quelle ville voulez-vous supprimer l'école => ");
                     s = saisieVille(new Scanner(System.in), ca);
                     ca.supprimerEcole(s);
