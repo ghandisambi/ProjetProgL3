@@ -4,7 +4,9 @@ import com.company.nkg.CA;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Scanner;
+import java.util.StringTokenizer;
 import java.util.regex.Pattern;
 
 /**
@@ -119,6 +121,27 @@ public class UtilFile {
      * @param ca   La communauté d'agglomérations sur laquelle appliquer des changements.
      */
     public static void traitementLigne(String line, CA ca) {
+        StringTokenizer st = new StringTokenizer(line,".,() \n");
+        
+        LinkedList<String> donneeligne = new LinkedList<>();
+        while (st.hasMoreTokens()) {
+            donneeligne.add(st.nextToken());
+        }
+        while (donneeligne.contains("ville")) {
+            donneeligne.remove("ville");
+            ca.ajouterVille(donneeligne.poll());
+        }
+        while (donneeligne.contains("route")) {
+            donneeligne.remove("route");
+            ca.ajouterRoute(donneeligne.pop(), donneeligne.pop()); 
+        }
+        while (donneeligne.contains("ecole")) {
+            donneeligne.remove("ecole");
+            ca.ajouterEcole(donneeligne.poll());
+        }
+        
+        
+        /*
         String argument = line.substring(line.indexOf('(') + 1, line.indexOf(')'));
         if (Pattern.matches("ville(.*)", line)) {
             if (argument.length() == 1) {
@@ -136,6 +159,7 @@ public class UtilFile {
                 ca.ajouterEcole(argument);
             }
         }
+        */
     }
 
 
