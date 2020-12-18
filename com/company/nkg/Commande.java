@@ -1,6 +1,7 @@
 package com.company.nkg;
 
 import com.company.nkg.Utils.UtilFile;
+import com.company.nkg.Utils.UtilSaisie;
 
 import java.io.IOException;
 import java.util.InputMismatchException;
@@ -15,7 +16,7 @@ public class Commande {
             System.out.println(
                     "1) résoudre manuellement.\n" + "2) résoudre automatiquement.\n" + "3) sauvegarder.\n" + "4) fin.");
             do {
-                n = saisieEntier(new Scanner(System.in));
+                n = UtilSaisie.saisieEntier(new Scanner(System.in));
             } while (n < 1 || n > 4);
             switch (n) {
                 case 1:
@@ -115,13 +116,13 @@ public class Commande {
             case 1:
                 do {
                     System.out.println("1 - Ajouter une route\n2 - Fin");
-                    n = saisieEntier(scanner); //On demande une saisie d'entier.
+                    n = UtilSaisie.saisieEntier(scanner); //On demande une saisie d'entier.
                 } while (n < 1 || n > 2); //Tant que l'utilisateur ne choisit pas la bonne option.
                 break;
             case 2:
                 do {
                     System.out.println("1 - Ajouter une école\n2 - Retirer une école\n3 - Fin / Quitter");
-                    n = saisieEntier(scanner); //On demande une saisie d'entier.
+                    n = UtilSaisie.saisieEntier(scanner); //On demande une saisie d'entier.
                 } while (n < 1 || n > 3); //Tant que l'utilisateur ne choisit pas la bonne option.
             default:
                 break;
@@ -129,21 +130,5 @@ public class Commande {
         return n;
     }
 
-    /**
-     * Permet la saisie sécuriser d'un entier.
-     * @return
-     *  L'entier saisie.
-     */
-    public static int saisieEntier(Scanner scanner){
-        int entier = 0;
-
-        try {
-            entier= scanner.nextInt();
-        } catch (InputMismatchException e) {
-            System.out.println("Erreur -> Votre saisie ne correspond pas à la valeur attendue");
-            scanner.next();
-        }
-        return entier ;
-    }
 
 }
